@@ -35,10 +35,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * The list of player classes.  This enumeration is a hack.  For one, I don't know how to calculate experience
- * using a single equation.  Thus, experience is currently hardcoded.  Secondly, I could probably move this data
- * into a data file.  However, I didn't want to spend too much time creating the framework for experience if I didn't
- * really understand how it works.
+ * The list of player classes. Base class experience tables are the original levels 1-25
+ * published in EXPHLP1/EXPHLP2. Promoted classes have their own longer tables.
+ *
  * TODO move this into a data file.
  * @author rkinney
  */
@@ -261,10 +260,6 @@ public enum PlayerClass {
     * @return the experience requirement.
     */
    public int getExpRequirement(int level, boolean isPromoted) {
-      // TODO I have no idea what the exp table is above 25.
-      if (level > 25 && !isPromoted) {
-         return level * level * level * _expTable[1];
-      }
       int index = level - 1;
 
       if (index < 0 || index > _expTable.length - 1) {
@@ -276,11 +271,11 @@ public enum PlayerClass {
    }
 
    public boolean isMaxLevel(int level) {
-	   if (level >= _expTable.length) {
-		   return true;
-	   }
-	   
-	   return false;
+      if (level >= _expTable.length) {
+         return true;
+      }
+
+      return false;
    }
    
    /**
