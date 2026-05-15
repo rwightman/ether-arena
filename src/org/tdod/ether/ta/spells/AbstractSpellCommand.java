@@ -168,6 +168,28 @@ public abstract class AbstractSpellCommand {
    }
 
    /**
+    * Adds a spell-controlled entity to the caster's current group.
+    *
+    * @param follower the entity that is now following the caster.
+    */
+   protected void addFollowerToCastersGroup(Entity follower) {
+      Entity oldLeader = follower.getGroupLeader();
+      if (oldLeader != null) {
+         oldLeader.getGroupList().remove(follower);
+      }
+
+      Entity groupLeader = _entity.getGroupLeader();
+      if (groupLeader == null) {
+         groupLeader = _entity;
+      }
+
+      if (!groupLeader.getGroupList().contains(follower)) {
+         groupLeader.getGroupList().add(follower);
+      }
+      follower.setGroupLeader(groupLeader);
+   }
+
+   /**
     * Finds a target, not including the caster.
     * @param targetStr the target string.
     * @return the target.

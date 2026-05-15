@@ -80,16 +80,7 @@ public class SpellCharm extends AbstractSpellCommand {
       _entity.print(messageToPlayer) ;
       _room.print(_entity, messageToRoom, false);
 
-      // TODO - modify the mobs behavior here.
-      // Place the summoned mob into the group.
-      Entity groupLeader = _entity.getGroupLeader();
-      if (groupLeader.equals(_entity)) {
-         _entity.getGroupList().add(target) ;
-         target.setGroupLeader(_entity) ;
-      } else {
-         groupLeader.getGroupList().add(target) ;
-         target.setGroupLeader(groupLeader) ;
-      }
+      addFollowerToCastersGroup(target);
       
       handleSpellSuccess();
    }

@@ -94,8 +94,7 @@ public class SpellSummon extends AbstractSpellCommand {
          return ;         
       }
 
-      // Find a mob based on the level given by the spell.
-      // int mobLevel = Dice.roll(_spell.getMinSpellEffect(), _spell.getMaxSpellEffect()) ;
+      // Original summoning selects a mob at the spell's exact effect level.
       int mobLevel = _spell.getMinSpellEffect();
       ArrayList<Mob> mobs = new ArrayList<Mob>() ;
       for (Mob mob:WorldManager.getMobList()){
@@ -115,17 +114,7 @@ public class SpellSummon extends AbstractSpellCommand {
       int index = Dice.roll(0, mobs.size() - 1);
       Mob summonedMob =  mobs.get(index).clone(_room);
       MoveFailCode code = _room.placeMob(summonedMob);
-      
-      // Place the summoned mob into the group.
-      Entity groupLeader = _entity.getGroupLeader();
-      if (groupLeader.equals(_entity)) {
-         _entity.getGroupList().add(summonedMob) ;
-         summonedMob.setGroupLeader(_entity) ;
-      } else {
-         groupLeader.getGroupList().add(summonedMob) ;
-         summonedMob.setGroupLeader(groupLeader) ;
-      }
-      
+
       // Send messages.
       _entity.print(TaMessageManager.SPLSUM.getMessage());
       String messageToRoom = MessageFormat.format(TaMessageManager.SUMOTH.getMessage(),
@@ -133,13 +122,12 @@ public class SpellSummon extends AbstractSpellCommand {
       _room.print(_entity, messageToRoom, false);
       
       if (code.equals(MoveFailCode.NONE)) {
+         addFollowerToCastersGroup(summonedMob);
          String summonMessage = MessageFormat.format(TaMessageManager.MONSUM.getMessage(),
                summonedMob.getPrefix(), summonedMob.getName());
          _room.print(null, summonMessage, true) ;         
       }
-      
-      // TODO Mobs are currently summoned hostile.  Will need to add them into a group.
-      
+
       handleSpellSuccess();
    }
 }
