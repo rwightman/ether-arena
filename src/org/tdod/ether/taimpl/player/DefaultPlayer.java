@@ -117,6 +117,8 @@ public class DefaultPlayer implements Player, Serializable {
          PropertiesManager.getInstance().getProperty(PropertiesManager.MAX_INVENTORY_GOLD));
    private static final int MAX_TRAILING_LEVEL = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.MAX_TRAILING_LEVEL));
+   private static final int PROMOTED_CAP_LEVEL_STEP = 5;
+   private static final int PROMOTED_CAP_LEVEL_OFFSET = 18;
    private static final int PLAYER_SPELL_HIT_DIFFICULTY = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.PLAYER_SPELL_HIT_DIFFICULTY)).intValue();
    private static final int MAX_THIRST = Integer.valueOf(
@@ -1639,6 +1641,12 @@ public class DefaultPlayer implements Player, Serializable {
     * @return the capped level.
     */
    private int getExperienceCapLevel() {
+      if (isPromoted()) {
+         int promotedCapLevel = getLevel()
+            + ((getLevel() - HandlePromotion.PROMOTION_LEVEL) / PROMOTED_CAP_LEVEL_STEP)
+            - PROMOTED_CAP_LEVEL_OFFSET;
+         return getPromotedClass().getClampedLevel(promotedCapLevel);
+      }
       int level = getPromotedLevel() + MAX_TRAILING_LEVEL;
       return getPromotedClass().getClampedLevel(level);
    }

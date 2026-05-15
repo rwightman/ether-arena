@@ -28,6 +28,16 @@ public class DefaultPlayerTest {
             player.getExperience());
    }
 
+   @Test(groups = { "unit" })
+   public void testEarlyPromotedExperienceCapMatchesOriginalProgressionCurve() {
+      Player player = createPlayer(PlayerClass.WARRIOR, 26, true);
+
+      player.addExperience(Long.MAX_VALUE);
+
+      AssertJUnit.assertEquals(PlayerClass.KNIGHT.getExpRequirement(8, true) - 1,
+            player.getExperience());
+   }
+
    private Player createPlayer(PlayerClass playerClass, int level, boolean promoted) {
       System.setProperty("TaConfigFile", "config/ta.properties");
       Player player = new DefaultPlayer();
