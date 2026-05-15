@@ -195,8 +195,7 @@ public abstract class AbstractSpellDamage extends AbstractSpellAttack {
       String messageToPlayer ; 
       String messageToRoom ;
       
-      if (_spell.getSpellTarget().equals(SpellTarget.ROOM_PLAYER) || 
-          _spell.getSpellTarget().equals(SpellTarget.ROOM_PLAYER2)) {
+      if (_spell.getSpellTarget().targetsRoomPlayers()) {
          messageToPlayer = MessageFormat.format(TaMessageManager.SPLMDM.getMessage(), 
                result.getNumberEffect());
          messageToRoom = MessageFormat.format(TaMessageManager.SPLMOT.getMessage(), 

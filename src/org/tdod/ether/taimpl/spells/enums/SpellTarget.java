@@ -33,9 +33,10 @@ package org.tdod.ether.taimpl.spells.enums;
 
 /**
  * This enumeration is mapped to the 6th index of the stat portion of the data file.
- * 
- * @TODO A value of 2 is a guess.  It seems as if only two spells use this value, and their target's appear
- * to be the room.
+ *
+ * Original Tele-Arena spell data uses target values 0 through 4. Ether's spell data
+ * also uses value 5 for the original PVP-only area spells that were split away from
+ * target value 3 so player-area and mob-area spell handling can stay distinct.
  * 
  * @author minex
  *
@@ -45,9 +46,9 @@ public enum SpellTarget {
    SPECIFIED(0, "Specified"),
    ROOM_PLAYER(1, "Room Player"),
    ROOM_MOB(2, "Room Mob"),
-   ROOM_MOB2(3, "Room Mob 2"),
+   ROOM_MOB2(3, "Room Mob"),
    SUMMON(4, "Summon"),
-   ROOM_PLAYER2(5, "Room Player 2");     // Added by me for spells that I think are PVP.
+   ROOM_PLAYER2(5, "Room Player");
    
    private int           _index;
    private String        _description;
@@ -80,6 +81,24 @@ public enum SpellTarget {
    public String getDescription() {
       return _description;
    }
+
+   /**
+    * Checks if this target selects room mobs.
+    *
+    * @return true if the spell targets room mobs.
+    */
+   public boolean targetsRoomMobs() {
+      return equals(ROOM_MOB) || equals(ROOM_MOB2);
+   }
+
+   /**
+    * Checks if this target selects room players.
+    *
+    * @return true if the spell targets room players.
+    */
+   public boolean targetsRoomPlayers() {
+      return equals(ROOM_PLAYER) || equals(ROOM_PLAYER2);
+   }
    
    /**
     * Gets the SpellTarget in the specified index.
@@ -89,8 +108,12 @@ public enum SpellTarget {
     */
    public static SpellTarget getSpellTarget(int index) {
       SpellTarget[] spellTarget = SpellTarget.values();
-      
-      return spellTarget[index] ; 
+
+      if (index < 0 || index >= spellTarget.length) {
+         throw new IllegalArgumentException("Invalid spell target index " + index);
+      }
+
+      return spellTarget[index] ;
    }
 
 }

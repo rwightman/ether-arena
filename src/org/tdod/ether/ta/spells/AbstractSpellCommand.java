@@ -94,8 +94,7 @@ public abstract class AbstractSpellCommand {
          return;
       }
 
-      if (spell.getSpellTarget().equals(SpellTarget.ROOM_MOB)
-          || spell.getSpellTarget().equals(SpellTarget.ROOM_MOB2)) {
+      if (spell.getSpellTarget().targetsRoomMobs()) {
          ArrayList<Mob> roomTargets = _room.getMobs();
 
          // create a temporary list to modify.
@@ -107,8 +106,7 @@ public abstract class AbstractSpellCommand {
          return;
       }
 
-      if (spell.getSpellTarget().equals(SpellTarget.ROOM_PLAYER)
-          || spell.getSpellTarget().equals(SpellTarget.ROOM_PLAYER2)) {
+      if (spell.getSpellTarget().targetsRoomPlayers()) {
          ArrayList<Player> roomTargets = _room.getPlayers();
 
          // create a temporary list to modify.

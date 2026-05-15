@@ -39,7 +39,6 @@ import org.tdod.ether.ta.player.Spellbook;
 import org.tdod.ether.ta.spells.AbstractSpellCommand;
 import org.tdod.ether.ta.spells.Spell;
 import org.tdod.ether.ta.spells.SpellCommandManager;
-import org.tdod.ether.taimpl.spells.enums.SpellTarget;
 import org.tdod.ether.util.Dice;
 
 public class Spells extends SpecialAbilityCommand {
@@ -53,10 +52,7 @@ public class Spells extends SpecialAbilityCommand {
       Spell spell = getSpell(mob.getSpellbook()) ;
       AbstractSpellCommand spellCommand = SpellCommandManager.getInstance().getSpellCommand(spell.getSpellType());
       
-      if (spell.getSpellTarget().equals(SpellTarget.ROOM_MOB) ||
-            spell.getSpellTarget().equals(SpellTarget.ROOM_MOB2) ||
-            spell.getSpellTarget().equals(SpellTarget.ROOM_PLAYER) ||
-            spell.getSpellTarget().equals(SpellTarget.ROOM_PLAYER2)) {
+      if (spell.getSpellTarget().targetsRoomMobs() || spell.getSpellTarget().targetsRoomPlayers()) {
          spellCommand.execute(mob, spell, null) ;
       } else {
          spellCommand.execute(mob, spell, victim.getName()) ;         
