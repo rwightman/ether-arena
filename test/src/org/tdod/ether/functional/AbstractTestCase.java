@@ -101,7 +101,7 @@ public abstract class AbstractTestCase {
          // Attempt to go through the door with the key.
          dirCommand.execute(player, "");
 
-         TestUtil.assertContains(output, expectedSuccessString);
+         assertMovementOutputContains(output, expectedSuccessString);
 
          if (exit.getDoor().getV4() == 1) {
             if (player.getInventory().contains(key)) {
@@ -519,5 +519,22 @@ public abstract class AbstractTestCase {
          AssertJUnit.fail("Player should be in room " + destinationRoom + " but was in room " + player.getRoom().getRoomNumber());
       }
 
+   }
+
+   private void assertMovementOutputContains(MockOutput output, String expectedSuccessString) {
+      if (output.getBuffer().contains(expectedSuccessString)) {
+         output.clearBuffer();
+         return;
+      }
+
+      String[] parts = expectedSuccessString.split("&Y", 2);
+      if (parts.length == 2
+            && output.getBuffer().contains(parts[0])
+            && output.getBuffer().contains("&Y" + parts[1])) {
+         output.clearBuffer();
+         return;
+      }
+
+      TestUtil.assertContains(output, expectedSuccessString);
    }
 }

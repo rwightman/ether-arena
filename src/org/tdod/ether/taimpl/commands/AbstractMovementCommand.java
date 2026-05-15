@@ -237,14 +237,16 @@ public abstract class AbstractMovementCommand extends Command {
 
       entity.setLastMove(System.currentTimeMillis());
 
-      DoDefault.displayRoomDescription(entity);
-
       // Trigger player first before group.
       TriggerResult triggerResult = toRoom.handleTriggers(entity);
 
       int followers = 0;
 
       handleTeleportTrigger(entity, triggerResult, toRoom);
+
+      if (shouldDisplayRoomDescription(entity, triggerResult)) {
+         DoDefault.displayRoomDescription(entity);
+      }
 
       // Handle group move.
       if (!triggerResult.equals(TriggerResult.DEATH)) {
@@ -286,6 +288,27 @@ public abstract class AbstractMovementCommand extends Command {
          fromRoom.println(entity, getLeaveMessage(entity), false);
          disbandGroup(entity);
       }
+   }
+
+   /**
+    * Checks if movement should display the room after triggers have run.
+    *
+    * @param entity The entity that moved.
+    * @param triggerResult The trigger result.
+    *
+    * @return true if the current room should be displayed.
+    */
+   private boolean shouldDisplayRoomDescription(Entity entity, TriggerResult triggerResult) {
+      if (triggerResult.equals(TriggerResult.DEATH)) {
+         return false;
+      }
+      if (triggerResult.equals(TriggerResult.TELEPORTED)) {
+         return false;
+      }
+      if (entity.getVitality().getCurVitality() <= 0) {
+         return false;
+      }
+      return true;
    }
 
    /**
@@ -374,7 +397,7 @@ public abstract class AbstractMovementCommand extends Command {
     * @param toRoom The room that the entity attempted to enter.
     */
    private void handleDeathTrigger(Entity entity, TriggerResult triggerResult, Room toRoom) {
-      if (triggerResult.equals(TriggerResult.DEATH) || entity.getVitality().getCurVitality() < 0) {
+      if (triggerResult.equals(TriggerResult.DEATH) || entity.getVitality().getCurVitality() <= 0) {
          if (entity.getEntityType().equals(EntityType.PLAYER)) {
             WorldManager.getGameMechanics().handlePlayerDeath(
                   (Player) entity, TaMessageManager.YOUDED1.getMessage());
