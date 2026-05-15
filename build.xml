@@ -36,6 +36,7 @@
 	</path>
 
 	<path id="classpath">
+           <pathelement location="${classes.dir}"/>
            <fileset dir="${lib.dir}" includes="**/*.jar"/>
            <fileset dir="${jar.dir}" includes="**/*.jar"/>
         </path>
@@ -133,7 +134,7 @@
      </checkstyle>
    </target>
 
-   <target name="compile-test">
+   <target name="compile-test" depends="compile">
        <mkdir dir="${test.classes.dir}"/>
        <javac srcdir="${test.src.dir}" destdir="${test.classes.dir}" classpathref="classpath"/>
    </target>

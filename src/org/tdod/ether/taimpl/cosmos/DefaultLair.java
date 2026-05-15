@@ -54,6 +54,12 @@ public class DefaultLair implements Lair {
 
    /**
     * Creates a DefaultLair.
+    */
+   public DefaultLair() {
+   }
+
+   /**
+    * Creates a DefaultLair.
     *
     * @param mob the mob living in this lair.
     * @param numberOfMobs the total number of mobs living in this lair.
