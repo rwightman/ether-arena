@@ -42,9 +42,9 @@ import org.tdod.ether.ta.cosmos.CommandTriggerDatabase;
 import org.tdod.ether.ta.cosmos.CommandTriggers;
 import org.tdod.ether.util.InvalidFileException;
 import org.tdod.ether.util.PropertiesManager;
+import org.tdod.ether.util.XStreamFactory;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 /**
  * The default command trigger data store.
@@ -54,7 +54,7 @@ public class DefaultCommandTriggerDatabase implements CommandTriggerDatabase {
 
    private static Log _log = LogFactory.getLog(DefaultCommandTriggerDatabase.class);
 
-   private XStream _xstream = new XStream(new DomDriver());
+   private XStream _xstream = XStreamFactory.create();
 
    private CommandTriggers _commandTriggers = new DefaultCommandTriggers();
 

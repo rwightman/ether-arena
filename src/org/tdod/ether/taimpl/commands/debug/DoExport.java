@@ -35,6 +35,7 @@ import org.tdod.ether.ta.commands.SysopCommand;
 import org.tdod.ether.ta.cosmos.Area;
 import org.tdod.ether.ta.manager.WorldManager;
 import org.tdod.ether.ta.player.Player;
+import org.tdod.ether.util.XStreamFactory;
 
 import com.thoughtworks.xstream.XStream;
 
@@ -46,7 +47,7 @@ import com.thoughtworks.xstream.XStream;
  */
 public class DoExport extends SysopCommand {
 
-   private XStream _xstream = new XStream();
+   private XStream _xstream = XStreamFactory.create();
 
    /**
     * Executes the "export" command.

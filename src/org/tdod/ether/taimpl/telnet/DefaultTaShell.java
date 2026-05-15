@@ -55,9 +55,8 @@ public class DefaultTaShell implements TaShell {
    private Connection _connection;
    private ShellIo    _shellIo;
    private Process    _process;
-   private Thread     _shellThread;
-
-   // private boolean    _threadSuspended = true;
+   private final Object _cleanupMonitor = new Object();
+   private boolean    _cleanupRequested;
 
    private InputStreamGobbler _inputGobbler = null;
 
@@ -152,9 +151,10 @@ public class DefaultTaShell implements TaShell {
    }
    
    public void cleanup(String info) {
-      _shellThread.resume();
-      // _threadSuspended = false;
-      // _shellThread.notify();
+      synchronized (_cleanupMonitor) {
+         _cleanupRequested = true;
+         _cleanupMonitor.notifyAll();
+      }
       _log.info("Cleanup for " + info);
    }
     
@@ -169,20 +169,13 @@ public class DefaultTaShell implements TaShell {
    private void exec() throws InterruptedException {
       _inputGobbler = new InputStreamGobbler(_connection, _shellIo, this);
       _inputGobbler.start();         
-      _shellThread = Thread.currentThread();
       PlayerConnectedManager.postPlayerConnectedEvent(PlayerConnectedEventId.Connected, this);
-      
-      _shellThread.suspend();
-      
-      /* try {
-         synchronized(_shellThread) {
-            while (_threadSuspended) {
-               _shellThread.wait();
-            }
-         }         
-      } catch (InterruptedException e){
-         _log.info("Shell thread interrupted.  Shutting down.");
-      } */
+
+      synchronized (_cleanupMonitor) {
+         while (!_cleanupRequested) {
+            _cleanupMonitor.wait();
+         }
+      }
    }
 
 }

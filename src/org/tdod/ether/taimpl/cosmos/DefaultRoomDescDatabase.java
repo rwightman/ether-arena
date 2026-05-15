@@ -45,9 +45,9 @@ import org.tdod.ether.ta.cosmos.RoomDescDatabase;
 import org.tdod.ether.ta.cosmos.RoomDescriptions;
 import org.tdod.ether.util.InvalidFileException;
 import org.tdod.ether.util.PropertiesManager;
+import org.tdod.ether.util.XStreamFactory;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 /**
  * The default implementation for room descriptions.
@@ -58,7 +58,7 @@ public class DefaultRoomDescDatabase implements RoomDescDatabase {
 
    private static Log _log = LogFactory.getLog(DefaultRoomDescDatabase.class);
 
-   private XStream _xstream = new XStream(new DomDriver());
+   private XStream _xstream = XStreamFactory.create();
 
    private RoomDescriptions _roomDescription = new DefaultRoomDescriptions();
 

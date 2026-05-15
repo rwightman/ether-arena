@@ -46,9 +46,9 @@ import org.tdod.ether.ta.cosmos.Room;
 import org.tdod.ether.ta.cosmos.RoomDatabase;
 import org.tdod.ether.util.InvalidFileException;
 import org.tdod.ether.util.PropertiesManager;
+import org.tdod.ether.util.XStreamFactory;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 
 /**
@@ -92,7 +92,7 @@ public class DefaultRoomDatabase implements RoomDatabase {
 
    private static Log _log = LogFactory.getLog(DefaultRoomDatabase.class);
 
-   private XStream _xstream = new XStream(new DomDriver());
+   private XStream _xstream = XStreamFactory.create();
 
    private Area _area = new DefaultArea();
 
