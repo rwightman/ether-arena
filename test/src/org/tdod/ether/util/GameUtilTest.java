@@ -31,6 +31,18 @@ public class GameUtilTest {
       AssertJUnit.assertEquals(10L, player.getExperience());
    }
 
+   @Test(groups = { "unit" })
+   public void testExperienceAwardIsCappedByAttackerLevel() {
+      Player player = createPlayer();
+      Player target = createPlayer();
+      player.setLevel(2);
+
+      target.getVitality().setCurVitality(-100000);
+      GameUtil.giveExperience(player, target, 100000);
+
+      AssertJUnit.assertEquals(6000L, player.getExperience());
+   }
+
    private Player createPlayer() {
       System.setProperty("TaConfigFile", "config/ta.properties");
       Player player = new DefaultPlayer();
