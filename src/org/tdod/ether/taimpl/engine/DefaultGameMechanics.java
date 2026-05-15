@@ -75,6 +75,9 @@ import org.tdod.ether.util.TaMessageManager;
 public class DefaultGameMechanics implements GameMechanics {
 
    private static Log _log = LogFactory.getLog(DefaultGameMechanics.class);
+   private static final int[] UTILITY_SPELL_EXPERIENCE_FACTORS = {
+      62, 90, 75, 60, 62, 90, 62, 75
+   };
 
    private static final int DEATH_TIMER = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.DEATH_REST_TIME));
@@ -262,7 +265,33 @@ public class DefaultGameMechanics implements GameMechanics {
     * @return the amount of exp gained.
     */
    public int getExpForUtilitySpells(Entity entity, Spell spell) {
-      return 10 * entity.getLevel();
+      if (!entity.getEntityType().equals(EntityType.PLAYER)) {
+         return 0;
+      }
+
+      Player player = (Player) entity;
+      int factor = getUtilitySpellExperienceFactor(player.getPlayerClass());
+      if (factor == 0) {
+         return 0;
+      }
+
+      int halfFactor = factor / 2;
+      if (player.isPromoted()) {
+         return factor + ((player.getLevel() - 14) * halfFactor);
+      }
+
+      return (player.getLevel() + 1) * halfFactor;
+   }
+
+   private int getUtilitySpellExperienceFactor(PlayerClass playerClass) {
+      int classIndex = playerClass.getIndex();
+      if (classIndex > UTILITY_SPELL_EXPERIENCE_FACTORS.length) {
+         classIndex -= UTILITY_SPELL_EXPERIENCE_FACTORS.length;
+      }
+      if (classIndex < 1 || classIndex > UTILITY_SPELL_EXPERIENCE_FACTORS.length) {
+         return 0;
+      }
+      return UTILITY_SPELL_EXPERIENCE_FACTORS[classIndex - 1];
    }
 
    /**

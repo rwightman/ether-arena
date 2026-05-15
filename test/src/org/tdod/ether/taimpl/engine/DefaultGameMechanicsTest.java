@@ -80,6 +80,16 @@ public class DefaultGameMechanicsTest {
       AssertJUnit.assertTrue(hasInventoryItem(player, RETAINED_ITEM_VNUM));
    }
 
+   @Test(groups = { "unit" })
+   public void testUtilitySpellExperienceUsesOriginalClassScale() {
+      DefaultGameMechanics mechanics = createGameMechanics();
+
+      AssertJUnit.assertEquals(341, mechanics.getExpForUtilitySpells(createPlayer(PlayerClass.WARRIOR, 10, false), null));
+      AssertJUnit.assertEquals(495, mechanics.getExpForUtilitySpells(createPlayer(PlayerClass.SORCEROR, 10, false), null));
+      AssertJUnit.assertEquals(330, mechanics.getExpForUtilitySpells(createPlayer(PlayerClass.ROGUE, 10, false), null));
+      AssertJUnit.assertEquals(434, mechanics.getExpForUtilitySpells(createPlayer(PlayerClass.WARRIOR, 26, true), null));
+   }
+
    private DefaultGameMechanics createGameMechanics() {
       System.setProperty("TaConfigFile", "config/ta.properties");
       return new DefaultGameMechanics();
@@ -91,6 +101,13 @@ public class DefaultGameMechanicsTest {
       player.setLevel(100);
       player.getStats().getAgility().setValue(50);
       player.getStats().getIntellect().setValue(50);
+      return player;
+   }
+
+   private Player createPlayer(PlayerClass playerClass, int level, boolean promoted) {
+      Player player = createPlayer(playerClass);
+      player.setLevel(level);
+      player.setPromoted(promoted);
       return player;
    }
 
