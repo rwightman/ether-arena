@@ -62,6 +62,7 @@ import org.tdod.ether.ta.spells.Spell;
 import org.tdod.ether.taimpl.cosmos.ExitDirectionEnum;
 import org.tdod.ether.taimpl.cosmos.RoomFlags;
 import org.tdod.ether.taimpl.items.equipment.enums.EquipmentSubType;
+import org.tdod.ether.taimpl.mobs.enums.SpecialAbilityEnum;
 import org.tdod.ether.util.Dice;
 import org.tdod.ether.util.GameUtil;
 import org.tdod.ether.util.PropertiesManager;
@@ -697,39 +698,130 @@ public class DefaultGameMechanics implements GameMechanics {
    }
 
    /**
-    * Fuck if I know how exp is calculated.  It would be easier to just generate a random number!
-    * This is my best guess, which involves the players level and mobs level.
+    * Calculates the combat experience gained from damaging a target.
     *
-    * @param playerLevel the level of the player.
-    * @param mobLevel the level of the mob.
-    * @param mobVariance the mob variance.
-    *
-    * @return experience point per point of damage.
+    * @param attacker the entity that dealt the damage.
+    * @param target the damaged entity.
+    * @param damage the amount of damage eligible for experience.
+    * @return the experience award.
     */
-   public float getExpPerPointOfDamage(int playerLevel, int mobLevel, float mobVariance) {
-      int levelDifference = mobLevel - playerLevel;
-      float expBase;
-
-      // Slider to adjust exp gained.  Lower = less exp.  Higher = more exp.  This should be a number greater than 0 and
-      // less than 2 (ie, .66, 1, 1.2, etc)
-      String floatString = PropertiesManager.getInstance().getProperty(PropertiesManager.EXP_GAIN_VARIANCE);
-      float expBaseScale = Float.valueOf(floatString).floatValue();
-
-      if (levelDifference == -1) {
-//         expBase = 1.125f;
-          expBase = 2.0f;
-      } else if (levelDifference == 0) {
-         expBase = 3.5f;
-      } else if (levelDifference >= 2) {
-         expBase = 9.5f;
-      } else if (levelDifference >= 1) {
-         expBase = 6.5f;
-      } else {
-//        expBase = 0;
-          expBase = 2.0f;
+   public long calculateCombatExperience(Entity attacker, Entity target, int damage) {
+      if (damage <= 0) {
+         return 0;
       }
 
-      return expBase * mobVariance * expBaseScale * playerLevel;
+      if (target.getEntityType().equals(EntityType.MOB)) {
+         return calculateMonsterExperience(attacker, (Mob) target, damage);
+      }
+      if (target.getEntityType().equals(EntityType.PLAYER)) {
+         return calculatePlayerExperience((Player) target, damage);
+      }
+      return 0;
+   }
+
+   /**
+    * Calculates the original Tele-Arena monster experience pool for a spawned mob.
+    *
+    * @param mob the spawned mob.
+    * @return the monster experience pool.
+    */
+   public long calculateMobExperiencePool(Mob mob) {
+      int level = mob.getLevel();
+      if (level <= 0) {
+         return 0;
+      }
+
+      int maxAttackDamage = Math.max(getGeneralAttackMaxDamage(mob), mob.getSpecialAttack().getMaxSpecialDamage());
+      long pool = ((long) mob.getHitDice() * ((level / 5) + 1) * 10L
+            + (long) maxAttackDamage * mob.getGeneralAttack().getNumAttacks()) / level;
+
+      SpecialAbilityEnum specialAbility = mob.getSpecialAbility().getSpecialAbility();
+      if (!specialAbility.equals(SpecialAbilityEnum.NONE) && !specialAbility.equals(SpecialAbilityEnum.INVALID)) {
+         pool += (long) level * level * level;
+      }
+
+      pool += (long) (mob.getVitality().getMaxVitality() / 5) * level;
+      if (pool < 0) {
+         return 0;
+      }
+      return pool;
+   }
+
+   /**
+    * Calculates the original _MONEXP mode 0 award.
+    * @param attacker the attacking entity.
+    * @param mob the damaged mob.
+    * @param damage the awardable damage.
+    * @return the experience award.
+    */
+   private long calculateMonsterExperience(Entity attacker, Mob mob, int damage) {
+      int playerLevel = attacker.getLevel();
+      int mobLevel = mob.getLevel();
+      int maxVitality = mob.getVitality().getMaxVitality();
+      long mobExperiencePool = mob.getExperiencePool();
+
+      if (damage > maxVitality) {
+         damage = maxVitality;
+      }
+      if (playerLevel <= 0 || maxVitality <= 0 || mobLevel <= 0 || mobExperiencePool <= 0) {
+         return 0;
+      }
+
+      long damagePercent = ((long) damage * 100L) / maxVitality;
+      long base = 0;
+      if (damagePercent > 0) {
+         base = ((mobExperiencePool * damagePercent) * 100L) / 10000L;
+      }
+
+      if (base > mobExperiencePool) {
+         base = mobExperiencePool;
+      }
+
+      long minimumBase = mobLevel * 2L;
+      if (base < minimumBase) {
+         base = minimumBase;
+      }
+
+      long factorMilli = ((mobLevel * 2000L) * 1000L) / (playerLevel * 1000L);
+      long award = (base * factorMilli) / 1000L;
+      if (award < mobLevel) {
+         award = mobLevel;
+      }
+
+      long maximumAward = playerLevel * 3000L;
+      if (award > maximumAward) {
+         award = maximumAward;
+      }
+      return award;
+   }
+
+   /**
+    * Calculates the original _CHREXP award.
+    * @param target the damaged player.
+    * @param damage the awardable damage.
+    * @return the experience award.
+    */
+   private long calculatePlayerExperience(Player target, int damage) {
+      if (target.getLevel() == 1) {
+         return 0;
+      }
+      if (damage > target.getVitality().getMaxVitality()) {
+         return target.getVitality().getMaxVitality();
+      }
+      return damage;
+   }
+
+   /**
+    * Gets the maximum general attack damage for experience pool calculation.
+    * @param mob the mob.
+    * @return the maximum general attack damage.
+    */
+   private int getGeneralAttackMaxDamage(Mob mob) {
+      int maxDamage = mob.getGeneralAttack().getMaxDamage();
+      if (maxDamage <= 0 && mob.getMobWeapon() != null) {
+         return mob.getMobWeapon().getMaxDamage();
+      }
+      return maxDamage;
    }
 
    /**

@@ -429,4 +429,16 @@ public interface Mob extends Cloneable, Entity {
     */
    public float getVariance();
 
+   /**
+    * Gets the experience pool awarded proportionally for combat damage.
+    * @return the experience pool.
+    */
+   long getExperiencePool();
+
+   /**
+    * Sets the experience pool awarded proportionally for combat damage.
+    * @param experiencePool the experience pool.
+    */
+   void setExperiencePool(long experiencePool);
+
 }

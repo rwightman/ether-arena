@@ -76,13 +76,6 @@ public interface Entity {
    Vitality getVitality();
 
    /**
-    * Gets the amount of experience given per point of damage.
-    * @param playerLevel the attacking players level.
-    * @return the amount of experience given per point of damage.
-    */
-   float getExpPerPointOfDamage(int playerLevel);
-
-   /**
     * Takes the given amount of damage.
     * @param amount the amount of damage taken.
     * @return true if the entity's health goes below 0.

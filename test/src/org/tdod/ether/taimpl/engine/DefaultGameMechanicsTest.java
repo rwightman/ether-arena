@@ -8,11 +8,14 @@ import org.tdod.ether.ta.items.armor.Armor;
 import org.tdod.ether.ta.items.Item;
 import org.tdod.ether.ta.items.weapons.Weapon;
 import org.tdod.ether.ta.manager.WorldManager;
+import org.tdod.ether.ta.mobs.Mob;
 import org.tdod.ether.ta.player.Player;
 import org.tdod.ether.ta.player.enums.PlayerClass;
 import org.tdod.ether.ta.player.enums.RaceEnum;
 import org.tdod.ether.taimpl.cosmos.DefaultTrap;
 import org.tdod.ether.taimpl.cosmos.enums.TrapType;
+import org.tdod.ether.taimpl.mobs.DefaultMob;
+import org.tdod.ether.taimpl.mobs.enums.SpecialAbilityEnum;
 import org.tdod.ether.taimpl.player.DefaultPlayer;
 import org.tdod.ether.util.TestUtil;
 import org.testng.annotations.Test;
@@ -90,6 +93,40 @@ public class DefaultGameMechanicsTest {
       AssertJUnit.assertEquals(434, mechanics.getExpForUtilitySpells(createPlayer(PlayerClass.WARRIOR, 26, true), null));
    }
 
+   @Test(groups = { "unit" })
+   public void testMonsterExperienceUsesOriginalDamagePercentFormula() {
+      DefaultGameMechanics mechanics = createGameMechanics();
+      Player player = createPlayer(PlayerClass.WARRIOR, 10, false);
+      Mob mob = createMob(5, 100, 1000);
+
+      AssertJUnit.assertEquals(100L, mechanics.calculateCombatExperience(player, mob, 10));
+   }
+
+   @Test(groups = { "unit" })
+   public void testMonsterExperienceUsesOriginalMinimumAndCap() {
+      DefaultGameMechanics mechanics = createGameMechanics();
+      Player highLevelPlayer = createPlayer(PlayerClass.WARRIOR, 100, false);
+      Player lowLevelPlayer = createPlayer(PlayerClass.WARRIOR, 2, false);
+
+      AssertJUnit.assertEquals(5L, mechanics.calculateCombatExperience(highLevelPlayer, createMob(5, 100, 20), 10));
+      AssertJUnit.assertEquals(6000L, mechanics.calculateCombatExperience(lowLevelPlayer, createMob(50, 100, 100000), 100));
+   }
+
+   @Test(groups = { "unit" })
+   public void testMonsterExperiencePoolUsesOriginalGenerationFormula() {
+      DefaultGameMechanics mechanics = createGameMechanics();
+      Mob mob = createMob(10, 100, 0);
+      mob.setHitDice(3);
+      mob.getGeneralAttack().setMaxDamage(5);
+      mob.getGeneralAttack().setNumAttacks(2);
+      mob.getSpecialAttack().setMaxSpecialDamage(12);
+
+      AssertJUnit.assertEquals(211L, mechanics.calculateMobExperiencePool(mob));
+
+      mob.getSpecialAbility().setSpecialAbility(SpecialAbilityEnum.STEAL);
+      AssertJUnit.assertEquals(1211L, mechanics.calculateMobExperiencePool(mob));
+   }
+
    private DefaultGameMechanics createGameMechanics() {
       System.setProperty("TaConfigFile", "config/ta.properties");
       return new DefaultGameMechanics();
@@ -109,6 +146,16 @@ public class DefaultGameMechanicsTest {
       player.setLevel(level);
       player.setPromoted(promoted);
       return player;
+   }
+
+   private Mob createMob(int level, int maxVitality, long experiencePool) {
+      Mob mob = new DefaultMob();
+      mob.setLevel(level);
+      mob.getVitality().setCurVitality(maxVitality);
+      mob.getVitality().setMaxVitality(maxVitality);
+      mob.setExperiencePool(experiencePool);
+      mob.getSpecialAbility().setSpecialAbility(SpecialAbilityEnum.NONE);
+      return mob;
    }
 
    private Player createWorldPlayer() {

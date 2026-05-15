@@ -63,6 +63,7 @@ public class DefaultMobTest extends AbstractTest {
          _mob.setArmorRating(index);
          _mob.setCombatSkill(index);
          _mob.setCombatTicker(index);
+         _mob.setExperiencePool(index);
          _mob.setGold(index);
          _mob.setHitDice(index);
          _mob.setInvisibiltyTimer(index);

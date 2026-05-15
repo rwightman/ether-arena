@@ -81,8 +81,6 @@ import org.tdod.ether.taimpl.player.state.PlayingState;
  */
 public final class GameUtil {
 
-   private static final int MAX_EXPERIENCE_AWARD_PER_LEVEL = 3000;
-
    /**
     * The dividend used when converting milliseconds to seconds.
     */
@@ -465,30 +463,10 @@ public final class GameUtil {
       if (totalDamage <= 0) {
          return;
       }
-      long expGain = (long) (totalDamage * target.getExpPerPointOfDamage(attacker.getLevel()));
-      if (expGain <= 0) {
-         expGain = 1;
+      long expGain = WorldManager.getGameMechanics().calculateCombatExperience(attacker, target, totalDamage);
+      if (expGain > 0) {
+         attacker.addExperience(expGain);
       }
-      expGain = capExperienceAward(attacker, expGain);
-      attacker.addExperience(expGain);
-
-   }
-
-   /**
-    * Caps a single damage award to match the original combat award ceiling.
-    * @param attacker the entity gaining experience.
-    * @param expGain the raw experience award.
-    * @return the capped award.
-    */
-   private static long capExperienceAward(Entity attacker, long expGain) {
-      long maxAward = (long) attacker.getLevel() * MAX_EXPERIENCE_AWARD_PER_LEVEL;
-      if (maxAward < 1) {
-         maxAward = 1;
-      }
-      if (expGain > maxAward) {
-         return maxAward;
-      }
-      return expGain;
    }
 
    /**

@@ -201,14 +201,22 @@ public interface GameMechanics {
    Vitality calculateMobHealth(int mobCombatSkill, int mobLevel, float mobVariance);
 
    /**
-    * Calculates the amount of experience gained per point of damage.
+    * Calculates the combat experience gained from damaging a target.
     *
-    * @param playerLevel the players level,.
-    * @param mobLevel the mobs level.
-    * @param mobVariance the mob variance.
-    * @return the experience points awarded per point of damage.
+    * @param attacker the entity that dealt the damage.
+    * @param target the damaged entity.
+    * @param damage the amount of damage eligible for experience.
+    * @return the experience award.
     */
-   float getExpPerPointOfDamage(int playerLevel, int mobLevel, float mobVariance);
+   long calculateCombatExperience(Entity attacker, Entity target, int damage);
+
+   /**
+    * Calculates the original Tele-Arena monster experience pool for a spawned mob.
+    *
+    * @param mob the spawned mob.
+    * @return the monster experience pool.
+    */
+   long calculateMobExperiencePool(Mob mob);
 
    /**
     * Determines the melee result of a mob attacking an entity.

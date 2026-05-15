@@ -843,15 +843,6 @@ public class DefaultPlayer implements Player, Serializable {
    }
 
    /**
-    * Gets the amount of experience given per point of damage.
-    * @param playerLevel the attacking players level.
-    * @return the amount of experience given per point of damage.
-    */
-   public float getExpPerPointOfDamage(int playerLevel) {
-      return 1f;
-   }
-
-   /**
     * Takes the given amount of damage.
     * @param amount the amount of damage taken.
     * @return true if the entity's health goes below 0.

@@ -80,9 +80,15 @@ public class DoSimulate extends SysopCommand {
 
       player.println("Simulating combat against a level " + mob.getLevel() + " " + mob.getName());
       Vitality vitality = WorldManager.getGameMechanics().calculateMobHealth(mob.getCombatSkill(), mob.getLevel(), mob.getVariance());
+      mob.setVitality(vitality);
+      mob.setExperiencePool(WorldManager.getGameMechanics().calculateMobExperiencePool(mob));
       for (int count = 0; count < rounds; count++) {
          MeleeResult result = WorldManager.getGameMechanics().doPlayerMeleeAttack(player, mob);
-         int expGain = (int)(result.getDamage() * mob.getExpPerPointOfDamage(player.getLevel()));
+         int awardableDamage = result.getDamage();
+         if (awardableDamage > vitality.getCurVitality()) {
+            awardableDamage = vitality.getCurVitality();
+         }
+         int expGain = (int) WorldManager.getGameMechanics().calculateCombatExperience(player, mob, awardableDamage);
          vitality.setCurVitality(vitality.getCurVitality() - result.getDamage());
          
          StringBuilder sb = new StringBuilder();

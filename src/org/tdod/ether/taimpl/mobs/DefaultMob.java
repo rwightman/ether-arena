@@ -148,6 +148,7 @@ public class DefaultMob implements Mob {
 
    private Vitality  _vitality = new DefaultVitality();
    private float     _mobVariance = 1;
+   private long      _experiencePool;
    private int       _activityTicker;
 
    private Item      _inventoryItem;
@@ -526,6 +527,7 @@ public class DefaultMob implements Mob {
          float mobVariance = Dice.generateNumberVariance();
          mob.setVitality(WorldManager.getGameMechanics().calculateMobHealth(_combatSkill, _level, mobVariance));
          mob.setMobWeapon(generateMobWeapon());
+         mob.setExperiencePool(WorldManager.getGameMechanics().calculateMobExperiencePool(mob));
          mob.setActivityTicker(Dice.roll(MIN_REST_PERIOD, MAX_REST_PERIOD));
 
          mob.setRoom(room);
@@ -867,20 +869,27 @@ public class DefaultMob implements Mob {
    }
 
    /**
-    * Gets the amount of experience given per point of damage.
-    * @param playerLevel the attacking players level.
-    * @return the amount of experience given per point of damage.
-    */
-   public float getExpPerPointOfDamage(int playerLevel) {
-      return WorldManager.getGameMechanics().getExpPerPointOfDamage(playerLevel, _level, _mobVariance);
-   }
-
-   /**
     * Gets the mob variance.  Not really used, yet, but a means to make mobs slightly different.
     * @return the mob variance.
     */
    public float getVariance() {
       return _mobVariance;
+   }
+
+   /**
+    * Gets the experience pool awarded proportionally for combat damage.
+    * @return the experience pool.
+    */
+   public long getExperiencePool() {
+      return _experiencePool;
+   }
+
+   /**
+    * Sets the experience pool awarded proportionally for combat damage.
+    * @param experiencePool the experience pool.
+    */
+   public void setExperiencePool(long experiencePool) {
+      _experiencePool = experiencePool;
    }
 
    /**
