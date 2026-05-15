@@ -34,8 +34,6 @@ package org.tdod.ether.taimpl.spells;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.tdod.ether.ta.Entity;
 import org.tdod.ether.ta.EntityType;
 import org.tdod.ether.ta.manager.WorldManager;
@@ -45,8 +43,6 @@ import org.tdod.ether.taimpl.cosmos.RoomFlags;
 import org.tdod.ether.util.TaMessageManager;
 
 public class SpellCharm extends AbstractSpellCommand {
-
-   private static Log _log = LogFactory.getLog(SpellCharm.class);
    
    /**
     * &bYou performed a charm spell on the %s!
@@ -86,13 +82,11 @@ public class SpellCharm extends AbstractSpellCommand {
    }
 
    protected void handleAreaTarget(ArrayList<Entity> targets, boolean pvp) {
-      _log.error(_entity.getName() + " cast the spell, " + _spell.getName() + ", but the function is not implemented.") ;
-      _entity.println("Something went wrong!  Please contact an admin.");      
+      _entity.print(TaMessageManager.SNDTRG.getMessage());
    }
 
    protected void handleNoTargets(String parameters) {
-      _log.error(_entity.getName() + " cast the spell, " + _spell.getName() + ", but the function is not implemented.") ;
-      _entity.println("Something went wrong!  Please contact an admin.");      
+      _entity.print(TaMessageManager.SNDTRG.getMessage());
    }
 
 }

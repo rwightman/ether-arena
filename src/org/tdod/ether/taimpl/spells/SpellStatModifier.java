@@ -33,12 +33,11 @@ package org.tdod.ether.taimpl.spells;
 
 import java.util.ArrayList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.tdod.ether.ta.Entity;
 import org.tdod.ether.ta.manager.WorldManager;
 import org.tdod.ether.ta.spells.AbstractSpellCommand;
 import org.tdod.ether.taimpl.spells.enums.StatModifier;
+import org.tdod.ether.util.TaMessageManager;
 
 /**
  * PLAYER(guess): &bYou cast a draining spell on Hilorex!
@@ -46,8 +45,6 @@ import org.tdod.ether.taimpl.spells.enums.StatModifier;
  * ROOM(guess):   &bMinex just cast a draining spell on Hilorex!
  */
 public class SpellStatModifier extends AbstractSpellCommand {
-
-   private static Log _log = LogFactory.getLog(SpellStatModifier.class);
 
    protected void handleSingleTarget(Entity target) {
       // Random failure chance.
@@ -86,8 +83,7 @@ public class SpellStatModifier extends AbstractSpellCommand {
    }
 
    protected void handleNoTargets(String parameters) {
-      _log.error(_entity.getName() + " cast the spell, " + _spell.getName() + ", but the function is not implemented.") ;
-      _entity.println("Something went wrong!  Please contact an admin.");      
+      _entity.print(TaMessageManager.SNDTRG.getMessage());
    }
 
 }

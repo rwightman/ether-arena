@@ -34,8 +34,6 @@ package org.tdod.ether.taimpl.spells;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.tdod.ether.ta.Entity;
 import org.tdod.ether.ta.EntityType;
 import org.tdod.ether.ta.combat.SpellResult;
@@ -54,8 +52,6 @@ import org.tdod.ether.util.GameUtil;
 import org.tdod.ether.util.TaMessageManager;
 
 public abstract class AbstractSpellDamage extends AbstractSpellAttack {
-
-   private static Log _log = LogFactory.getLog(AbstractSpellDamage.class);
 
    protected void handleSingleTargetSpellAttack(Entity target) {
       SpellResult spellResult = WorldManager.getGameMechanics().calculateOffensiveSpellResult(_entity, target, _spell);
@@ -87,8 +83,7 @@ public abstract class AbstractSpellDamage extends AbstractSpellAttack {
    }
    
    protected void handleNoTargets(String parameters) {
-      _log.error(_entity.getName() + " cast the spell, " + _spell.getName() + ", but the function is not implemented.") ;
-      _entity.println("Something went wrong!  Please contact an admin.");      
+      _entity.print(TaMessageManager.SNDTRG.getMessage());
    }
 
    private void doSpellEffects(Entity target, SpellResult spellResult) {

@@ -51,13 +51,11 @@ public class SpellSummon extends AbstractSpellCommand {
    private static Log _log = LogFactory.getLog(SpellSummon.class);
 
    protected void handleSingleTarget(Entity target) {
-      _log.error(_entity.getName() + " cast the spell, " + _spell.getName() + ", but the function is not implemented.") ;
-      _entity.println("Something went wrong!  Please contact an admin.");
+      _entity.print(TaMessageManager.SDNTRG.getMessage());
    }
 
    protected void handleAreaTarget(ArrayList<Entity> targets, boolean player) {
-      _log.error(_entity.getName() + " cast the spell, " + _spell.getName() + ", but the function is not implemented.") ;
-      _entity.println("Something went wrong!  Please contact an admin.");
+      _entity.print(TaMessageManager.SDNTRG.getMessage());
    }
 
    /**

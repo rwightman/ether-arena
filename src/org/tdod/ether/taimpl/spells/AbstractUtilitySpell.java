@@ -33,16 +33,13 @@ package org.tdod.ether.taimpl.spells;
 
 import java.util.ArrayList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.tdod.ether.ta.Entity;
 import org.tdod.ether.ta.combat.SpellResult;
 import org.tdod.ether.ta.manager.WorldManager;
 import org.tdod.ether.ta.spells.AbstractSpellCommand;
+import org.tdod.ether.util.TaMessageManager;
 
 public abstract class AbstractUtilitySpell extends AbstractSpellCommand {
-
-   private static Log _log = LogFactory.getLog(AbstractUtilitySpell.class);
 
    protected SpellResult _spellResult;
 
@@ -91,8 +88,7 @@ public abstract class AbstractUtilitySpell extends AbstractSpellCommand {
    }
 
    protected void handleNoTargets(String parameters) {
-      _log.error(_entity.getName() + " cast the spell, " + _spell.getName() + ", but the function is not implemented.") ;
-      _entity.println("Something went wrong!  Please contact an admin.");      
+      _entity.print(TaMessageManager.SNDTRG.getMessage());
    }
    
    protected void handleSpellSuccess() {
