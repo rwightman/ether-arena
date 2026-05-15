@@ -454,22 +454,42 @@ public final class GameUtil {
 
    /**
     * Awards the player experience based on the entity's vitality.
-    * @param player the player gaining the experience.
+    * @param attacker the entity gaining the experience.
     * @param target the target entity.
     * @param vitalityBefore the vitality of the entity before the attack.
     */
-   public static void giveExperience(Player player, Entity target, int vitalityBefore) {
-      // Only award experience on damage caused while the mob was alive.
-      int totalDamage = vitalityBefore - target.getVitality().getCurVitality();
-      if (totalDamage < 0) {
-         totalDamage = 0;
+   public static void giveExperience(Entity attacker, Entity target, int vitalityBefore) {
+      int totalDamage = getAwardableDamage(target, vitalityBefore);
+      if (totalDamage <= 0) {
+         return;
       }
-      int expGain = (int) (totalDamage * target.getExpPerPointOfDamage(player.getLevel()));
+      int expGain = (int) (totalDamage * target.getExpPerPointOfDamage(attacker.getLevel()));
       if (expGain <= 0) {
          expGain = 1;
       }
-      player.addExperience(expGain);
+      attacker.addExperience(expGain);
 
+   }
+
+   /**
+    * Gets damage that can legitimately award experience.
+    * @param target the damaged target.
+    * @param vitalityBefore the target vitality before the attack.
+    * @return the damage eligible for experience.
+    */
+   private static int getAwardableDamage(Entity target, int vitalityBefore) {
+      if (vitalityBefore <= 0) {
+         return 0;
+      }
+
+      int totalDamage = vitalityBefore - target.getVitality().getCurVitality();
+      if (totalDamage < 0) {
+         return 0;
+      }
+      if (totalDamage > vitalityBefore) {
+         return vitalityBefore;
+      }
+      return totalDamage;
    }
 
    /**

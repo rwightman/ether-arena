@@ -50,6 +50,7 @@ import org.tdod.ether.taimpl.spells.enums.MiscTargetEffect2;
 import org.tdod.ether.taimpl.spells.enums.PoisonTarget;
 import org.tdod.ether.taimpl.spells.enums.SpellTarget;
 import org.tdod.ether.taimpl.spells.enums.SpellType;
+import org.tdod.ether.util.GameUtil;
 import org.tdod.ether.util.TaMessageManager;
 
 public abstract class AbstractSpellDamage extends AbstractSpellAttack {
@@ -118,18 +119,9 @@ public abstract class AbstractSpellDamage extends AbstractSpellAttack {
           _spell.getSpellType().equals(SpellType.DRUID_ATTACK)    ||
           _spell.getSpellType().equals(SpellType.NECROLYTE_ATTACK)) {
          
-         // Only award experience on damage caused while the mob was alive.
          int vitalityBefore = target.getVitality().getCurVitality();
          target.takeDamage(spellResult.getNumberEffect());      
-         int totalDamage = vitalityBefore - target.getVitality().getCurVitality();
-         if (totalDamage < 0) {
-            totalDamage = 0;
-         }
-         int expGain = (int)(totalDamage * target.getExpPerPointOfDamage(_entity.getLevel())) ;
-         if (expGain <= 0) {
-            expGain = 1;
-         }
-         _entity.addExperience(expGain);      
+         GameUtil.giveExperience(_entity, target, vitalityBefore);
       }
       
       if (target.getVitality().getCurVitality() < 1) {
