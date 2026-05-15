@@ -23,6 +23,7 @@
       <class name="org.tdod.ether.taimpl.commands.DoDTest"/>
       <class name="org.tdod.ether.taimpl.commands.DoDefaultTest"/>
       <class name="org.tdod.ether.taimpl.commands.DoDepositTest"/>
+      <class name="org.tdod.ether.taimpl.commands.DoShareTest"/>
     </classes>
   </test>
 </suite>

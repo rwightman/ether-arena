@@ -36,7 +36,6 @@ import java.text.MessageFormat;
 import org.tdod.ether.ta.Entity;
 import org.tdod.ether.ta.EntityType;
 import org.tdod.ether.ta.commands.Command;
-import org.tdod.ether.ta.cosmos.Room;
 import org.tdod.ether.ta.player.Player;
 import org.tdod.ether.util.GameUtil;
 import org.tdod.ether.util.PropertiesManager;
@@ -79,8 +78,6 @@ public class DoShare extends Command {
       if (split.length < 2) {
          return false;
       }
-      Room room = player.getRoom();
-
       Entity leader = player.getGroupLeader();
 
       // Must be in a group to share.
@@ -99,9 +96,7 @@ public class DoShare extends Command {
       float playerCount = 1; // Start with one because of the leader.
       for (Entity follower : leader.getGroupList()) {
          if (follower.getEntityType().equals(EntityType.PLAYER)) {
-            if (follower.getRoom().equals(room)) { // TODO, not sure if TA checks this.
-               playerCount++;
-            }
+            playerCount++;
          }
       }
 
@@ -128,17 +123,15 @@ public class DoShare extends Command {
       // Share the gold...
       for (Entity follower : leader.getGroupList()) {
          if (follower.getEntityType().equals(EntityType.PLAYER)) {
-            if (follower.getRoom().equals(room)) { // TODO, not sure if TA checks this.
-               int overflow = follower.addGold(amountPerPlayer);
-               player.subtractGold(amountPerPlayer - overflow);
-               if (overflow > 0) {
-                  messageToTarget = MessageFormat.format(TaMessageManager.JSTSHN.getMessage(), player.getName());
-               } else {
-                  messageToTarget = MessageFormat.format(TaMessageManager.JSTSHG.getMessage(),
-                        player.getName(), shareAmount, amountPerPlayer);
-               }
-               follower.print(messageToTarget);
+            int overflow = follower.addGold(amountPerPlayer);
+            player.subtractGold(amountPerPlayer - overflow);
+            if (overflow > 0) {
+               messageToTarget = MessageFormat.format(TaMessageManager.JSTSHN.getMessage(), player.getName());
+            } else {
+               messageToTarget = MessageFormat.format(TaMessageManager.JSTSHG.getMessage(),
+                     player.getName(), shareAmount, amountPerPlayer);
             }
+            follower.print(messageToTarget);
          }
       }
 
@@ -149,7 +142,7 @@ public class DoShare extends Command {
       if (!player.isInvisible()) {
          messageToRoom = MessageFormat.format(TaMessageManager.OTHSHR.getMessage(),
                player.getName(), player.getGender().getPronoun().toLowerCase());
-         room.printToNonGroup(player, messageToRoom);
+         player.getRoom().printToNonGroup(player, messageToRoom);
       }
 
       return true;

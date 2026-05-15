@@ -47,6 +47,7 @@ import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 import org.tdod.ether.factory.DefaultAppFactory;
+import org.tdod.ether.ta.Entity;
 import org.tdod.ether.ta.cosmos.Room;
 import org.tdod.ether.ta.cosmos.World;
 import org.tdod.ether.ta.engine.GameEngine;
@@ -179,20 +180,36 @@ public class DefaultGameEngine implements GameEngine {
     * @param playerConn the player connection that left the game.
     */
    private void cleanResources(PlayerConnection playerConn) {
-      playerConn.getPlayer().save();
-      playerConn.getPlayer().cleanup();
-
-      // Handle group related mechanics during disconnect.
-      // TODO when the leader quits, does it disband and produce a message to other players?
       Player player = playerConn.getPlayer();
-      player.getGroupLeader().getGroupList().remove(playerConn.getPlayer());
-      if (player.getGroupLeader().equals(playerConn.getPlayer())) {
-         DoDisband doDisband = new DoDisband();
-         doDisband.disbandTheGroup(playerConn.getPlayer(), false);
-      }
+
+      detachFromGroup(player);
+
+      player.save();
+      player.cleanup();
 
       playerConn.cleanup();
       playerConn = null;
+   }
+
+   /**
+    * Removes a disconnecting player from group state.
+    *
+    * @param player the disconnecting player.
+    */
+   private void detachFromGroup(Player player) {
+      Entity leader = player.getGroupLeader();
+      if (leader == null) {
+         player.setGroupLeader(player);
+         return;
+      }
+
+      if (leader.equals(player)) {
+         DoDisband doDisband = new DoDisband();
+         doDisband.disbandTheGroup(player, false);
+      } else {
+         leader.getGroupList().remove(player);
+         player.setGroupLeader(player);
+      }
    }
 
    /**

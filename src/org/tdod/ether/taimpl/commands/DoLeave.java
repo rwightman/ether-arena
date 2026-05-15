@@ -74,12 +74,10 @@ public class DoLeave extends Command {
 
       Entity leader = player.getGroupLeader();
       if (leader.equals(player)) {
-         // TODO need to verify this functionality -- what happens if the leader leaves the group.
          player.print(TaMessageManager.YOULDR.getMessage());
          return true;
       }
 
-      // TODO need to verify that these are the messages that are sent.
       String messageToPlayer;
       String messageToRoom;
 
@@ -101,7 +99,7 @@ public class DoLeave extends Command {
          room.print(entityLeaving, messageToRoom, false);
 
          leader.getGroupList().remove(entityLeaving);
-         entityLeaving.setGroupLeader(player);
+         entityLeaving.setGroupLeader(entityLeaving);
          return true;
       }
 
