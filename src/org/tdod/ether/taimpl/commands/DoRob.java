@@ -130,6 +130,12 @@ public class DoRob extends Command {
          return false;
       }
 
+      String disabledRebuff = PlayerCombatPolicy.getRobDisabledRebuff();
+      if (disabledRebuff != null) {
+         player.print(disabledRebuff);
+         return true;
+      }
+
       Room room = player.getRoom();
 
       if (RoomFlags.SAFE.isSet(room.getRoomFlags())) {
@@ -173,6 +179,12 @@ public class DoRob extends Command {
 
       if (player.equals(target)) {
          player.print(TaMessageManager.NORSLF.getMessage());
+         return true;
+      }
+
+      String rebuff = PlayerCombatPolicy.getRobRebuff(player, target);
+      if (rebuff != null) {
+         player.print(rebuff);
          return true;
       }
 

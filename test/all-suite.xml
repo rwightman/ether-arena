@@ -17,6 +17,7 @@
       <class name="org.tdod.ether.taimpl.commands.DoAddTest"/>
       <class name="org.tdod.ether.taimpl.commands.DoAppointTest"/>
       <class name="org.tdod.ether.taimpl.commands.DoAttackTest"/>
+      <class name="org.tdod.ether.taimpl.commands.PlayerCombatPolicyTest"/>
       <class name="org.tdod.ether.taimpl.commands.DoBalanceTest"/>
       <class name="org.tdod.ether.taimpl.commands.DoBuyTest"/>
       <class name="org.tdod.ether.taimpl.commands.DoCastTest"/>

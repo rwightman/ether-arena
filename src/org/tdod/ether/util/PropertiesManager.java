@@ -93,6 +93,12 @@ public final class PropertiesManager {
    public static final String HEALTH_MSG_4_PERCENT         = "health_msg_4_percent";
    public static final String HEALTH_MSG_5_PERCENT         = "health_msg_5_percent";
    public static final String NEW_PLAYER                   = "new_player";
+   public static final String USER_ATTACK_ENABLED          = "user_attack_enabled";
+   public static final String USER_ROB_ENABLED             = "user_rob_enabled";
+   public static final String USER_COMBAT_LEVEL_DIFFERENCE = "user_combat_level_difference";
+   public static final String PROMOTED_COMBAT_ENABLED      = "promoted_combat_enabled";
+   public static final String COMBAT_EXEMPTION_LEVEL       = "combat_exemption_level";
+   public static final String NO_COMBAT_MAX_LEVEL          = "no_combat_max_level";
    public static final String EXP_GAIN_VARIANCE            = "exp_gain_variance";
    public static final String DEFAULT_WEAPON               = "default_weapon";
    public static final String DEFAULT_ARMOR                = "default_armor";

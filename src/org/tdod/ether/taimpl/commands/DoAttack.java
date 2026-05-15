@@ -132,6 +132,14 @@ public class DoAttack extends AbstractAttackCommand {
          return true;
       }
 
+      if (target.getEntityType().equals(EntityType.PLAYER)) {
+         String rebuff = PlayerCombatPolicy.getAttackRebuff(player, (Player) target);
+         if (rebuff != null) {
+            player.print(rebuff);
+            return true;
+         }
+      }
+
       // Done
       attackEntity(player, target, null, player.getWeapon());
       return true;
