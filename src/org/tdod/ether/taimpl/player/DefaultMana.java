@@ -98,6 +98,10 @@ public class DefaultMana implements Mana {
     * @param amount the amount of mana to add.
     */
    public void addCurMana(int amount) {
+      // Manastones can temporarily raise current mana above max; regen should not collapse the bonus.
+      if (_curMana >= _maxMana) {
+         return;
+      }
       _curMana += amount;
       if (_curMana > _maxMana) {
          _curMana = _maxMana;

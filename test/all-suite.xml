@@ -7,6 +7,7 @@
       <class name="org.tdod.ether.taimpl.mobs.DefaultGeneralAttack"/>
       <class name="org.tdod.ether.taimpl.mobs.DefaultMobTest"/>
       <class name="org.tdod.ether.taimpl.mobs.DefaultMobDatabaseTest"/>
+      <class name="org.tdod.ether.taimpl.player.DefaultManaTest"/>
       <class name="org.tdod.ether.taimpl.items.armor.DefaultArmorDatabaseTest"/>
       <class name="org.tdod.ether.taimpl.items.weapons.DefaultWeaponDatabaseTest"/>
       <class name="org.tdod.ether.taimpl.cosmos.DefaultRoomDatabaseTest"/>
