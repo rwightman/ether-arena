@@ -65,7 +65,7 @@ public class PlayerIdleJob implements Job {
     */
    public void execute(JobExecutionContext context) {
       List<PlayerConnection> playersToDisconnect = new ArrayList<PlayerConnection>();
-      for (PlayerConnection playerConn : WorldManager.getPlayers()) {
+      for (PlayerConnection playerConn : WorldManager.getPlayerSnapshot()) {
          try {
             long lastActivity = playerConn.getShell().getConnection().getConnectionData().getLastActivity();
             long currentTime = System.currentTimeMillis();

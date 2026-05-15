@@ -79,7 +79,7 @@ public class SlowStatusJob implements Job {
     * @param context the JobExecutionContext.
     */
    public void execute(JobExecutionContext context) {
-      for (PlayerConnection playerConn : WorldManager.getPlayers()) {
+      for (PlayerConnection playerConn : WorldManager.getPlayerSnapshot()) {
          try {
             Player player = playerConn.getPlayer();
 
@@ -94,7 +94,7 @@ public class SlowStatusJob implements Job {
          }
       }
 
-      for (Mob mob : WorldManager.getMobsInExistance()) {
+      for (Mob mob : WorldManager.getMobSnapshot()) {
          try {
             handleEffects(mob);
 

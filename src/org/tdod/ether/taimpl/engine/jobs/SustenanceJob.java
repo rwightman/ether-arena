@@ -24,7 +24,7 @@ public class SustenanceJob implements Job {
                PropertiesManager.SUSTENANCE_TIMER_WAKEUP)).intValue();
 
    public void execute(JobExecutionContext context) {
-      for (PlayerConnection playerConn : WorldManager.getPlayers()) {
+      for (PlayerConnection playerConn : WorldManager.getPlayerSnapshot()) {
          try {
             Player player = playerConn.getPlayer();
 

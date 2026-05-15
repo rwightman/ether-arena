@@ -61,7 +61,7 @@ public class RestJob implements Job {
     * @param context the JobExecutionContext.
     */
    public void execute(JobExecutionContext context) {
-      for (PlayerConnection playerConn : WorldManager.getPlayers()) {
+      for (PlayerConnection playerConn : WorldManager.getPlayerSnapshot()) {
          try {
             if (!playerConn.getPlayer().getState().equals(
                   PlayerStateEnum.PLAYING)) {

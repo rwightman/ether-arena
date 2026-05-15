@@ -63,7 +63,7 @@ public class ItemEffectJob implements Job {
     * @param context the JobExecutionContext.
     */
    public void execute(JobExecutionContext context) {
-      for (PlayerConnection playerConn : WorldManager.getPlayers()) {
+      for (PlayerConnection playerConn : WorldManager.getPlayerSnapshot()) {
          try {
             Player player = playerConn.getPlayer();
 

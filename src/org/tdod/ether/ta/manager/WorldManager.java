@@ -495,6 +495,14 @@ public final class WorldManager {
    }
 
    /**
+    * Gets a snapshot of online players.
+    * @return a snapshot of online players.
+    */
+   public static ArrayList<PlayerConnection> getPlayerSnapshot() {
+      return new ArrayList<PlayerConnection>(_playerList);
+   }
+
+   /**
     * Gets all of the items that have been cloned in the game.
     * @return all of the items that have been cloned in the game.
     */
@@ -523,6 +531,14 @@ public final class WorldManager {
       }
 
       return mobList;
+   }
+
+   /**
+    * Gets a snapshot of all live mobs.
+    * @return a snapshot of all live mobs.
+    */
+   public static ArrayList<Mob> getMobSnapshot() {
+      return getMobsInExistance();
    }
 
    /**

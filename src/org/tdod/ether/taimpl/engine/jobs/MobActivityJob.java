@@ -59,7 +59,7 @@ public class MobActivityJob implements Job {
     * @param context the JobExecutionContext.
     */
    public void execute(JobExecutionContext context) {
-      for (Mob mob : WorldManager.getMobsInExistance()) {
+      for (Mob mob : WorldManager.getMobSnapshot()) {
          try {
             mob.decreaseActivityTicker();
             if (mob.getChasing() != null && !mob.isResting()) {

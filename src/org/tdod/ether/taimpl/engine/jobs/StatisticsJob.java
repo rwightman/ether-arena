@@ -59,9 +59,9 @@ public class StatisticsJob implements Job {
 
       _log.info("Used Memory: " + usedMemory
             + ", Rooms: " + WorldManager.getArea().getRoomMap().size()
-            + ", Mobs: " + WorldManager.getMobsInExistance().size()
+            + ", Mobs: " + WorldManager.getMobSnapshot().size()
             + ", Items: " + WorldManager.getItemsInExistance().size()
-            + ", Players: " + WorldManager.getPlayers().size());
+            + ", Players: " + WorldManager.getPlayerSnapshot().size());
    }
 
    /**
