@@ -28,6 +28,7 @@ public class FunctionalTestCase extends AbstractTest {
       whiteRuneTests.silverKeyTest();
       whiteRuneTests.electrumKeyTest();
       whiteRuneTests.testSpikedTrap();
+      whiteRuneTests.testRogueAvoidsTrap();
       whiteRuneTests.testCrossbowTrap();
       whiteRuneTests.testStonesTrap();
       whiteRuneTests.dungeon2PitTrapTest();

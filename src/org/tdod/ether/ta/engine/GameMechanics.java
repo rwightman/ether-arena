@@ -34,6 +34,7 @@ package org.tdod.ether.ta.engine;
 import org.tdod.ether.ta.Entity;
 import org.tdod.ether.ta.combat.MeleeResult;
 import org.tdod.ether.ta.combat.SpellResult;
+import org.tdod.ether.ta.cosmos.Trap;
 import org.tdod.ether.ta.items.equipment.Equipment;
 import org.tdod.ether.ta.mobs.Mob;
 import org.tdod.ether.ta.player.Player;
@@ -65,6 +66,15 @@ public interface GameMechanics {
     * @return true if the door is picked.
     */
    boolean pickedLock(Entity entity, int consumes);
+
+   /**
+    * Determines if an entity avoids a trap.
+    *
+    * @param entity the entity
+    * @param trap the trap
+    * @return true if the trap is avoided.
+    */
+   boolean avoidedTrap(Entity entity, Trap trap);
 
    /**
     * Does whatever is needed when the player pleases the gods.  In this case, a random stat will be increased

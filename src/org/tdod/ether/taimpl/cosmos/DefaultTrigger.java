@@ -291,6 +291,11 @@ public class DefaultTrigger implements Trigger {
       }
 
       Trap trap = WorldManager.getTrap(getV2());
+      if (WorldManager.getGameMechanics().avoidedTrap(entity, trap)) {
+         entity.print(TaMessageManager.AVDTRP.getMessage());
+         return TriggerResult.NOTHING;
+      }
+
       entity.println("&R" + trap.getMessage());
 
       int damage = Dice.roll(trap.getMinDamage(), trap.getMaxDamage());

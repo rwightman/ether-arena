@@ -4,6 +4,7 @@ import junit.framework.Assert;
 
 import org.tdod.ether.output.MockOutput;
 import org.tdod.ether.ta.player.Player;
+import org.tdod.ether.ta.player.enums.PlayerClass;
 import org.tdod.ether.ta.player.enums.Rune;
 import org.tdod.ether.taimpl.commands.AbstractMovementCommand;
 import org.tdod.ether.taimpl.commands.DoEast;
@@ -94,6 +95,25 @@ public class WhiteRuneTests extends AbstractTestCase {
    public void testSpikedTrap() {
       testTrap(new DoSouthEast(), 19, 
             "&RA spiked trap catches your foot and pain shoots up your leg!");
+   }
+
+   @Test(groups = { "Trap", "White Rune" })
+   public void testRogueAvoidsTrap() {
+      MockOutput output = new MockOutput();
+      Player player = TestUtil.createDefaultPlayer(output);
+
+      player.setPlayerClass(PlayerClass.ROGUE);
+      player.setLevel(100);
+      player.getStats().getAgility().setValue(50);
+      player.getStats().getIntellect().setValue(50);
+
+      player.teleportToRoom(19);
+      output.clearBuffer();
+      new DoSouthEast().execute(player, "");
+
+      TestUtil.assertContains(output, "Your rogue abilities allowed you to detect and avoid a trap!");
+      TestUtil.assertDoesNotContains(output, "A spiked trap catches your foot");
+      Assert.assertEquals(player.getVitality().getMaxVitality(), player.getVitality().getCurVitality());
    }
    
    @Test(groups = { "Trap", "White Rune" })

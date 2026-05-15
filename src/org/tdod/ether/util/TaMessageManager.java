@@ -104,6 +104,8 @@ public enum TaMessageManager {
    CNTSIT("CNTSIT"),
    NOSITH("NOSITH"),
    NOSITM("NOSITM"),
+   AVDTRP("AVDTRP"),
+   GRPAVD("GRPAVD"),
    YOUTRP("YOUTRP"),
    OTHTRP("OTHTRP"),
    TOOFST("TOOFST"),

@@ -44,6 +44,7 @@ import org.tdod.ether.ta.combat.SpellResult;
 import org.tdod.ether.ta.combat.SpellResultEnum;
 import org.tdod.ether.ta.cosmos.Exit;
 import org.tdod.ether.ta.cosmos.Room;
+import org.tdod.ether.ta.cosmos.Trap;
 import org.tdod.ether.ta.cosmos.enums.DropItemFailCode;
 import org.tdod.ether.ta.cosmos.enums.MoveFailCode;
 import org.tdod.ether.ta.engine.GameMechanics;
@@ -181,6 +182,29 @@ public class DefaultGameMechanics implements GameMechanics {
       }
 
       return false;
+   }
+
+   /**
+    * Determines if an entity avoids a trap.
+    *
+    * @param entity the entity
+    * @param trap the trap
+    * @return true if the trap is avoided.
+    */
+   public boolean avoidedTrap(Entity entity, Trap trap) {
+      if (entity.getEntityType().equals(EntityType.MOB)) {
+         return false;
+      }
+      if (!entity.getPlayerClass().equals(PlayerClass.ROGUE)) {
+         return false;
+      }
+
+      int chance = entity.getLevel()
+         + entity.getStats().getAgility().getModifiedStat()
+         + entity.getStats().getIntellect().getModifiedStat()
+         - trap.getTrapType().getNumber();
+
+      return Dice.roll(1, Dice.MAX_PERCENTAGE) <= chance;
    }
 
    /**
