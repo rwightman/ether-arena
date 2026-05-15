@@ -711,11 +711,17 @@ public class DefaultMob implements Mob {
       }
 
       for (Entity entity : room.getMobs()) {
-         addHostile(potentialTargets, entity);
+         Mob mob = (Mob) entity;
+         if (isPlayerControlledMob(this) || isPlayerControlledMob(mob)) {
+            addHostile(potentialTargets, entity);
+         }
       }
 
       if (potentialTargets.size() == 0) {
          return null;
+      }
+      if (potentialTargets.size() == 1) {
+         return potentialTargets.get(0);
       }
 
       int index = Dice.roll(0, potentialTargets.size() - 1);
@@ -2036,6 +2042,22 @@ public class DefaultMob implements Mob {
       if (!isInGroup && !this.equals(entity)) {
          potentialTargets.add(entity);
       }
+   }
+
+   /**
+    * Checks whether this mob is attached to a player-controlled group.
+    *
+    * @param mob the mob to check.
+    *
+    * @return true if the mob is player controlled.
+    */
+   private boolean isPlayerControlledMob(Mob mob) {
+      if (mob.getTamedBy() != null) {
+         return true;
+      }
+
+      Entity leader = mob.getGroupLeader();
+      return leader != null && leader.getEntityType().equals(EntityType.PLAYER);
    }
 
    /**

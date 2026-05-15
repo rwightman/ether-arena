@@ -15,6 +15,7 @@ import org.tdod.ether.taimpl.mobs.enums.Terrain;
 import org.tdod.ether.taimpl.player.DefaultPlayer;
 import org.tdod.ether.taimpl.player.DefaultVitality;
 import org.tdod.ether.util.TestUtil;
+import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -131,6 +132,68 @@ public class DefaultMobTest extends AbstractTest {
       _mob.setGeneralAttack(null);
       _mob.setMessageHandler(new MobMessageHandler(_mob));
 
-}
+   }
+
+   @Test(groups = { "unit" })
+   public void testWildMobDoesNotTargetUnrelatedWildMob() {
+      DefaultRoom room = createInitializedRoom();
+      Mob attacker = new DefaultMob();
+      Mob bystander = new DefaultMob();
+
+      room.placeMob(attacker);
+      room.placeMob(bystander);
+
+      AssertJUnit.assertNull(attacker.findRandomHostileEntity(room));
+   }
+
+   @Test(groups = { "unit" })
+   public void testWildMobTargetsPlayerBeforeUnrelatedWildMob() {
+      DefaultRoom room = createInitializedRoom();
+      Player player = new DefaultPlayer();
+      Mob attacker = new DefaultMob();
+      Mob bystander = new DefaultMob();
+
+      room.addPlayer(player);
+      room.placeMob(attacker);
+      room.placeMob(bystander);
+
+      AssertJUnit.assertEquals(player, attacker.findRandomHostileEntity(room));
+   }
+
+   @Test(groups = { "unit" })
+   public void testWildMobTargetsPlayerControlledFollower() {
+      DefaultRoom room = createInitializedRoom();
+      Player player = new DefaultPlayer();
+      Mob attacker = new DefaultMob();
+      Mob follower = new DefaultMob();
+
+      player.getGroupList().add(follower);
+      follower.setGroupLeader(player);
+      room.placeMob(attacker);
+      room.placeMob(follower);
+
+      AssertJUnit.assertEquals(follower, attacker.findRandomHostileEntity(room));
+   }
+
+   @Test(groups = { "unit" })
+   public void testPlayerControlledMobTargetsWildMob() {
+      DefaultRoom room = createInitializedRoom();
+      Player player = new DefaultPlayer();
+      Mob follower = new DefaultMob();
+      Mob wildMob = new DefaultMob();
+
+      player.getGroupList().add(follower);
+      follower.setGroupLeader(player);
+      room.placeMob(follower);
+      room.placeMob(wildMob);
+
+      AssertJUnit.assertEquals(wildMob, follower.findRandomHostileEntity(room));
+   }
+
+   private DefaultRoom createInitializedRoom() {
+      DefaultRoom room = new DefaultRoom();
+      room.initialize();
+      return room;
+   }
 
 }
