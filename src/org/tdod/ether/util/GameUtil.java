@@ -132,7 +132,23 @@ public final class GameUtil {
       return EXIT_DIRECTIONS;
    }
 
-   
+   /**
+    * Detaches an entity from its group leader.
+    *
+    * @param entity the entity to detach.
+    */
+   public static void detachFromGroup(Entity entity) {
+      if (entity == null) {
+         return;
+      }
+
+      Entity leader = entity.getGroupLeader();
+      if (leader != null) {
+         leader.getGroupList().remove(entity);
+      }
+      entity.setGroupLeader(entity);
+   }
+
    /**
     * Gets the single instance of this class.
     * @return the single instance of this class.

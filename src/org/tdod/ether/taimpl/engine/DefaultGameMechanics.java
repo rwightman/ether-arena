@@ -465,7 +465,7 @@ public class DefaultGameMechanics implements GameMechanics {
          }
       }
 
-      mob.getGroupLeader().getGroupList().remove(mob);
+      GameUtil.detachFromGroup(mob);
       mob.getRoom().removeMob(mob);
       mob.destroy();
       mob = null;

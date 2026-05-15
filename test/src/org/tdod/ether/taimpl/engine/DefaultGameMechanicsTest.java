@@ -12,6 +12,7 @@ import org.tdod.ether.ta.mobs.Mob;
 import org.tdod.ether.ta.player.Player;
 import org.tdod.ether.ta.player.enums.PlayerClass;
 import org.tdod.ether.ta.player.enums.RaceEnum;
+import org.tdod.ether.taimpl.cosmos.DefaultRoom;
 import org.tdod.ether.taimpl.cosmos.DefaultTrap;
 import org.tdod.ether.taimpl.cosmos.enums.TrapType;
 import org.tdod.ether.taimpl.mobs.DefaultMob;
@@ -81,6 +82,29 @@ public class DefaultGameMechanicsTest {
       AssertJUnit.assertEquals(500, player.getGold());
       AssertJUnit.assertFalse(hasInventoryItem(player, SOULSTONE_VNUM));
       AssertJUnit.assertTrue(hasInventoryItem(player, RETAINED_ITEM_VNUM));
+   }
+
+   @Test(groups = { "unit" })
+   public void testHandleMobDeathToleratesNullGroupLeader() {
+      DefaultGameMechanics mechanics = createGameMechanics();
+      DefaultRoom room = createInitializedRoom();
+      Mob mob = createRoomMob(room);
+      mob.setGroupLeader(null);
+
+      mechanics.handleMobDeath(null, mob);
+
+      AssertJUnit.assertFalse(room.getMobs().contains(mob));
+   }
+
+   @Test(groups = { "unit" })
+   public void testRoomClearToleratesNullMobGroupLeader() {
+      DefaultRoom room = createInitializedRoom();
+      Mob mob = createRoomMob(room);
+      mob.setGroupLeader(null);
+
+      room.clear();
+
+      AssertJUnit.assertEquals(0, room.getMobs().size());
    }
 
    @Test(groups = { "unit" })
@@ -155,6 +179,20 @@ public class DefaultGameMechanicsTest {
       mob.getVitality().setMaxVitality(maxVitality);
       mob.setExperiencePool(experiencePool);
       mob.getSpecialAbility().setSpecialAbility(SpecialAbilityEnum.NONE);
+      return mob;
+   }
+
+   private DefaultRoom createInitializedRoom() {
+      DefaultRoom room = new DefaultRoom();
+      room.initialize();
+      return room;
+   }
+
+   private Mob createRoomMob(DefaultRoom room) {
+      Mob mob = new DefaultMob();
+      mob.setName("test mob");
+      mob.setRoom(room);
+      room.placeMob(mob);
       return mob;
    }
 

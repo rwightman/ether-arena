@@ -1115,7 +1115,7 @@ public class DefaultRoom implements Room {
       }
 
       for (Mob mob : purgedMobs) {
-         mob.getGroupLeader().getGroupList().remove(mob);
+         GameUtil.detachFromGroup(mob);
          mob.getRoom().removeMob(mob);
 
          ArrayList<Item> purgedItems = new ArrayList<Item>();
