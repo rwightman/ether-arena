@@ -40,6 +40,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Ron Kinney
  * @deprecated no longer used.
  */
+@Deprecated
 public enum BarrierType {
 
    /**

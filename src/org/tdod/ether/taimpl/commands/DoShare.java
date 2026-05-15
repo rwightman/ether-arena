@@ -57,7 +57,7 @@ public class DoShare extends Command {
    /**
     * Level required to issue the share command.
     */
-   private static final int LEVEL_TO_DROP_ITEMS = new Integer(
+   private static final int LEVEL_TO_DROP_ITEMS = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.LEVEL_TO_DROP_ITEMS)).intValue();
 
    /**
@@ -103,7 +103,7 @@ public class DoShare extends Command {
       int amountPerPlayer = 0;
       float shareAmount = 0;
       try {
-         shareAmount = new Float(split[1]);
+         shareAmount = Float.valueOf(split[1]);
          amountPerPlayer = (int) (shareAmount / playerCount);
       } catch (Exception e) {
          // TODO how does TA handle non-integer values. "share a", for example.

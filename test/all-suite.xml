@@ -1,10 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All tests suite" junit="false">
+<suite name="All tests suite">
   <test name="Regression1">
     <classes>
       <class name="org.tdod.ether.functional.FunctionalTestCase"/>
       <class name="org.tdod.ether.tools.ValidateAreaFiles"/>
-      <class name="org.tdod.ether.taimpl.mobs.DefaultGeneralAttack"/>
+      <class name="org.tdod.ether.taimpl.mobs.DefaultGeneralAttackTest"/>
       <class name="org.tdod.ether.taimpl.mobs.DefaultMobTest"/>
       <class name="org.tdod.ether.taimpl.mobs.DefaultMobDatabaseTest"/>
       <class name="org.tdod.ether.taimpl.engine.DefaultGameMechanicsTest"/>

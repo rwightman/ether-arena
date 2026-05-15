@@ -1,6 +1,6 @@
 package org.tdod.ether.taimpl.commands;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -33,10 +33,10 @@ public class DoShareTest extends AbstractCommandTest {
       getPlayer().getGroupList().add(getPlayerA());
 
       if (!getCommand().execute(getPlayer(), "share 100")) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
 
-      Assert.assertEquals(950, getPlayer().getGold());
-      Assert.assertEquals(50, getPlayerA().getGold());
+      AssertJUnit.assertEquals(950, getPlayer().getGold());
+      AssertJUnit.assertEquals(50, getPlayerA().getGold());
    }
 }

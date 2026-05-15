@@ -112,10 +112,10 @@ public class DefaultMobWeaponDatabase extends DataFileReader implements MobWeapo
       }
 
       mobWeapon.setName(majorSplit[0]);
-      mobWeapon.setMobWeaponType(MobWeaponType.getMobWeaponType(new Integer(statSplit[0]).intValue()));
-      mobWeapon.setV1(new Integer(statSplit[1]));
-      mobWeapon.setMinDamage(new Integer(statSplit[2]));
-      mobWeapon.setMaxDamage(new Integer(statSplit[3]));
+      mobWeapon.setMobWeaponType(MobWeaponType.getMobWeaponType(Integer.valueOf(statSplit[0]).intValue()));
+      mobWeapon.setV1(Integer.valueOf(statSplit[1]));
+      mobWeapon.setMinDamage(Integer.valueOf(statSplit[2]));
+      mobWeapon.setMaxDamage(Integer.valueOf(statSplit[3]));
 
       ArrayList<MobWeapon> weaponList = _map.get(mobWeapon.getMobWeaponType());
       if (weaponList == null) {

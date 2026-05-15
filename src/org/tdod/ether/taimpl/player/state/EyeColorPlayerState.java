@@ -42,7 +42,7 @@ public class EyeColorPlayerState implements PlayerState {
       // Message already displayed.  Attempt to process input.
       String invalidMessage = MessageFormat.format(TaMessageManager.INVALID.getMessage(), EyeColor.values().length - 1);
       try {         
-         Integer intValue = new Integer(input);
+         Integer intValue = Integer.valueOf(input);
          EyeColor eyeColor = EyeColor.getEyeColor(intValue);
          if (eyeColor.equals(EyeColor.INVALID)) {
             // Invalid input.  Stay in the same state.

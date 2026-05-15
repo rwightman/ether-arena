@@ -51,7 +51,7 @@ public class MobActivityJob implements Job {
 
    private static Log _log = LogFactory.getLog(MobActivityJob.class);
 
-   private static final int TIMER_WAKEUP = new Integer(
+   private static final int TIMER_WAKEUP = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.MOB_ACTIVITY_TIMER_WAKEUP)).intValue();
 
    /**

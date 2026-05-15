@@ -192,7 +192,7 @@ class InputStreamGobbler extends Thread {
                _shellIo.write(BasicTerminalIO.CRLF);
                cursor = 0;
                lines.add(inputBuffer.toString());               
-               PlayerInputManager.postPlayerInputEvent(PlayerInputEventId.General, _connection.getId(), inputBuffer.toString()) ;
+               PlayerInputManager.postPlayerInputEvent(PlayerInputEventId.General, _connection.threadId(), inputBuffer.toString()) ;
                lineNumber = lines.size() - 1;
                inputBuffer.setLength(0);
                break;

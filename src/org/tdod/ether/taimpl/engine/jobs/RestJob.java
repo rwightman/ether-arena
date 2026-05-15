@@ -53,7 +53,7 @@ public class RestJob implements Job {
    private static Log _log = LogFactory.getLog(RestJob.class);
 
    // Decrease timer to update more often.  May impact performance though.
-   private static final int TIMER_WAKEUP = new Integer(
+   private static final int TIMER_WAKEUP = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.REST_TIMER_WAKEUP)).intValue();
 
    /**

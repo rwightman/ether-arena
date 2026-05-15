@@ -120,7 +120,7 @@ public class DefaultWeaponDatabase extends DataFileReader implements WeaponDatab
     * @return the default weapon.
     */
    public Weapon getDefaultWeapon() {
-      int index = new Integer(PropertiesManager.getInstance().getProperty(PropertiesManager.DEFAULT_WEAPON));
+      int index = Integer.valueOf(PropertiesManager.getInstance().getProperty(PropertiesManager.DEFAULT_WEAPON));
       return _weaponList.get(index);
    }
 
@@ -181,24 +181,24 @@ public class DefaultWeaponDatabase extends DataFileReader implements WeaponDatab
       weapon.setLongDescription(majorSplit[2]);
       weapon.setMagicAttackMessage(majorSplit[4]);
 
-      weapon.setCost(new Integer(statSplit[0]));
-      weapon.setWeight(new Integer(statSplit[1]));
-      weapon.setRange(new Integer(statSplit[2]));
-      weapon.setMinDamage(new Integer(statSplit[3]));
-      weapon.setMaxDamage(new Integer(statSplit[4]));
-      weapon.setType(new Integer(statSplit[5]));
-      weapon.setAmmoVnum(new Integer(statSplit[6]));
-      weapon.setArmorRating(new Integer(statSplit[7]));
-      weapon.setSpecFunction(SpecialWeaponFunction.getSpecialWeaponFunction(new Integer(statSplit[8])));
-      weapon.setLevel(new Integer(statSplit[14]));
-      weapon.setTown(Town.getTown(new Integer(statSplit[15])));
+      weapon.setCost(Integer.valueOf(statSplit[0]));
+      weapon.setWeight(Integer.valueOf(statSplit[1]));
+      weapon.setRange(Integer.valueOf(statSplit[2]));
+      weapon.setMinDamage(Integer.valueOf(statSplit[3]));
+      weapon.setMaxDamage(Integer.valueOf(statSplit[4]));
+      weapon.setType(Integer.valueOf(statSplit[5]));
+      weapon.setAmmoVnum(Integer.valueOf(statSplit[6]));
+      weapon.setArmorRating(Integer.valueOf(statSplit[7]));
+      weapon.setSpecFunction(SpecialWeaponFunction.getSpecialWeaponFunction(Integer.valueOf(statSplit[8])));
+      weapon.setLevel(Integer.valueOf(statSplit[14]));
+      weapon.setTown(Town.getTown(Integer.valueOf(statSplit[15])));
 
-      weapon.setV9(new Integer(statSplit[9]));
-      weapon.setV10(new Integer(statSplit[10]));
-      weapon.setV11(new Integer(statSplit[11]));
-      weapon.setV12(new Integer(statSplit[12]));
-      weapon.setV13(new Integer(statSplit[13]));
-      weapon.setAllowableClasses(new Integer(statSplit[16]));
+      weapon.setV9(Integer.valueOf(statSplit[9]));
+      weapon.setV10(Integer.valueOf(statSplit[10]));
+      weapon.setV11(Integer.valueOf(statSplit[11]));
+      weapon.setV12(Integer.valueOf(statSplit[12]));
+      weapon.setV13(Integer.valueOf(statSplit[13]));
+      weapon.setAllowableClasses(Integer.valueOf(statSplit[16]));
 
       _weaponList.put(weapon.getVnum(), weapon);
    }

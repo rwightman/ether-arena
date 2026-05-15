@@ -53,8 +53,8 @@ public class PromptPasswordState implements PlayerState {
             connectedPlayer.setOutput(stateContext.getOutput());
             stateContext.getPlayerConnection().setPlayer(connectedPlayer);
          }
-         stateContext.getPlayerConnection().getShell().setHideInput(false);         
-         GameUtil.enterWorld(stateContext);                     
+         stateContext.getPlayerConnection().getShell().setHideInput(false);
+         GameUtil.enterWorld(stateContext);
       } else {
          stateContext.getOutput().print("\n" + MessageManager.WRONG_PASSWORD.getMessage());
          stateContext.getPlayerConnection().getPlayer().setDisconnected(true) ;
@@ -65,14 +65,14 @@ public class PromptPasswordState implements PlayerState {
    private PlayerConnection getConnectedPlayer(PlayerConnection originalConnection) {
       String name = originalConnection.getPlayer().getName();
       for (PlayerConnection conn:WorldManager.getPlayers()) {
-         if (conn.getPlayer().getName() != null 
+         if (conn.getPlayer().getName() != null
              && conn.getPlayer().getName().equals(name)
-             && conn.getShell().getConnection().getId() != originalConnection.getShell().getConnection().getId()) {            
+             && conn.getShell().getConnection().threadId() != originalConnection.getShell().getConnection().threadId()) {
             return conn;
          }
       }
       return null;
    }
-   
+
 
 }

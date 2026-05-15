@@ -2,7 +2,7 @@ package org.tdod.ether.taimpl.cosmos;
 
 import java.util.Set;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.AbstractTest;
 import org.tdod.ether.ta.cosmos.Area;
@@ -24,7 +24,7 @@ public class DefaultRoomDatabaseTest extends AbstractTest {
       try {
          _roomDatabase.initialize();         
       } catch (InvalidFileException e) {
-         Assert.fail("Error reading file.  Message was " + e.getMessage());
+         AssertJUnit.fail("Error reading file.  Message was " + e.getMessage());
       }
    }
 
@@ -39,7 +39,7 @@ public class DefaultRoomDatabaseTest extends AbstractTest {
          Room room1 = area.getEntry(key);
          Room room2 = area.getRoomMap().get(key);
          if (!room1.equals(room2)) {
-            Assert.fail("Room1 does not equal room2.");
+            AssertJUnit.fail("Room1 does not equal room2.");
          }
       }
    }

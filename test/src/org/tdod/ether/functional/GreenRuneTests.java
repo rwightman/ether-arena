@@ -2,7 +2,7 @@ package org.tdod.ether.functional;
 
 import java.text.MessageFormat;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.output.MockOutput;
 import org.tdod.ether.ta.commands.Command;
@@ -375,7 +375,7 @@ public class GreenRuneTests extends AbstractTestCase {
       testFinalRunestaff(playerOutput, player, expectedPlayerCompletedOutput, expectedRoomCompletedOutput);
       
       if (startingRune.getIndex() <= Rune.GREEN.getIndex() && !player.getRune().equals(Rune.GREEN)) {
-         Assert.fail("Player should have the green rune, but has " + player.getRune());
+         AssertJUnit.fail("Player should have the green rune, but has " + player.getRune());
       }
    }
 
@@ -395,7 +395,7 @@ public class GreenRuneTests extends AbstractTestCase {
 
       Item runestaff = getRunestaff(player);
       if (runestaff == null) {
-         Assert.fail(slayString + " did not drop item # " + RUNESTAFF_VNUM);
+         AssertJUnit.fail(slayString + " did not drop item # " + RUNESTAFF_VNUM);
          return;
       }
       

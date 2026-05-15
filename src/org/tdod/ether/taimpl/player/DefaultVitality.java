@@ -147,19 +147,19 @@ public class DefaultVitality implements Vitality {
 
       float percent = getVitalityPercent();
 
-      if (percent >= new Integer(PropertiesManager.getInstance().getProperty(
+      if (percent >= Integer.valueOf(PropertiesManager.getInstance().getProperty(
             PropertiesManager.HEALTH_MSG_1_PERCENT)).intValue()) {
          preFormat = TaMessageManager.HMSG5.getMessage();
-      } else if (percent >= new Integer(PropertiesManager.getInstance().getProperty(
+      } else if (percent >= Integer.valueOf(PropertiesManager.getInstance().getProperty(
             PropertiesManager.HEALTH_MSG_2_PERCENT)).intValue()) {
          preFormat = TaMessageManager.HMSG4.getMessage();
-      } else if (percent >= new Integer(PropertiesManager.getInstance().getProperty(
+      } else if (percent >= Integer.valueOf(PropertiesManager.getInstance().getProperty(
             PropertiesManager.HEALTH_MSG_3_PERCENT)).intValue()) {
          preFormat = TaMessageManager.HMSG3.getMessage();
-      } else if (percent >= new Integer(PropertiesManager.getInstance().getProperty(
+      } else if (percent >= Integer.valueOf(PropertiesManager.getInstance().getProperty(
             PropertiesManager.HEALTH_MSG_4_PERCENT)).intValue()) {
          preFormat = TaMessageManager.HMSG2.getMessage();
-      } else if (percent >= new Integer(PropertiesManager.getInstance().getProperty(
+      } else if (percent >= Integer.valueOf(PropertiesManager.getInstance().getProperty(
             PropertiesManager.HEALTH_MSG_5_PERCENT)).intValue()) {
          preFormat = TaMessageManager.HMSG1.getMessage();
       }
@@ -179,19 +179,19 @@ public class DefaultVitality implements Vitality {
 
       float percent = ((float) _curVitality / (float) getMaxVitality()) * 100;
 
-      if (percent >= new Integer(PropertiesManager.getInstance().getProperty(
+      if (percent >= Integer.valueOf(PropertiesManager.getInstance().getProperty(
             PropertiesManager.HEALTH_MSG_1_PERCENT)).intValue()) {
          preFormat = TaMessageManager.MMSG5.getMessage();
-      } else if (percent >= new Integer(PropertiesManager.getInstance().getProperty(
+      } else if (percent >= Integer.valueOf(PropertiesManager.getInstance().getProperty(
             PropertiesManager.HEALTH_MSG_2_PERCENT)).intValue()) {
          preFormat = TaMessageManager.MMSG4.getMessage();
-      } else if (percent >= new Integer(PropertiesManager.getInstance().getProperty(
+      } else if (percent >= Integer.valueOf(PropertiesManager.getInstance().getProperty(
             PropertiesManager.HEALTH_MSG_3_PERCENT)).intValue()) {
          preFormat = TaMessageManager.MMSG3.getMessage();
-      } else if (percent >= new Integer(PropertiesManager.getInstance().getProperty(
+      } else if (percent >= Integer.valueOf(PropertiesManager.getInstance().getProperty(
             PropertiesManager.HEALTH_MSG_4_PERCENT)).intValue()) {
          preFormat = TaMessageManager.MMSG2.getMessage();
-      } else if (percent >= new Integer(PropertiesManager.getInstance().getProperty(
+      } else if (percent >= Integer.valueOf(PropertiesManager.getInstance().getProperty(
             PropertiesManager.HEALTH_MSG_5_PERCENT)).intValue()) {
          preFormat = TaMessageManager.MMSG1.getMessage();
       }

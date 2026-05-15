@@ -51,13 +51,13 @@ public class DoReroll extends Command {
     * Minimum level that the player can perform the reroll command.
     */
    private static final int MIN_REROLL_LEVEL =
-      new Integer(PropertiesManager.getInstance().getProperty(PropertiesManager.MIN_REROLL_LEVEL)).intValue();
+      Integer.valueOf(PropertiesManager.getInstance().getProperty(PropertiesManager.MIN_REROLL_LEVEL)).intValue();
 
    /**
     * The room that the player is teleported to when the reroll command is issued.
     */
    private static final int REROLL_ROOM_NUMBER =
-      new Integer(PropertiesManager.getInstance().getProperty(PropertiesManager.STARTING_ROOM)).intValue();
+      Integer.valueOf(PropertiesManager.getInstance().getProperty(PropertiesManager.STARTING_ROOM)).intValue();
 
    /**
     * Executes the "reroll" command.

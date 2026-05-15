@@ -1,6 +1,6 @@
 package org.tdod.ether.taimpl.player;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.testng.annotations.Test;
 
@@ -14,7 +14,7 @@ public class DefaultManaTest {
 
       mana.addCurMana(5);
 
-      Assert.assertEquals(10, mana.getCurMana());
+      AssertJUnit.assertEquals(10, mana.getCurMana());
    }
 
    @Test(groups = { "unit" })
@@ -25,6 +25,6 @@ public class DefaultManaTest {
 
       mana.addCurMana(1);
 
-      Assert.assertEquals(20, mana.getCurMana());
+      AssertJUnit.assertEquals(20, mana.getCurMana());
    }
 }

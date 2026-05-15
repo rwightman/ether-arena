@@ -2,7 +2,7 @@ package org.tdod.ether.taimpl.commands;
 
 import java.text.MessageFormat;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.util.TaMessageManager;
 import org.tdod.ether.util.TestUtil;
@@ -57,7 +57,7 @@ public class DoAppointTest extends AbstractCommandTest {
       TestUtil.assertOutput(getPlayerBOutput(), expectedOutput);
 
       if (!getPlayer().getGroupLeader().equals(getPlayerA())) {
-         Assert.fail("Group leader is " + getPlayer().getGroupLeader());
+         AssertJUnit.fail("Group leader is " + getPlayer().getGroupLeader());
       }
    }
 }

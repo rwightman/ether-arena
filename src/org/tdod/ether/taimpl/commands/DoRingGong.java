@@ -68,13 +68,13 @@ public class DoRingGong extends Command {
     * Combat rest period.
     */
    private static final int COMBAT_TICKER =
-      new Integer(PropertiesManager.getInstance().getProperty(PropertiesManager.RING_GONG_COMBAT_TIME));
+      Integer.valueOf(PropertiesManager.getInstance().getProperty(PropertiesManager.RING_GONG_COMBAT_TIME));
 
    /**
     * Rest ticker.
     */
    private static final int REST_TICKER =
-      new Integer(PropertiesManager.getInstance().getProperty(PropertiesManager.RING_GONG_REST_TIME));
+      Integer.valueOf(PropertiesManager.getInstance().getProperty(PropertiesManager.RING_GONG_REST_TIME));
 
    /**
     * Executes the "ring gong" command.

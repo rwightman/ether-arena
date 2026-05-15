@@ -119,9 +119,9 @@ public class DefaultPlayer implements Player, Serializable {
          PropertiesManager.getInstance().getProperty(PropertiesManager.MAX_TRAILING_LEVEL));
    private static final int PLAYER_SPELL_HIT_DIFFICULTY = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.PLAYER_SPELL_HIT_DIFFICULTY)).intValue();
-   private static final int MAX_THIRST = new Integer(
+   private static final int MAX_THIRST = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.MAX_HUNGER)).intValue();
-   private static final int MAX_HUNGER = new Integer(
+   private static final int MAX_HUNGER = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.MAX_HUNGER)).intValue();
 
    private boolean         _isSysop;
@@ -1514,7 +1514,7 @@ public class DefaultPlayer implements Player, Serializable {
          return handleRunestaff((RuneScroll) item);
       }
 
-      int maxInventorySize = new Integer(PropertiesManager.getInstance().getProperty(PropertiesManager.MAX_INVENTORY_SIZE));
+      int maxInventorySize = Integer.valueOf(PropertiesManager.getInstance().getProperty(PropertiesManager.MAX_INVENTORY_SIZE));
       if (_inventory.size() >= maxInventorySize) {
          return InventoryFailCode.SPACE;
       }

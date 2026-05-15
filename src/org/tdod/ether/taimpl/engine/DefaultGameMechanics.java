@@ -684,7 +684,7 @@ public class DefaultGameMechanics implements GameMechanics {
       // Slider to adjust exp gained.  Lower = less exp.  Higher = more exp.  This should be a number greater than 0 and
       // less than 2 (ie, .66, 1, 1.2, etc)
       String floatString = PropertiesManager.getInstance().getProperty(PropertiesManager.EXP_GAIN_VARIANCE);
-      float expBaseScale = new Float(floatString).floatValue();
+      float expBaseScale = Float.valueOf(floatString).floatValue();
 
       if (levelDifference == -1) {
 //         expBase = 1.125f;

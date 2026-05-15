@@ -160,21 +160,21 @@ public class DefaultSpellDatabase extends DataFileReader implements SpellDatabas
       spell.setName(majorSplit[0]);
       spell.setMessage(majorSplit[1]);
 
-      spell.setSpellType(SpellType.getSpellType(new Integer(statSplit[0])));
-      spell.setMana(new Integer(statSplit[1]));
-      spell.setMinSpellEffect(new Integer(statSplit[2]));
-      spell.setMaxSpellEffect(new Integer(statSplit[3]));
-      spell.setScalesWithLevel(new Integer(statSplit[4]));
-      spell.setCost(new Integer(statSplit[5]));
-      spell.setSpellTarget(SpellTarget.getSpellTarget(new Integer(statSplit[6])));
-      spell.setArmorModifier(new Integer(statSplit[7]));
-      spell.setCureCondition(CureCondition.getCureCondition(new Integer(statSplit[8])));
-      spell.setPoisonTarget(PoisonTarget.getPoisonTarget(new Integer(statSplit[9])));
-      spell.setManaEffect(ManaEffect.getManaEffect(new Integer(statSplit[10])));
-      spell.setStatPenalty(StatModifier.getStatModifier(new Integer(statSplit[11])));
-      spell.setStatBonus(StatModifier.getStatModifier(new Integer(statSplit[12])));
-      spell.setMiscTargetEffect(MiscTargetEffect.getMiscTargetEffect(new Integer(statSplit[13])));
-      spell.setMiscTargetEffect2(MiscTargetEffect2.getMiscTargetEffect2(new Integer(statSplit[14])));
+      spell.setSpellType(SpellType.getSpellType(Integer.valueOf(statSplit[0])));
+      spell.setMana(Integer.valueOf(statSplit[1]));
+      spell.setMinSpellEffect(Integer.valueOf(statSplit[2]));
+      spell.setMaxSpellEffect(Integer.valueOf(statSplit[3]));
+      spell.setScalesWithLevel(Integer.valueOf(statSplit[4]));
+      spell.setCost(Integer.valueOf(statSplit[5]));
+      spell.setSpellTarget(SpellTarget.getSpellTarget(Integer.valueOf(statSplit[6])));
+      spell.setArmorModifier(Integer.valueOf(statSplit[7]));
+      spell.setCureCondition(CureCondition.getCureCondition(Integer.valueOf(statSplit[8])));
+      spell.setPoisonTarget(PoisonTarget.getPoisonTarget(Integer.valueOf(statSplit[9])));
+      spell.setManaEffect(ManaEffect.getManaEffect(Integer.valueOf(statSplit[10])));
+      spell.setStatPenalty(StatModifier.getStatModifier(Integer.valueOf(statSplit[11])));
+      spell.setStatBonus(StatModifier.getStatModifier(Integer.valueOf(statSplit[12])));
+      spell.setMiscTargetEffect(MiscTargetEffect.getMiscTargetEffect(Integer.valueOf(statSplit[13])));
+      spell.setMiscTargetEffect2(MiscTargetEffect2.getMiscTargetEffect2(Integer.valueOf(statSplit[14])));
 
       _spellList.add(spell);
       _spellMap.put(spell.getName(), spell);

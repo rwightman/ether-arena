@@ -48,7 +48,7 @@ import org.tdod.ether.util.TaMessageManager;
  */
 public final class HandleDrinkPotion {
 
-   private static final int TIMER_WAKEUP = new Integer(
+   private static final int TIMER_WAKEUP = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.SLOW_STATUS_TIMER_WAKEUP)).intValue();
 
    /**

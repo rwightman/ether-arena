@@ -48,7 +48,7 @@ public class ChooseClassState implements PlayerState {
       // Message already displayed.  Attempt to process input.   
       String invalidMessage = MessageFormat.format(TaMessageManager.INVALID.getMessage(), PlayerClass.values().length - 1);
       try {         
-         Integer intValue = new Integer(input);
+         Integer intValue = Integer.valueOf(input);
          PlayerClass playerClass = PlayerClass.getPlayerClass(intValue);
          if (playerClass.equals(PlayerClass.INVALID)) {
             // Invalid input.  Stay in the same state.

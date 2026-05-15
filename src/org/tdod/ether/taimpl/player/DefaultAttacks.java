@@ -50,7 +50,7 @@ public class DefaultAttacks implements Attacks {
     * The default number of attacks the player has.
     */
    private static final int STARTING_ATTACKS
-      = new Integer(PropertiesManager.getInstance().getProperty(PropertiesManager.STARTING_NUM_OF_ATTACKS)).intValue();
+      = Integer.valueOf(PropertiesManager.getInstance().getProperty(PropertiesManager.STARTING_NUM_OF_ATTACKS)).intValue();
 
    private int      _attacksLeft;
 

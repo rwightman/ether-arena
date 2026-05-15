@@ -1,6 +1,6 @@
 package org.tdod.ether.util;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,17 +31,17 @@ import org.tdod.ether.taimpl.player.DefaultStamina;
 public class TestUtil {
 
    private static Boolean _isWorldInitialized = Boolean.FALSE;
-   
+
    private static Log _log = LogFactory.getLog(TestUtil.class);
 
    public static final int NORTH_PLAZA_ROOM = -99;
 
    public static final int MIN_INT_TEST = -1000;
    public static final int MAX_INT_TEST = 1000;
-   
+
    public static Player createDefaultPlayer(GameOutput output) {
       Player player = new DefaultPlayer();
-      
+
       player.setIgnoreTrip(true);
       player.setName("Minex");
       player.setLevel(20);
@@ -87,32 +87,32 @@ public class TestUtil {
 
       return player;
    }
-   
+
    public static void assertDoesNotContains(MockOutput output, String string) {
       if (output.getBuffer().contains(string)) {
-         Assert.fail("Output contained the string : " + string);         
+         AssertJUnit.fail("Output contained the string : " + string);
       }
       output.clearBuffer();
 
    }
 
-   
+
    public static void assertContains(MockOutput output, String expectedString) {
       if (!output.getBuffer().contains(expectedString)) {
-         Assert.fail("Output did not contain : " + expectedString);
+         AssertJUnit.fail("Output did not contain : " + expectedString);
       }
       output.clearBuffer();
    }
-   
+
    public static void assertOutput(MockOutput output, String expectedString) {
       if (!output.getBuffer().equals(expectedString)) {
          _log.error("Expected: " + expectedString);
-         _log.error("Got: " + output.getBuffer());            
-         Assert.fail("Expected output did not match.");
+         _log.error("Got: " + output.getBuffer());
+         AssertJUnit.fail("Expected output did not match.");
       }
       output.clearBuffer();
    }
-   
+
    public synchronized static void initializeWorld() {
       if (!_isWorldInitialized) {
          try {
@@ -124,11 +124,11 @@ public class TestUtil {
             _isWorldInitialized = Boolean.TRUE;
          } catch (Exception e) {
             e.printStackTrace();
-            Assert.fail(e.getMessage());
-         }                     
+            AssertJUnit.fail(e.getMessage());
+         }
       }
    }
-   
+
    public static void reset(Player player) {
       player.setIsSysop(true);
       new DoReset().execute(player, "");

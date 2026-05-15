@@ -49,7 +49,7 @@ import org.tdod.ether.util.PropertiesManager;
 public class PopulateMobJob implements Job {
 
    private static Log _log = LogFactory.getLog(PopulateMobJob.class);
-   private static final int TIMER_WAKEUP = new Integer(
+   private static final int TIMER_WAKEUP = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.RANDOM_MOB_REPOP_TIMER_WAKEUP)).intValue();
 
    /**

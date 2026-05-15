@@ -190,23 +190,23 @@ public class DefaultEquipmentDatabase extends DataFileReader implements Equipmen
       equipment.setLongDescription(majorSplit[2]);
       equipment.setMessage(majorSplit[4]);
 
-      equipment.setCost(new Integer(statSplit[0]));
-      equipment.setWeight(new Integer(statSplit[1]));
-      equipment.setV2(new Integer(statSplit[2]));
-      equipment.setMinEquipmentEffect(new Integer(statSplit[3]));
-      equipment.setMaxEquipmentEffect(new Integer(statSplit[4]));
-      equipment.setEquipmentType(EquipmentType.getEquipmentType(new Integer(statSplit[5])));
-      equipment.setV6(new Integer(statSplit[6]));
-      equipment.setCharges(new Integer(statSplit[7]));
-      equipment.setEquipmentSubType(EquipmentSubType.getEquipmentSubType(new Integer(statSplit[8])));
-      equipment.setRange(new Integer(statSplit[9]));
-      equipment.setV10(new Integer(statSplit[10]));
-      equipment.setQuestStat(new Integer(statSplit[11]));
-      equipment.setV12(new Integer(statSplit[12]));
-      equipment.setV13(new Integer(statSplit[13]));
-      equipment.setLevel(new Integer(statSplit[14]));
-      equipment.setTown(Town.getTown(new Integer(statSplit[15])));
-      equipment.setAllowableClasses(new Integer(statSplit[16]));
+      equipment.setCost(Integer.valueOf(statSplit[0]));
+      equipment.setWeight(Integer.valueOf(statSplit[1]));
+      equipment.setV2(Integer.valueOf(statSplit[2]));
+      equipment.setMinEquipmentEffect(Integer.valueOf(statSplit[3]));
+      equipment.setMaxEquipmentEffect(Integer.valueOf(statSplit[4]));
+      equipment.setEquipmentType(EquipmentType.getEquipmentType(Integer.valueOf(statSplit[5])));
+      equipment.setV6(Integer.valueOf(statSplit[6]));
+      equipment.setCharges(Integer.valueOf(statSplit[7]));
+      equipment.setEquipmentSubType(EquipmentSubType.getEquipmentSubType(Integer.valueOf(statSplit[8])));
+      equipment.setRange(Integer.valueOf(statSplit[9]));
+      equipment.setV10(Integer.valueOf(statSplit[10]));
+      equipment.setQuestStat(Integer.valueOf(statSplit[11]));
+      equipment.setV12(Integer.valueOf(statSplit[12]));
+      equipment.setV13(Integer.valueOf(statSplit[13]));
+      equipment.setLevel(Integer.valueOf(statSplit[14]));
+      equipment.setTown(Town.getTown(Integer.valueOf(statSplit[15])));
+      equipment.setAllowableClasses(Integer.valueOf(statSplit[16]));
 
       _equipmentList.put(equipment.getVnum(), equipment);
    }

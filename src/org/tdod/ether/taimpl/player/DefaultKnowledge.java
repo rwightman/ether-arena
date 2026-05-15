@@ -85,13 +85,13 @@ public class DefaultKnowledge extends AbstractStat implements Knowledge {
     * @return the look description.
     */
    public String getDescription() {
-      if (getModifiedStat() <= new Integer(PropertiesManager.getInstance()
+      if (getModifiedStat() <= Integer.valueOf(PropertiesManager.getInstance()
             .getProperty(PropertiesManager.KNO_MSG_3_LIMIT)).intValue()) {
          return TaMessageManager.KMSG2.getMessage();
-      } else if (getModifiedStat() <= new Integer(PropertiesManager.getInstance()
+      } else if (getModifiedStat() <= Integer.valueOf(PropertiesManager.getInstance()
             .getProperty(PropertiesManager.KNO_MSG_2_LIMIT)).intValue()) {
          return MessageManager.KMSG3.getMessage();
-      } else if (getModifiedStat() <= new Integer(PropertiesManager.getInstance()
+      } else if (getModifiedStat() <= Integer.valueOf(PropertiesManager.getInstance()
             .getProperty(PropertiesManager.KNO_MSG_1_LIMIT)).intValue()) {
          return TaMessageManager.KMSG1.getMessage();
       }

@@ -118,7 +118,7 @@ public class DefaultArmorDatabase extends DataFileReader implements ArmorDatabas
     * @return the default armor.
     */
    public Armor getDefaultArmor() {
-      int index = new Integer(PropertiesManager.getInstance().getProperty(PropertiesManager.DEFAULT_ARMOR));
+      int index = Integer.valueOf(PropertiesManager.getInstance().getProperty(PropertiesManager.DEFAULT_ARMOR));
       return _armorList.get(index);
    }
 
@@ -179,24 +179,24 @@ public class DefaultArmorDatabase extends DataFileReader implements ArmorDatabas
       armor.setName(majorSplit[1]);
       armor.setLongDescription(majorSplit[2]);
 
-      armor.setCost(new Integer(statSplit[0]));
-      armor.setWeight(new Integer(statSplit[1]));
-      armor.setType(new Integer(statSplit[5]));
-      armor.setArmorRating(new Integer(statSplit[6]));
-      armor.setLevel(new Integer(statSplit[14]));
-      armor.setTown(Town.getTown(new Integer(statSplit[15])));
+      armor.setCost(Integer.valueOf(statSplit[0]));
+      armor.setWeight(Integer.valueOf(statSplit[1]));
+      armor.setType(Integer.valueOf(statSplit[5]));
+      armor.setArmorRating(Integer.valueOf(statSplit[6]));
+      armor.setLevel(Integer.valueOf(statSplit[14]));
+      armor.setTown(Town.getTown(Integer.valueOf(statSplit[15])));
 
-      armor.setV2(new Integer(statSplit[2]));
-      armor.setV3(new Integer(statSplit[3]));
-      armor.setV4(new Integer(statSplit[4]));
-      armor.setV7(new Integer(statSplit[7]));
-      armor.setV8(new Integer(statSplit[8]));
-      armor.setV9(new Integer(statSplit[9]));
-      armor.setV10(new Integer(statSplit[10]));
-      armor.setV11(new Integer(statSplit[11]));
-      armor.setV12(new Integer(statSplit[12]));
-      armor.setV13(new Integer(statSplit[13]));
-      armor.setAllowableClasses(new Integer(statSplit[16]));
+      armor.setV2(Integer.valueOf(statSplit[2]));
+      armor.setV3(Integer.valueOf(statSplit[3]));
+      armor.setV4(Integer.valueOf(statSplit[4]));
+      armor.setV7(Integer.valueOf(statSplit[7]));
+      armor.setV8(Integer.valueOf(statSplit[8]));
+      armor.setV9(Integer.valueOf(statSplit[9]));
+      armor.setV10(Integer.valueOf(statSplit[10]));
+      armor.setV11(Integer.valueOf(statSplit[11]));
+      armor.setV12(Integer.valueOf(statSplit[12]));
+      armor.setV13(Integer.valueOf(statSplit[13]));
+      armor.setAllowableClasses(Integer.valueOf(statSplit[16]));
 
       _armorList.put(armor.getVnum(), armor);
    }

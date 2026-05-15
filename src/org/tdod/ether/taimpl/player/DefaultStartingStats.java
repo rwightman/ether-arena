@@ -170,7 +170,7 @@ public class DefaultStartingStats implements StartingStats {
          return;
       }
       String[] statSplit = line.split(" ", 7);
-      _minVitality = new Integer(statSplit[6]);
+      _minVitality = Integer.valueOf(statSplit[6]);
       assignBaseStats(_minBaseStats, statSplit);
 
    }
@@ -185,7 +185,7 @@ public class DefaultStartingStats implements StartingStats {
          return;
       }
       String[] statSplit = line.split(" ", 7);
-      _maxVitality = new Integer(statSplit[6]);
+      _maxVitality = Integer.valueOf(statSplit[6]);
       assignBaseStats(_maxBaseStats, statSplit);
    }
 
@@ -195,12 +195,12 @@ public class DefaultStartingStats implements StartingStats {
     * @param statSplit the array of string stats.
     */
    private void assignBaseStats(BaseStats baseStats, String[] statSplit) {
-      baseStats.getIntellect().setValue(new Integer(statSplit[0]));
-      baseStats.getKnowledge().setValue(new Integer(statSplit[1]));
-      baseStats.getPhysique().setValue(new Integer(statSplit[2]));
-      baseStats.getStamina().setValue(new Integer(statSplit[3]));
-      baseStats.getAgility().setValue(new Integer(statSplit[4]));
-      baseStats.getCharisma().setValue(new Integer(statSplit[5]));
+      baseStats.getIntellect().setValue(Integer.valueOf(statSplit[0]));
+      baseStats.getKnowledge().setValue(Integer.valueOf(statSplit[1]));
+      baseStats.getPhysique().setValue(Integer.valueOf(statSplit[2]));
+      baseStats.getStamina().setValue(Integer.valueOf(statSplit[3]));
+      baseStats.getAgility().setValue(Integer.valueOf(statSplit[4]));
+      baseStats.getCharisma().setValue(Integer.valueOf(statSplit[5]));
 
    }
 }

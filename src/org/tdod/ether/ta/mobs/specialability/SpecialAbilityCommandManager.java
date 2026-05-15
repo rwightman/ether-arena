@@ -128,7 +128,7 @@ public final class SpecialAbilityCommandManager {
          Class<? extends SpecialAbilityCommand> specialAbilityCommandClass = Class.forName(split[1]).asSubclass(SpecialAbilityCommand.class);
          
          _specialAbilityCommands.put(SpecialAbilityEnum.getSpecialAbilityEnum(
-               new Integer(split[0])), specialAbilityCommandClass.newInstance());
+               Integer.valueOf(split[0])), specialAbilityCommandClass.getDeclaredConstructor().newInstance());
       } catch (Exception ex) {
          _log.fatal(ex, ex);
          System.exit(1);

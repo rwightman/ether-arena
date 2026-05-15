@@ -2,7 +2,7 @@ package org.tdod.ether.taimpl.commands;
 
 import java.text.MessageFormat;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.util.TaMessageManager;
 import org.tdod.ether.util.TestUtil;
@@ -34,11 +34,11 @@ public class DoConferTest extends AbstractCommandTest {
       getPlayer().getGroupList().add(getPlayerA());
       
       if (getCommand().execute(getPlayer(), "confer")) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
       
       if (!getCommand().execute(getPlayer(), "confer hello world")) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
       TestUtil.assertOutput(getPlayerOutput(), TaMessageManager.GRPSNT.getMessage());
       String expectedOutput = MessageFormat.format(TaMessageManager.GTALKU.getMessage(), getPlayer().getName(), "hello world");

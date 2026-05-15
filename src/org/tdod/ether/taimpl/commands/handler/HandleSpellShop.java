@@ -51,7 +51,7 @@ public final class HandleSpellShop {
    /**
     * The max number of spells a player can have scribed.
     */
-   public static final int MAX_SPELLS = new Integer(PropertiesManager.getInstance().getProperty(PropertiesManager.MAX_SPELLS));
+   public static final int MAX_SPELLS = Integer.valueOf(PropertiesManager.getInstance().getProperty(PropertiesManager.MAX_SPELLS));
 
    /**
     * Private constructor to enforce the singleton pattern.

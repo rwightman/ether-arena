@@ -76,7 +76,7 @@ public class DoDrop extends Command {
     * Level that a player has to be in order to drop items.
     */
    private static final int LEVEL_TO_DROP_ITEMS =
-      new Integer(PropertiesManager.getInstance().getProperty(PropertiesManager.LEVEL_TO_DROP_ITEMS)).intValue();
+      Integer.valueOf(PropertiesManager.getInstance().getProperty(PropertiesManager.LEVEL_TO_DROP_ITEMS)).intValue();
 
    /**
     * Command suffix for the all keyword.

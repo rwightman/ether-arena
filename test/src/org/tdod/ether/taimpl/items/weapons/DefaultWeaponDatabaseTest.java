@@ -1,6 +1,6 @@
 package org.tdod.ether.taimpl.items.weapons;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.AbstractTest;
 import org.tdod.ether.ta.items.weapons.Weapon;
@@ -22,7 +22,7 @@ public class DefaultWeaponDatabaseTest extends AbstractTest {
       try {
          _weaponDatabase.initialize();         
       } catch (InvalidFileException e) {
-         Assert.fail("Error reading file.  Message was " + e.getMessage());
+         AssertJUnit.fail("Error reading file.  Message was " + e.getMessage());
       }
    }
 
@@ -31,12 +31,12 @@ public class DefaultWeaponDatabaseTest extends AbstractTest {
       Weapon weapon = _weaponDatabase.getWeapon(DEFAULT_WEAPON);
       Weapon defaultWeapon = _weaponDatabase.getDefaultWeapon();
       if (!weapon.equals(defaultWeapon)) {
-         Assert.fail("Default weapon is not correct.");
+         AssertJUnit.fail("Default weapon is not correct.");
       }
       
       Weapon weaponString = _weaponDatabase.getWeapon(weapon.getName());
       if (!weapon.equals(weaponString)) {
-         Assert.fail("Getting weapon by string did not work.");
+         AssertJUnit.fail("Getting weapon by string did not work.");
       }
 
    }

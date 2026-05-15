@@ -56,15 +56,15 @@ public class RegenerationJob implements Job {
 
    private static Log _log = LogFactory.getLog(RegenerationJob.class);
 
-   private static final int TIMER_WAKEUP = new Integer(
+   private static final int TIMER_WAKEUP = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.REGENERATION_TIMER_WAKEUP)).intValue();
-   private static final int PLAYER_MANA_REGEN = new Integer(
+   private static final int PLAYER_MANA_REGEN = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.MANA_REGEN)).intValue();
 
    // Move the processing to outside the loop to help increase performance.
-   private static final int MIN_SUSTENANCE_DAMAGE = new Integer(
+   private static final int MIN_SUSTENANCE_DAMAGE = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.MIN_SUSTENANCE_DAMAGE)).intValue();
-   private static final int MAX_SUSTENANCE_DAMAGE = new Integer(
+   private static final int MAX_SUSTENANCE_DAMAGE = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.MAX_SUSTENANCE_DAMAGE)).intValue();
 
    /**

@@ -2,7 +2,7 @@ package org.tdod.ether.functional;
 
 import java.text.MessageFormat;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.output.MockOutput;
 import org.tdod.ether.ta.commands.Command;
@@ -170,7 +170,7 @@ public class VioletRuneTests extends AbstractTestCase {
       TestUtil.assertOutput(_player4Output, observerOutput);
       
       if (!_player.getRune().equals(Rune.VIOLET)) {
-         Assert.fail("Player has rune " + _player.getRune());
+         AssertJUnit.fail("Player has rune " + _player.getRune());
       }
    }
       

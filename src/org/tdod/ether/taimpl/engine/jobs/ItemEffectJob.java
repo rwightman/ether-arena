@@ -55,7 +55,7 @@ public class ItemEffectJob implements Job {
 
    private static Log _log = LogFactory.getLog(ItemEffectJob.class);
 
-   private static final int TIMER_WAKEUP = new Integer(
+   private static final int TIMER_WAKEUP = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.ITEM_TIMER_WAKEUP)).intValue();
 
    /**

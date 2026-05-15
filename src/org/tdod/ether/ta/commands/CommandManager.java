@@ -104,7 +104,7 @@ public final class CommandManager {
 
       try {
          Class<? extends Command> commandClass = Class.forName(split[1]).asSubclass(Command.class);
-         _commands.put(split[0], commandClass.newInstance());
+         _commands.put(split[0], commandClass.getDeclaredConstructor().newInstance());
       } catch (Exception ex) {
          _log.fatal(ex, ex);
          System.exit(1);

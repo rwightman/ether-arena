@@ -2,7 +2,7 @@ package org.tdod.ether.functional;
 
 import java.util.ArrayList;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.output.MockOutput;
 import org.tdod.ether.ta.commands.Command;
@@ -33,7 +33,7 @@ public class BlueRuneTests extends AbstractTestCase {
       int destinationRoom = 1483;
       Command dirCommand = new DoSouth();
       String expectedBlockedPlayerString = "The locked stone door prevents your exit in that direction.";
-      
+
       pullLeverToOpenDoor(leverRoom, lockedRoom, destinationRoom, dirCommand, expectedBlockedPlayerString);
    }
 
@@ -43,7 +43,7 @@ public class BlueRuneTests extends AbstractTestCase {
       int destinationRoom = 1505;
       Command dirCommand = new DoNorth();
       String expectedBlockedPlayerString = "The locked stone door prevents your exit in that direction.";
-      
+
       pullLeverToOpenDoor(leverRoom, lockedRoom, destinationRoom, dirCommand, expectedBlockedPlayerString);
    }
 
@@ -53,7 +53,7 @@ public class BlueRuneTests extends AbstractTestCase {
       int destinationRoom = 1701;
       Command dirCommand = new DoNorth();
       String expectedBlockedPlayerString = "The locked stone door prevents your exit in that direction.";
-      
+
       pullLeverToOpenDoor(leverRoom, lockedRoom, destinationRoom, dirCommand, expectedBlockedPlayerString);
    }
 
@@ -62,32 +62,32 @@ public class BlueRuneTests extends AbstractTestCase {
       int endRoomNumber = 1863;
 
       ArrayList<Integer> darkRooms = new ArrayList<Integer>();
-      
+
       for (int index = startRoomNumber;index <= endRoomNumber; index++) {
          darkRooms.add(index);
       }
-      darkRooms.remove(new Integer(1812));
-      darkRooms.remove(new Integer(1827));
-      
+      darkRooms.remove(Integer.valueOf(1812));
+      darkRooms.remove(Integer.valueOf(1827));
+
       int stoneRoom = 1912;
-      
+
       testDarknessLevel(darkRooms, stoneRoom);
    }
-   
+
    public void testDarkness2() {
       int startRoomNumber = 1564;
       int endRoomNumber = 1663;
 
       ArrayList<Integer> darkRooms = new ArrayList<Integer>();
-      
+
       for (int index = startRoomNumber;index <= endRoomNumber; index++) {
          darkRooms.add(index);
       }
-      darkRooms.remove(new Integer(1605));
-      darkRooms.remove(new Integer(1630));
+      darkRooms.remove(Integer.valueOf(1605));
+      darkRooms.remove(Integer.valueOf(1630));
 
       int stoneRoom = 1808;
-      
+
       testDarknessLevel(darkRooms, stoneRoom);
    }
 
@@ -118,7 +118,7 @@ public class BlueRuneTests extends AbstractTestCase {
    public void getRune() {
       int runeRoom = 1576;
       int destinationRoom = 2101;
- 
+
       // Initialize
       MockOutput playerOutput = new MockOutput();
       Player player = TestUtil.createDefaultPlayer(playerOutput);
@@ -126,50 +126,50 @@ public class BlueRuneTests extends AbstractTestCase {
       Player observer = TestUtil.createDefaultPlayer(observerOutput);
       player.teleportToRoom(runeRoom);
       observer.teleportToRoom(runeRoom);
-      
+
       player.setRune(Rune.GREEN);
       playerOutput.clearBuffer();
       observerOutput.clearBuffer();
-      
+
       // Attempt to solve the 2nd part of the riddle first.  This should not solve it.
       if (new DoSay().execute(player, "say ether")) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
-      
+
       // Solve the first riddle correctly.
       new DoSay().execute(player, "say cinders");
       TestUtil.assertContains(playerOutput, "As the answer passes your lips a voice in your mind says: \"Correct...\nNow complete the riddle to gain passage...\"");
       TestUtil.assertContains(observerOutput, "Minex whispers something, then pauses for a moment as if in deep thought...");
-      
+
       // Solve the second riddle correctly.
       if (!new DoSay().execute(player, "say ether")) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
       String runeString = TaMessageManager.TRS004.getMessage() + TaMessageManager.TRS011.getMessage();
       TestUtil.assertContains(playerOutput, runeString);
       TestUtil.assertContains(observerOutput, "");
       if (player.getRoom().getRoomNumber() != destinationRoom) {
-         Assert.fail("Player is not in the correct room.");
+         AssertJUnit.fail("Player is not in the correct room.");
       }
       if (!player.getRune().equals(Rune.BLUE)) {
-         Assert.fail("Player does not have the correct rune.");         
+         AssertJUnit.fail("Player does not have the correct rune.");
       }
-      
+
       // Attempt to get the rune a second time.
       observer.setRune(Rune.GREEN);
       new DoSay().execute(observer, "say cinders");
       new DoSay().execute(observer, "say ether");
       TestUtil.assertDoesNotContains(observerOutput, runeString);
       if (observer.getRoom().getRoomNumber() != destinationRoom) {
-         Assert.fail("Observer is not in the correct room.");
+         AssertJUnit.fail("Observer is not in the correct room.");
       }
 
    }
-   
+
    private void spring(int startRoom, int destinationRoom, Command dirCommand) {
       String playerTeleportString = "&bA spring loaded pressure plate rapidly lifts you through the ceiling!";
       String roomArrivedString = "&YMinex just appeared suddenly through an aperature in the floor!";
-      
+
       // Initialize
       MockOutput playerOutput = new MockOutput();
       Player player = TestUtil.createDefaultPlayer(playerOutput);
@@ -177,18 +177,18 @@ public class BlueRuneTests extends AbstractTestCase {
       Player observer = TestUtil.createDefaultPlayer(observerOutput);
       player.teleportToRoom(startRoom);
       observer.teleportToRoom(destinationRoom);
-      
+
       playerOutput.clearBuffer();
       observerOutput.clearBuffer();
 
       // Do it.
       dirCommand.execute(player, "");
-      
+
       // Test all variables.
       TestUtil.assertContains(playerOutput, playerTeleportString);
       TestUtil.assertOutput(observerOutput, roomArrivedString);
       if (player.getRoom().getRoomNumber() != destinationRoom) {
-         Assert.fail("Player is in room " + player.getRoom().getRoomNumber() + " instead of " + destinationRoom);
+         AssertJUnit.fail("Player is in room " + player.getRoom().getRoomNumber() + " instead of " + destinationRoom);
       }
    }
 
@@ -201,7 +201,7 @@ public class BlueRuneTests extends AbstractTestCase {
 
       // Verify dark rooms with glowstone
       teleportThroughRooms(player, playerOutput, darkRooms, true);
-      
+
       // Verify dark rooms with without glowstone
       player.teleportToRoom(darkRooms.get(0));
       new DoDrop().execute(player, "drop glowstone");
@@ -216,16 +216,16 @@ public class BlueRuneTests extends AbstractTestCase {
       new DoPush().execute(player, "push stone");
       TestUtil.assertContains(playerOutput, "You push the protruding stone into it's recess...");
       TestUtil.assertContains(observerOutput, "");
-      
+
       // Verify dark rooms are still dark without glowstone.
-      teleportThroughRooms(player, playerOutput, darkRooms, true);      
+      teleportThroughRooms(player, playerOutput, darkRooms, true);
 
       // Verify dark rooms are now lit with a glowstone.
       player.teleportToRoom(darkRooms.get(0));
       new DoGet().execute(player, "get glowstone");
-      teleportThroughRooms(player, playerOutput, darkRooms, false);      
+      teleportThroughRooms(player, playerOutput, darkRooms, false);
    }
-   
+
    private void teleportThroughRooms(Player player, MockOutput playerOutput, ArrayList<Integer> darkRooms, boolean contains) {
       String darkString = "It's too dark to see.";
       for (Integer index:darkRooms) {
@@ -233,10 +233,10 @@ public class BlueRuneTests extends AbstractTestCase {
          playerOutput.clearBuffer();
          new DoDefault().execute(player, "");
          if (contains) {
-            TestUtil.assertContains(playerOutput, darkString);            
+            TestUtil.assertContains(playerOutput, darkString);
          } else {
             TestUtil.assertDoesNotContains(playerOutput, darkString);
          }
-      }      
+      }
    }
 }

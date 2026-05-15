@@ -2,7 +2,7 @@ package org.tdod.ether.taimpl.commands;
 
 import java.text.MessageFormat;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.util.TaMessageManager;
 import org.tdod.ether.util.TestUtil;
@@ -31,7 +31,7 @@ public class DoDonateTest extends AbstractCommandTest {
 
       // Can only donate at the temple.
       if (getCommand().execute(getPlayer(), "donate 100 gold")) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
       TestUtil.assertOutput(getPlayerAOutput(), "");
       clearAllOutput();
@@ -42,14 +42,14 @@ public class DoDonateTest extends AbstractCommandTest {
 
       // Check if the player input three keywords.
       if (getCommand().execute(getPlayer(), "donate 100")) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
       TestUtil.assertOutput(getPlayerAOutput(), "");
       clearAllOutput();
 
       // check if the 3rd keyword is "gold" or "g".
       if (getCommand().execute(getPlayer(), "donate 100 dollars")) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
       TestUtil.assertOutput(getPlayerAOutput(), "");
       clearAllOutput();

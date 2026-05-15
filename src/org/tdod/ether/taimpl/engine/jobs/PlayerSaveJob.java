@@ -52,7 +52,7 @@ public class PlayerSaveJob implements Job {
 
    private static Log _log = LogFactory.getLog(PlayerSaveJob.class);
 
-   private static final int TIMER_WAKEUP = new Integer(
+   private static final int TIMER_WAKEUP = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.SAVE_TIMER_WAKEUP)).intValue();
 
    /**

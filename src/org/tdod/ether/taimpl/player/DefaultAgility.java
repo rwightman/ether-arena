@@ -119,13 +119,13 @@ public class DefaultAgility extends AbstractStat implements Agility {
     * @return the look description.
     */
    public String getDescription() {
-      if (getModifiedStat() <= new Integer(PropertiesManager.getInstance().getProperty(
+      if (getModifiedStat() <= Integer.valueOf(PropertiesManager.getInstance().getProperty(
             PropertiesManager.AGI_MSG_3_LIMIT)).intValue()) {
          return TaMessageManager.AMSG2.getMessage();
-      } else if (getModifiedStat() <= new Integer(PropertiesManager.getInstance().getProperty(
+      } else if (getModifiedStat() <= Integer.valueOf(PropertiesManager.getInstance().getProperty(
             PropertiesManager.AGI_MSG_2_LIMIT)).intValue()) {
          return MessageManager.AMSG3.getMessage();
-      } else if (getModifiedStat() <= new Integer(PropertiesManager.getInstance().getProperty(
+      } else if (getModifiedStat() <= Integer.valueOf(PropertiesManager.getInstance().getProperty(
             PropertiesManager.AGI_MSG_1_LIMIT)).intValue()) {
          return TaMessageManager.AMSG1.getMessage();
       }

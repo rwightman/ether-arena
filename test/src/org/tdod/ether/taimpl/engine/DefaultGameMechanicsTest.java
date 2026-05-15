@@ -1,6 +1,6 @@
 package org.tdod.ether.taimpl.engine;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.ta.cosmos.Trap;
 import org.tdod.ether.ta.player.Player;
@@ -18,7 +18,7 @@ public class DefaultGameMechanicsTest {
       Player player = createPlayer(PlayerClass.ROGUE);
       Trap trap = createTrap(TrapType.TRAP6);
 
-      Assert.assertTrue(mechanics.avoidedTrap(player, trap));
+      AssertJUnit.assertTrue(mechanics.avoidedTrap(player, trap));
    }
 
    @Test(groups = { "unit" })
@@ -27,7 +27,7 @@ public class DefaultGameMechanicsTest {
       Player player = createPlayer(PlayerClass.WARRIOR);
       Trap trap = createTrap(TrapType.TRAP0);
 
-      Assert.assertFalse(mechanics.avoidedTrap(player, trap));
+      AssertJUnit.assertFalse(mechanics.avoidedTrap(player, trap));
    }
 
    private DefaultGameMechanics createGameMechanics() {

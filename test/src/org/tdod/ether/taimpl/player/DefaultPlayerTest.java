@@ -1,6 +1,6 @@
 package org.tdod.ether.taimpl.player;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.ta.player.Player;
 import org.tdod.ether.ta.player.enums.PlayerClass;
@@ -14,7 +14,7 @@ public class DefaultPlayerTest {
 
       player.addExperience(Long.MAX_VALUE);
 
-      Assert.assertEquals(PlayerClass.WARRIOR.getExpRequirement(25, false) - 1,
+      AssertJUnit.assertEquals(PlayerClass.WARRIOR.getExpRequirement(25, false) - 1,
             player.getExperience());
    }
 
@@ -24,7 +24,7 @@ public class DefaultPlayerTest {
 
       player.addExperience(Long.MAX_VALUE);
 
-      Assert.assertEquals(PlayerClass.KNIGHT.getExpRequirement(50, true) - 1,
+      AssertJUnit.assertEquals(PlayerClass.KNIGHT.getExpRequirement(50, true) - 1,
             player.getExperience());
    }
 

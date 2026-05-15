@@ -2,7 +2,7 @@ package org.tdod.ether.taimpl.commands;
 
 import java.text.MessageFormat;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.ta.player.enums.Status;
 import org.tdod.ether.util.TaMessageManager;
@@ -34,14 +34,14 @@ public class DoDragTest extends AbstractCommandTest {
 
       // Test no params
       if (getCommand().execute(getPlayer(), "")) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
       TestUtil.assertOutput(getPlayerAOutput(), "");
       clearAllOutput();
 
       // Test that exit exists
       if (!getCommand().execute(getPlayer(), "drag " + getPlayerA().getName() + " d")) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
       TestUtil.assertOutput(getPlayerOutput(), TaMessageManager.NOEXIT.getMessage());
       TestUtil.assertOutput(getPlayerAOutput(), "");
@@ -50,7 +50,7 @@ public class DoDragTest extends AbstractCommandTest {
       // Test no target.
       String message = MessageFormat.format(TaMessageManager.ARNNHR.getMessage(), "asdf");
       if (!getCommand().execute(getPlayer(), "drag asdf nw")) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
       TestUtil.assertOutput(getPlayerOutput(), message);
       TestUtil.assertOutput(getPlayerAOutput(), "");
@@ -58,7 +58,7 @@ public class DoDragTest extends AbstractCommandTest {
       
       // Drag self.
       if (!getCommand().execute(getPlayer(), "drag " + getPlayer().getName() + " nw")) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
       TestUtil.assertOutput(getPlayerOutput(), TaMessageManager.NODSLF.getMessage());
       TestUtil.assertOutput(getPlayerAOutput(), "");
@@ -67,7 +67,7 @@ public class DoDragTest extends AbstractCommandTest {
       // Not incapacitated.
       message = MessageFormat.format(TaMessageManager.CNTDRG.getMessage(), getPlayerA().getName());
       if (!getCommand().execute(getPlayer(), "drag " + getPlayerA().getName() + " nw")) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
       TestUtil.assertOutput(getPlayerOutput(), message);
       TestUtil.assertOutput(getPlayerAOutput(), "");
@@ -76,7 +76,7 @@ public class DoDragTest extends AbstractCommandTest {
       // Drag
       getPlayerA().setStatus(Status.PARALYSED);
       if (!getCommand().execute(getPlayer(), "drag " + getPlayerA().getName() + " nw")) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
       String messageToPlayer = MessageFormat.format(TaMessageManager.YOUDRG.getMessage(), getPlayerA().getName(), "northwest");
       TestUtil.assertContains(getPlayerOutput(), messageToPlayer);

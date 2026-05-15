@@ -44,23 +44,7 @@ public final class XStreamFactory {
     */
    public static XStream create(HierarchicalStreamDriver driver) {
       XStream xstream = new XStream(driver);
-      configureSecurity(xstream);
+      xstream.allowTypesByWildcard(ALLOWED_TYPES);
       return xstream;
-   }
-
-   /**
-    * Configures XStream's explicit type allow-list when running with newer XStream versions.
-    *
-    * @param xstream the XStream instance.
-    */
-   private static void configureSecurity(XStream xstream) {
-      try {
-         XStream.class.getMethod("setupDefaultSecurity", new Class[] { XStream.class }).invoke(null, new Object[] { xstream });
-         XStream.class.getMethod("allowTypesByWildcard", new Class[] { String[].class }).invoke(xstream, new Object[] { ALLOWED_TYPES });
-      } catch (NoSuchMethodException exception) {
-         // Ether ships XStream 1.3.1, before the explicit security API existed.
-      } catch (Exception exception) {
-         throw new IllegalStateException("Unable to configure XStream security.", exception);
-      }
    }
 }

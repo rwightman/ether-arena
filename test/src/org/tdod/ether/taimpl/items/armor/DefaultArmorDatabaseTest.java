@@ -1,6 +1,6 @@
 package org.tdod.ether.taimpl.items.armor;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.AbstractTest;
 import org.tdod.ether.ta.items.armor.Armor;
@@ -22,7 +22,7 @@ public class DefaultArmorDatabaseTest extends AbstractTest {
       try {
          _armorDatabase.initialize();         
       } catch (InvalidFileException e) {
-         Assert.fail("Error reading file.  Message was " + e.getMessage());
+         AssertJUnit.fail("Error reading file.  Message was " + e.getMessage());
       }
    }
 
@@ -31,12 +31,12 @@ public class DefaultArmorDatabaseTest extends AbstractTest {
       Armor armor = _armorDatabase.getArmor(DEFAULT_ARMOR);
       Armor defaultArmor = _armorDatabase.getDefaultArmor();
       if (!armor.equals(defaultArmor)) {
-         Assert.fail("Default armor is not correct.");
+         AssertJUnit.fail("Default armor is not correct.");
       }
       
       Armor armorString = _armorDatabase.getArmor(armor.getName());
       if (!armor.equals(armorString)) {
-         Assert.fail("Getting armor by string did not work.");
+         AssertJUnit.fail("Getting armor by string did not work.");
       }
    }
    

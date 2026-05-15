@@ -2,7 +2,7 @@ package org.tdod.ether.taimpl.commands;
 
 import java.text.MessageFormat;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.ta.manager.WorldManager;
 import org.tdod.ether.ta.player.enums.PlayerClass;
@@ -44,7 +44,7 @@ public class DoCastTest extends AbstractCommandTest {
       getPlayer().getSpellbook().getSpells().add(spell);
       
       if (!getCommand().execute(getPlayer(), "cast motu " + getPlayer().getName())) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
       TestUtil.assertContains(getPlayerOutput(), "You intoned the spell for " + getPlayer().getName() + " which healed");
       String playerAOutput = MessageFormat.format(TaMessageManager.HELOTH.getMessage(), getPlayer().getName(), "a minor healing spell", getPlayer().getName());
@@ -54,11 +54,11 @@ public class DoCastTest extends AbstractCommandTest {
    
    private void cast() {
       if (getCommand().execute(getPlayer(), "cast")) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
 
       if (!getCommand().execute(getPlayer(), "cast asdf")) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
       TestUtil.assertOutput(getPlayerOutput(), TaMessageManager.NOSPEL.getMessage());
       TestUtil.assertOutput(getPlayerAOutput(), "");

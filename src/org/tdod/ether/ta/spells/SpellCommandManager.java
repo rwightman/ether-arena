@@ -102,7 +102,7 @@ public final class SpellCommandManager {
       try {
          // Class<AbstractSpellCommand> spellCommandClass = (Class<AbstractSpellCommand>) Class.forName(split[1]);
          Class<? extends AbstractSpellCommand> spellCommandClass = Class.forName(split[1]).asSubclass(AbstractSpellCommand.class);
-         _spellCommands.put(SpellType.getSpellType(new Integer(split[0])), spellCommandClass.newInstance());
+         _spellCommands.put(SpellType.getSpellType(Integer.valueOf(split[0])), spellCommandClass.getDeclaredConstructor().newInstance());
       } catch (Exception ex) {
          _log.fatal(ex, ex);
          System.exit(1);

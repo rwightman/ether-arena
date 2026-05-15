@@ -92,7 +92,7 @@ public final class GameUtil {
    private static final Date _serverUptime = new Date(System.currentTimeMillis());
 
    private static final int ATTACK_REST_WAIT_TIME
-      = new Integer(PropertiesManager.getInstance().getProperty(PropertiesManager.ATTACK_REST_WAIT_TIME)).intValue();
+      = Integer.valueOf(PropertiesManager.getInstance().getProperty(PropertiesManager.ATTACK_REST_WAIT_TIME)).intValue();
 
    public static final String ENTER_HELP_KEYWORD = "ENTRTA";
    public static final String EXIT_HELP_KEYWORD = "EXITTA";

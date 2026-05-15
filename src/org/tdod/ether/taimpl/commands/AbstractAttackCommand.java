@@ -57,7 +57,7 @@ public abstract class AbstractAttackCommand extends Command {
     * Wait time when attacks are used up.
     */
    private static final int ATTACK_COMBAT_WAIT_TIME
-      = new Integer(PropertiesManager.getInstance().getProperty(PropertiesManager.ATTACK_COMBAT_WAIT_TIME)).intValue();
+      = Integer.valueOf(PropertiesManager.getInstance().getProperty(PropertiesManager.ATTACK_COMBAT_WAIT_TIME)).intValue();
 
    /**
     * Attacks an entity.

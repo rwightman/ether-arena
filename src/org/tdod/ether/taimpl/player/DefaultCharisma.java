@@ -89,16 +89,16 @@ public class DefaultCharisma extends AbstractStat implements Charisma {
     * @return the look description.
     */
    public String getDescription() {
-      if (getModifiedStat() <= new Integer(PropertiesManager.getInstance().getProperty(
+      if (getModifiedStat() <= Integer.valueOf(PropertiesManager.getInstance().getProperty(
             PropertiesManager.CHA_MSG_4_LIMIT)).intValue()) {
          return TaMessageManager.CMSG4.getMessage();
-      } else if (getModifiedStat() <= new Integer(PropertiesManager.getInstance().getProperty(
+      } else if (getModifiedStat() <= Integer.valueOf(PropertiesManager.getInstance().getProperty(
             PropertiesManager.CHA_MSG_3_LIMIT)).intValue()) {
          return TaMessageManager.CMSG3.getMessage();
-      } else if (getModifiedStat() <= new Integer(PropertiesManager.getInstance().getProperty(
+      } else if (getModifiedStat() <= Integer.valueOf(PropertiesManager.getInstance().getProperty(
             PropertiesManager.CHA_MSG_2_LIMIT)).intValue()) {
          return TaMessageManager.CMSG2.getMessage();
-      } else if (getModifiedStat() <= new Integer(PropertiesManager.getInstance().getProperty(
+      } else if (getModifiedStat() <= Integer.valueOf(PropertiesManager.getInstance().getProperty(
             PropertiesManager.CHA_MSG_1_LIMIT)).intValue()) {
          return TaMessageManager.CMSG1.getMessage();
       }

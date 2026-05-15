@@ -686,7 +686,7 @@ public class DefaultRoom implements Room {
          return DropItemFailCode.TOWN;
       }
 
-      int maxItemsInRoom = new Integer(PropertiesManager.getInstance().getProperty(
+      int maxItemsInRoom = Integer.valueOf(PropertiesManager.getInstance().getProperty(
             PropertiesManager.MAX_ITEMS_IN_ROOM)).intValue();
       if (_itemsOnGround.size() >= maxItemsInRoom) {
          return DropItemFailCode.NO_SPACE_IN_ROOM;

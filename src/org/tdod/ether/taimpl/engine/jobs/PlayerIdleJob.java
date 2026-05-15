@@ -54,9 +54,9 @@ public class PlayerIdleJob implements Job {
 
    private static Log _log = LogFactory.getLog(PlayerIdleJob.class);
 
-   private static final int IDLE_JOB_WAKEUP = new Integer(
+   private static final int IDLE_JOB_WAKEUP = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.IDLE_JOB_WAKEUP)).intValue();
-   private static final int IDLE_DISCONNECT_TIME = new Integer(
+   private static final int IDLE_DISCONNECT_TIME = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.IDLE_DISCONNECT_TIME)).intValue();
 
    /**

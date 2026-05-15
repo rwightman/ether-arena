@@ -56,11 +56,11 @@ public class OverheatingJob implements Job {
 
    private static Log _log = LogFactory.getLog(OverheatingJob.class);
 
-   private static final int TIMER_WAKEUP = new Integer(
+   private static final int TIMER_WAKEUP = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.OVERHEATING_TIMER_WAKEUP)).intValue();
-   private static final int MIN_DAMAGE = new Integer(
+   private static final int MIN_DAMAGE = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.OVERHEATING_MIN_DAMAGE)).intValue();
-   private static final int MAX_DAMAGE = new Integer(
+   private static final int MAX_DAMAGE = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.OVERHEATING_MAX_DAMAGE)).intValue();
 
    /**

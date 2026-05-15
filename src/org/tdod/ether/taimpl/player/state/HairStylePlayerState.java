@@ -41,7 +41,7 @@ public class HairStylePlayerState implements PlayerState {
    public void execute(PlayerStateContext stateContext, String input) {
       String invalidMessage = MessageFormat.format(TaMessageManager.INVALID.getMessage(), HairStyle.values().length - 1);
       try {         
-         Integer intValue = new Integer(input);
+         Integer intValue = Integer.valueOf(input);
          HairStyle hairStyle = HairStyle.getHairStyle(intValue);
          if (hairStyle.equals(HairStyle.INVALID)) {
             // Invalid input.  Stay in the same state.

@@ -44,7 +44,7 @@ import org.tdod.ether.util.PropertiesManager;
 public class DefaultSpellResult implements SpellResult {
 
    protected static final int EFFECTS_TIME =
-      new Integer(PropertiesManager.getInstance().getProperty(PropertiesManager.PLAYER_EFFECT_TIME)).intValue();
+      Integer.valueOf(PropertiesManager.getInstance().getProperty(PropertiesManager.PLAYER_EFFECT_TIME)).intValue();
 
    private SpellResultEnum   _spellResultEnum = SpellResultEnum.SUCCESS;
    private int               _numberEffect;

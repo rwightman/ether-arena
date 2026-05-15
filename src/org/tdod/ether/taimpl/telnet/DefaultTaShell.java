@@ -111,8 +111,8 @@ public class DefaultTaShell implements TaShell {
       // I need to determine a better way to disconnect an idle player without coupling the Shell object
       // with the player object.
       for (PlayerConnection playerConn : WorldManager.getPlayers()) {
-         if (getConnection().getId() == playerConn.getShell()
-               .getConnection().getId()) {
+         if (getConnection().threadId() == playerConn.getShell()
+               .getConnection().threadId()) {
             playerConn.getPlayer().save();
             playerConn.getPlayer().setDisconnected(true) ;
             String message = MessageFormat.format(TaMessageManager.LEVGAM.getMessage(), playerConn.getPlayer().getName());

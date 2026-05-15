@@ -2,7 +2,7 @@ package org.tdod.ether.functional;
 
 import java.text.MessageFormat;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.output.MockOutput;
 import org.tdod.ether.ta.commands.Command;
@@ -32,18 +32,18 @@ public abstract class AbstractTestCase {
    protected void pitTrapTest(int pitRoom, String expectedFailString, String expectedSuccessString) {
       MockOutput output = new MockOutput();
       Player player = TestUtil.createDefaultPlayer(output);
-      
+
       // Attempt to go through the locked door.
       player.teleportToRoom(pitRoom);
       output.clearBuffer();
       new DoUp().execute(player, "");
 
       TestUtil.assertContains(output, expectedFailString);
-      
+
       player.placeItemInInventory(WorldManager.getItem(22), false);
 
       new DoUp().execute(player, "");
-      
+
       TestUtil.assertContains(output, expectedSuccessString);
    }
 
@@ -57,18 +57,18 @@ public abstract class AbstractTestCase {
       player.teleportToRoom(startRoom);
       output.clearBuffer();
       player.setRune(startRune);
-      
+
       if (!player.getRune().equals(startRune)) {
-         Assert.fail("Player has rune of " + player.getRune() + "instead of " + startRune);
+         AssertJUnit.fail("Player has rune of " + player.getRune() + "instead of " + startRune);
       }
       output.clearBuffer();
-      
+
       dirCommand.execute(player, "");
-      
+
       TestUtil.assertContains(output, expectedString);
-      
+
       if (!player.getRune().equals(expectedRune)) {
-         Assert.fail("Player has rune of " + player.getRune() + "instead of " + expectedRune);
+         AssertJUnit.fail("Player has rune of " + player.getRune() + "instead of " + expectedRune);
       }
 
    }
@@ -83,63 +83,63 @@ public abstract class AbstractTestCase {
          player.teleportToRoom(doorRoom);
          output.clearBuffer();
          dirCommand.execute(player, "");
-         
+
          TestUtil.assertOutput(output, expectedLockedString);
 
          getKey(output, player, keyDropRoom, slayString, expectedKeyDropString, mobCount);
 
          Item key = player.getInventory().get(player.getInventory().size() - 1);
          if (!key.getName().contains("key")) {
-            Assert.fail("Mob did not drop a key.");
+            AssertJUnit.fail("Mob did not drop a key.");
          }
-         
+
          player.teleportToRoom(doorRoom);
-         output.clearBuffer(); 
+         output.clearBuffer();
 
          Exit exit = player.getRoom().getExit(exitDir);
-         
+
          // Attempt to go through the door with the key.
          dirCommand.execute(player, "");
 
          TestUtil.assertContains(output, expectedSuccessString);
-         
+
          if (exit.getDoor().getV4() == 1) {
             if (player.getInventory().contains(key)) {
-               Assert.fail("The key was not consumed.");
+               AssertJUnit.fail("The key was not consumed.");
             }
             if (!exit.getDoor().isUnlocked()) {
-               Assert.fail("The exit is not unlocked.");               
+               AssertJUnit.fail("The exit is not unlocked.");
             }
          } else {
             if (!player.getInventory().contains(key)) {
-               Assert.fail("The key was consumed.");
+               AssertJUnit.fail("The key was consumed.");
             }
             if (exit.getDoor().isUnlocked()) {
-               Assert.fail("The exit is unlocked.");               
+               AssertJUnit.fail("The exit is unlocked.");
             }
          }
-         
+
       } catch (Exception e) {
          e.printStackTrace();
-         Assert.fail(e.getMessage());         
-      }            
+         AssertJUnit.fail(e.getMessage());
+      }
    }
 
-   
+
    protected void getKey(MockOutput output, Player player, int keyDropRoom, String slayString, String expectedString, int mobCount) {
       player.teleportToRoom(keyDropRoom);
       output.clearBuffer();
-      
+
       player.setIsSysop(true);
       for (int count = 0; count < mobCount; count++) {
          new DoSlay().execute(player, slayString);
-         player.setRestTicker(0);         
+         player.setRestTicker(0);
       }
       player.setIsSysop(false);
-      
+
       TestUtil.assertContains(output, expectedString);
    }
-   
+
    protected void testTrap(Command dirCommand, int startRoom, String expectedTrapText) {
       MockOutput output = new MockOutput();
       Player player = TestUtil.createDefaultPlayer(output);
@@ -147,11 +147,11 @@ public abstract class AbstractTestCase {
       player.teleportToRoom(startRoom);
       output.clearBuffer();
       dirCommand.execute(player, "");
-      
+
       TestUtil.assertContains(output, expectedTrapText);
-      
+
       if (player.getVitality().getCurVitality() >= player.getVitality().getMaxVitality()) {
-         Assert.fail("The trap did not do any damage.");
+         AssertJUnit.fail("The trap did not do any damage.");
       }
 
       Trigger trigger = null;
@@ -160,17 +160,17 @@ public abstract class AbstractTestCase {
             trigger = t;
          }
       }
-      
-      Assert.assertNotNull(trigger);
-      
+
+      AssertJUnit.assertNotNull(trigger);
+
       if (trigger.getV3() > 0) {
          if (!player.getStatus().equals(Status.POISONED)) {
-            Assert.fail("Trap should poison the player but didn't.");
+            AssertJUnit.fail("Trap should poison the player but didn't.");
          }
       } else {
          if (player.getStatus().equals(Status.POISONED)) {
-            Assert.fail("Trap poisoned the player but should not have.");
-         }         
+            AssertJUnit.fail("Trap poisoned the player but should not have.");
+         }
       }
    }
 
@@ -184,15 +184,15 @@ public abstract class AbstractTestCase {
 
       player.teleportToRoom(riddleRoom);
       observer.teleportToRoom(riddleRoom);
-      
+
       playerOutput.clearBuffer();
       observerOutput.clearBuffer();
-      
+
       // Go through the blocked passage.
       dirCommand.execute(player, "");
       TestUtil.assertOutput(playerOutput, playerLockedString);
       TestUtil.assertOutput(observerOutput, observerLockedString);
-      
+
       // Unlock the passage.
       Command command = new DoSay();
       command.execute(player, say);
@@ -204,7 +204,7 @@ public abstract class AbstractTestCase {
       TestUtil.assertContains(playerOutput, playerMoveString);
       TestUtil.assertOutput(observerOutput, observerMoveString);
    }
-   
+
    protected void pushStoneToTeleportTest(int stoneRoom, int destinationRoom, String pushStoneString, String fromPushStoneString,
          String toPushStoneString) {
       // Initialize
@@ -218,20 +218,20 @@ public abstract class AbstractTestCase {
       player.teleportToRoom(stoneRoom);
       fromObserver.teleportToRoom(stoneRoom);
       toObserver.teleportToRoom(destinationRoom);
-      
+
       playerOutput.clearBuffer();
       fromObserverOutput.clearBuffer();
       toObserverOutput.clearBuffer();
 
       Command cmd = new DoPush();
       cmd.execute(player, "push stone");
-      
+
       TestUtil.assertContains(playerOutput, pushStoneString);
       TestUtil.assertOutput(fromObserverOutput, fromPushStoneString);
       TestUtil.assertOutput(toObserverOutput, toPushStoneString);
    }
-   
-   protected void pushStoneToOpenPassage(int stoneRoom, int passageRoom, int passageDestinationRoom, 
+
+   protected void pushStoneToOpenPassage(int stoneRoom, int passageRoom, int passageDestinationRoom,
          Command dirCommand, String closedPassageLookDesc, String closedPassageString, String pushStonePlayerString,
          String pushStoneRoomString, String openPassageLookDesc, String destinationRoom) {
       // Initialize
@@ -245,7 +245,7 @@ public abstract class AbstractTestCase {
       player.teleportToRoom(stoneRoom);
       stoneRoomObserver.teleportToRoom(stoneRoom);
       passageObserver.teleportToRoom(passageRoom);
-      
+
       playerOutput.clearBuffer();
       stoneRoomObserverOutput.clearBuffer();
       passageObserverOutput.clearBuffer();
@@ -253,16 +253,16 @@ public abstract class AbstractTestCase {
       // Verify the closed passage room description.
       new DoLook().execute(passageObserver, "");
       TestUtil.assertOutput(passageObserverOutput, closedPassageLookDesc);
-      
+
       // Attempt to move through blocked passage.
       dirCommand.execute(passageObserver, "");
       TestUtil.assertOutput(passageObserverOutput, closedPassageString);
-      
+
       // Open the passage
       new DoPush().execute(player, "push stone");
       TestUtil.assertOutput(playerOutput, pushStonePlayerString);
       TestUtil.assertOutput(stoneRoomObserverOutput, pushStoneRoomString);
-      
+
       // Verify the open passage room description.
       new DoLook().execute(passageObserver, "");
       TestUtil.assertOutput(passageObserverOutput, openPassageLookDesc);
@@ -271,11 +271,11 @@ public abstract class AbstractTestCase {
       new DoSouth().execute(passageObserver, "");
       TestUtil.assertContains(passageObserverOutput, destinationRoom);
       if (passageObserver.getRoom().getRoomNumber() != passageDestinationRoom) {
-         Assert.fail("Open passage from " + passageRoom + " lead to room " + passageObserver.getRoom().getRoomNumber() + " instead of " + passageDestinationRoom);
+         AssertJUnit.fail("Open passage from " + passageRoom + " lead to room " + passageObserver.getRoom().getRoomNumber() + " instead of " + passageDestinationRoom);
       }
    }
-   
-   protected void disableTrapTest(int leverRoom, int trapRoom, int entranceRoom, Command dirCommand, 
+
+   protected void disableTrapTest(int leverRoom, int trapRoom, int entranceRoom, Command dirCommand,
          String expectedTrapText, String playerPullLeverStringText, String roomPullLeverStringText) {
       // Initialize
       MockOutput playerOutput = new MockOutput();
@@ -285,7 +285,7 @@ public abstract class AbstractTestCase {
 
       // Test the trap.
       testTrap(dirCommand, entranceRoom, expectedTrapText);
-      
+
       player.teleportToRoom(leverRoom);
       observer.teleportToRoom(leverRoom);
       playerOutput.clearBuffer();
@@ -295,22 +295,22 @@ public abstract class AbstractTestCase {
       new DoPull().execute(player, "pull lever");
       TestUtil.assertOutput(playerOutput, playerPullLeverStringText);
       TestUtil.assertOutput(observerOutput, roomPullLeverStringText);
-      
+
       // Test the trap again.
       player.teleportToRoom(entranceRoom);
       playerOutput.clearBuffer();
       dirCommand.execute(player, "");
       TestUtil.assertDoesNotContains(playerOutput, expectedTrapText);
       if (player.getRoom().getRoomNumber() != trapRoom) {
-         Assert.fail("The player is not in the trap room.");
+         AssertJUnit.fail("The player is not in the trap room.");
       }
       for (Trigger t:WorldManager.getRoom(trapRoom).getTriggers()) {
          if (!t.isTriggered()) {
-            Assert.fail("The trap was not disabled.");                     
+            AssertJUnit.fail("The trap was not disabled.");
          }
       }
    }
-   
+
    protected void pullLeverToOpenPassage(int blockedPassageRoom, int leverRoom, int destinationRoom, String playerBlockedPassageString,
          String roomBlockedPassageString, String playerPullLeverString, String roomPullLeverString, String playerMoveString,
          String roomMoveString, String blockedRoomDescription, String unblockedRoomDescription) {
@@ -328,17 +328,17 @@ public abstract class AbstractTestCase {
       new DoLook().execute(player, "");
       TestUtil.assertOutput(playerOutput, blockedRoomDescription);
       observerOutput.clearBuffer();
-      
+
       new DoWest().execute(player, "");
       TestUtil.assertOutput(playerOutput, playerBlockedPassageString);
       TestUtil.assertOutput(observerOutput, roomBlockedPassageString);
-      
+
       // Unlock the passage.
       player.teleportToRoom(leverRoom);
       observer.teleportToRoom(leverRoom);
       playerOutput.clearBuffer();
       observerOutput.clearBuffer();
-      
+
       new DoPull().execute(player, "pull lever");
       TestUtil.assertOutput(playerOutput, playerPullLeverString);
       TestUtil.assertOutput(observerOutput, roomPullLeverString);
@@ -347,7 +347,7 @@ public abstract class AbstractTestCase {
       player.teleportToRoom(blockedPassageRoom);
       observer.teleportToRoom(blockedPassageRoom);
       playerOutput.clearBuffer();
-      
+
       new DoLook().execute(player, "");
       TestUtil.assertOutput(playerOutput, unblockedRoomDescription);
       observerOutput.clearBuffer();
@@ -356,25 +356,25 @@ public abstract class AbstractTestCase {
       TestUtil.assertContains(playerOutput, playerMoveString);
       TestUtil.assertOutput(observerOutput, roomMoveString);
       if (player.getRoom().getRoomNumber() != destinationRoom) {
-         Assert.fail("Player is in room " + player.getRoom() + " instead of " + destinationRoom);
+         AssertJUnit.fail("Player is in room " + player.getRoom() + " instead of " + destinationRoom);
       }
    }
-   
+
    protected void getTreasure(int startRoom, Command dirCommand, String treasureString) {
       // Initialize
       MockOutput playerOutput = new MockOutput();
       Player player = TestUtil.createDefaultPlayer(playerOutput);
       player.setGold(0);
-      
+
       // Get the treasure.
       player.teleportToRoom(startRoom);
       playerOutput.clearBuffer();
       dirCommand.execute(player, "");
       TestUtil.assertContains(playerOutput, treasureString);
       if (player.getGold() <= 0) {
-         Assert.fail("Player did not get the treasure.");
+         AssertJUnit.fail("Player did not get the treasure.");
       }
-      
+
       // Try again, the treasure should be gone.
       int currentGold = player.getGold();
       player.teleportToRoom(startRoom);
@@ -382,14 +382,14 @@ public abstract class AbstractTestCase {
       dirCommand.execute(player, "");
       TestUtil.assertDoesNotContains(playerOutput, treasureString);
       if (player.getGold() != currentGold) {
-         Assert.fail("Player received treasure when he should not have.");
+         AssertJUnit.fail("Player received treasure when he should not have.");
       }
    }
-   
+
    protected void teleport(int startRoom, int destinationRoom, Command dirCommand) {
       String playerTeleportString = "&bA sudden flash of light momentarily blinds you!";
       String roomArrivedString = "&YMinex has just appeared in a blinding flash of light!";
-      
+
       // Initialize
       MockOutput playerOutput = new MockOutput();
       Player player = TestUtil.createDefaultPlayer(playerOutput);
@@ -397,21 +397,21 @@ public abstract class AbstractTestCase {
       Player observer = TestUtil.createDefaultPlayer(observerOutput);
       player.teleportToRoom(startRoom);
       observer.teleportToRoom(destinationRoom);
-      
+
       playerOutput.clearBuffer();
       observerOutput.clearBuffer();
 
       // Do it.
       dirCommand.execute(player, "");
-      
+
       // Test all variables.
       TestUtil.assertContains(playerOutput, playerTeleportString);
       TestUtil.assertOutput(observerOutput, roomArrivedString);
       if (player.getRoom().getRoomNumber() != destinationRoom) {
-         Assert.fail("Player is in room " + player.getRoom().getRoomNumber() + " instead of " + destinationRoom);
+         AssertJUnit.fail("Player is in room " + player.getRoom().getRoomNumber() + " instead of " + destinationRoom);
       }
    }
-   
+
    protected void move(int startRoom, Command dirCommand, int destinationRoom, String observerString) {
       // Initialize
       MockOutput playerOutput = new MockOutput();
@@ -420,21 +420,21 @@ public abstract class AbstractTestCase {
       Player observer = TestUtil.createDefaultPlayer(observerOutput);
       player.teleportToRoom(startRoom);
       observer.teleportToRoom(destinationRoom);
-      
+
       playerOutput.clearBuffer();
       observerOutput.clearBuffer();
-      
+
       // Do it.
       dirCommand.execute(player, "");
-      
+
       // Verify.
       TestUtil.assertOutput(observerOutput, observerString);
-      
+
       if (player.getRoom().getRoomNumber() != destinationRoom) {
-         Assert.fail("Player landed in room " + player.getRoom() + " instead of " + destinationRoom);
+         AssertJUnit.fail("Player landed in room " + player.getRoom() + " instead of " + destinationRoom);
       }
    }
-   
+
    protected void hasRuneBarrier() {
       int startRoom = 507;
       int destinationRoom = 508;
@@ -444,7 +444,7 @@ public abstract class AbstractTestCase {
       String expectedBlockedRoomString = MessageFormat.format(TaMessageManager.CAMBAK.getMessage(), "Minex", "his");
       String expectedEnterRoomString = "&YMinex has just arrived from the north.";
       Command dirCommand = new DoSouth();
-      
+
       // Initialize
       MockOutput playerOutput = new MockOutput();
       Player player = TestUtil.createDefaultPlayer(playerOutput);
@@ -452,33 +452,33 @@ public abstract class AbstractTestCase {
       Player observer = TestUtil.createDefaultPlayer(observerOutput);
       player.teleportToRoom(startRoom);
       observer.teleportToRoom(startRoom);
-      
+
       playerOutput.clearBuffer();
       observerOutput.clearBuffer();
       player.setRune(blockedRune);
-      
+
       dirCommand.execute(player, "");
-      
+
       TestUtil.assertOutput(playerOutput, expectedPlayerString);
       TestUtil.assertContains(observerOutput, expectedBlockedRoomString);
-      
+
       // Attempt it again, but with the correct rune.
       player.setRune(passableRune);
       observer.teleportToRoom(destinationRoom);
       observerOutput.clearBuffer();
-      
+
       dirCommand.execute(player, "");
-      
+
       TestUtil.assertOutput(observerOutput, expectedEnterRoomString);
-      
+
       if (player.getRoom().getRoomNumber() != destinationRoom) {
-         Assert.fail("Player landed in room " + player.getRoom() + " instead of " + destinationRoom);
+         AssertJUnit.fail("Player landed in room " + player.getRoom() + " instead of " + destinationRoom);
       }
    }
 
    protected void pullLeverToOpenDoor(int leverRoom, int lockedRoom, int destinationRoom, Command dirCommand,
          String expectedBlockedPlayerString) {
-      String expectedBlockedRoomString = MessageFormat.format(TaMessageManager.CAMBAK.getMessage(), "Minex", "his"); 
+      String expectedBlockedRoomString = MessageFormat.format(TaMessageManager.CAMBAK.getMessage(), "Minex", "his");
       String playerPullLeverStringText = "You pulled the lever.";
       String roomPullLeverStringText = "You notice Minex doing something out of the corner of your eye.";
 
@@ -495,7 +495,7 @@ public abstract class AbstractTestCase {
       observerOutput.clearBuffer();
 
       dirCommand.execute(player, "");
-      
+
       TestUtil.assertOutput(playerOutput, expectedBlockedPlayerString);
       TestUtil.assertContains(observerOutput, expectedBlockedRoomString);
 
@@ -504,7 +504,7 @@ public abstract class AbstractTestCase {
       observer.teleportToRoom(leverRoom);
       playerOutput.clearBuffer();
       observerOutput.clearBuffer();
-      
+
       new DoPull().execute(player, "pull lever");
       TestUtil.assertOutput(playerOutput, playerPullLeverStringText);
       TestUtil.assertOutput(observerOutput, roomPullLeverStringText);
@@ -516,7 +516,7 @@ public abstract class AbstractTestCase {
       dirCommand.execute(player, "");
 
       if (player.getRoom().getRoomNumber() != destinationRoom) {
-         Assert.fail("Player should be in room " + destinationRoom + " but was in room " + player.getRoom().getRoomNumber());
+         AssertJUnit.fail("Player should be in room " + destinationRoom + " but was in room " + player.getRoom().getRoomNumber());
       }
 
    }

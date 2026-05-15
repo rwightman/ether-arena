@@ -2,7 +2,7 @@ package org.tdod.ether.taimpl.mobs;
 
 import java.util.ArrayList;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,16 +19,16 @@ public class DefaultMobDatabaseTest extends AbstractTest {
    private static Log _log = LogFactory.getLog(DefaultMobDatabaseTest.class);
 
    private MobDatabase _defaultMobDatabase;
-   
+
    @BeforeClass
    public void setUp() {
-      super.baseSetUp();      
+      super.baseSetUp();
       _defaultMobDatabase = new DefaultMobDatabase();
-      
+
       try {
-         _defaultMobDatabase.initialize();         
+         _defaultMobDatabase.initialize();
       } catch (InvalidFileException e) {
-         Assert.fail("Error reading file.  Message was " + e.getMessage());
+         AssertJUnit.fail("Error reading file.  Message was " + e.getMessage());
       }
    }
 
@@ -36,10 +36,10 @@ public class DefaultMobDatabaseTest extends AbstractTest {
    public void testGetMobByTerrain() {
       ArrayList<Mob> mobs = _defaultMobDatabase.getMobList();
       if (mobs.size() == 0) {
-         Assert.fail("DefaultMobDatabase.getMobList() was empty.");
+         AssertJUnit.fail("DefaultMobDatabase.getMobList() was empty.");
          return;
       }
-      
+
       for(Terrain terrain:Terrain.values()) {
          ArrayList<Mob> terrainMobs = _defaultMobDatabase.getMobByTerrain(terrain);
          if (terrainMobs != null) {
@@ -50,17 +50,17 @@ public class DefaultMobDatabaseTest extends AbstractTest {
                      error = false;
                      break;
                   }
-                  
+
                   Mob clonedMob = mob.clone(null);
                   if (mobs.contains(clonedMob)) {
                      error = true;
                   }
                }
-               
+
                if (error) {
-                  Assert.fail("Error when comparing mob " + terrainMob.getName());                  
+                  AssertJUnit.fail("Error when comparing mob " + terrainMob.getName());
                }
-            }            
+            }
          } else {
             _log.info(terrain + " contained no mobs.");
          }
@@ -71,13 +71,13 @@ public class DefaultMobDatabaseTest extends AbstractTest {
    public void testGetMobs() {
       ArrayList<Mob> mobs = _defaultMobDatabase.getMobList();
       if (mobs.size() == 0) {
-         Assert.fail("DefaultMobDatabase.getMobList() was empty.");
+         AssertJUnit.fail("DefaultMobDatabase.getMobList() was empty.");
          return;
       }
 
       for (Mob mob:mobs) {
          if (!mobs.contains(_defaultMobDatabase.getMob(mob.getVnum()))) {
-            Assert.fail("Mobs did not contain " + mob.getName());            
+            AssertJUnit.fail("Mobs did not contain " + mob.getName());
          }
       }
    }

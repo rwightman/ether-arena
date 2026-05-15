@@ -57,8 +57,8 @@ public class DoSummon extends SysopCommand {
       try {
          String[] split = input.split(" ", 2);
          String[] params = split[1].split(" ");
-         int mobNumber = new Integer(params[0]).intValue();
-         int roomNumber = new Integer(params[1]).intValue();
+         int mobNumber = Integer.valueOf(params[0]).intValue();
+         int roomNumber = Integer.valueOf(params[1]).intValue();
 
          Mob mob = WorldManager.getMob(mobNumber);
          if (mob == null) {

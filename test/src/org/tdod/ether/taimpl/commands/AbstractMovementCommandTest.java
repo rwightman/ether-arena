@@ -1,6 +1,6 @@
 package org.tdod.ether.taimpl.commands;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.util.TaMessageManager;
 import org.tdod.ether.util.TestUtil;
@@ -16,7 +16,7 @@ public abstract class AbstractMovementCommandTest extends AbstractCommandTest {
 
       // Empty
       if (!getCommand().execute(getPlayer(), "")) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
       TestUtil.assertOutput(getPlayerAOutput(), "");
       TestUtil.assertOutput(getPlayerBOutput(), "");
@@ -24,7 +24,7 @@ public abstract class AbstractMovementCommandTest extends AbstractCommandTest {
       
       // Blocked
       if (!getCommand().execute(getPlayer(), command)) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
       TestUtil.assertOutput(getPlayerOutput(), TaMessageManager.NOEXIT.getMessage());
       TestUtil.assertOutput(getPlayerAOutput(), "");
@@ -39,7 +39,7 @@ public abstract class AbstractMovementCommandTest extends AbstractCommandTest {
       // Move
       AbstractMovementCommand movementCommand = (AbstractMovementCommand)getCommand();
       if (!getCommand().execute(getPlayer(), command)) {
-         Assert.fail();
+         AssertJUnit.fail();
       }
       TestUtil.assertContains(getPlayerOutput(), endRoomTitle);
       TestUtil.assertOutput(getPlayerAOutput(), movementCommand.getLeaveMessage(getPlayer()));

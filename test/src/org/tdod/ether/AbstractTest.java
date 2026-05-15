@@ -1,6 +1,6 @@
 package org.tdod.ether;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.util.TestUtil;
 
@@ -11,7 +11,7 @@ public class AbstractTest {
          TestUtil.initializeWorld();
       } catch (Exception e) {
          e.printStackTrace();
-         Assert.fail(e.getMessage());
+         AssertJUnit.fail(e.getMessage());
       }
 
    }

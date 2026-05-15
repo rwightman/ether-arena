@@ -2,7 +2,7 @@ package org.tdod.ether.taimpl.commands;
 
 import java.text.MessageFormat;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.util.TaMessageManager;
 import org.tdod.ether.util.TestUtil;
@@ -69,7 +69,7 @@ public class DoAddTest extends AbstractCommandTest {
       TestUtil.assertOutput(getPlayerBOutput(), expectedOutput);
 
       if (getPlayer().getGroupList().size() != 1) {
-         Assert.fail("Group size is " + getPlayer().getGroupList().size());
+         AssertJUnit.fail("Group size is " + getPlayer().getGroupList().size());
       }
    }
 

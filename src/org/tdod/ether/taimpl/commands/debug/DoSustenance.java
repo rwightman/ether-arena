@@ -41,9 +41,9 @@ import org.tdod.ether.util.PropertiesManager;
  */
 public class DoSustenance extends SysopCommand {
 
-   private static final int MAX_THIRST = new Integer(
+   private static final int MAX_THIRST = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.MAX_HUNGER)).intValue();
-   private static final int MAX_HUNGER = new Integer(
+   private static final int MAX_HUNGER = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.MAX_HUNGER)).intValue();
 
    /**

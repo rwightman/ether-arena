@@ -1,6 +1,6 @@
 package org.tdod.ether.util;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.ta.player.Player;
 import org.tdod.ether.ta.player.enums.PlayerClass;
@@ -17,7 +17,7 @@ public class GameUtilTest {
       target.getVitality().setCurVitality(100);
       GameUtil.giveExperience(player, target, 100);
 
-      Assert.assertEquals(0L, player.getExperience());
+      AssertJUnit.assertEquals(0L, player.getExperience());
    }
 
    @Test(groups = { "unit" })
@@ -28,7 +28,7 @@ public class GameUtilTest {
       target.getVitality().setCurVitality(-15);
       GameUtil.giveExperience(player, target, 10);
 
-      Assert.assertEquals(10L, player.getExperience());
+      AssertJUnit.assertEquals(10L, player.getExperience());
    }
 
    private Player createPlayer() {

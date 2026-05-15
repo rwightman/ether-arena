@@ -45,13 +45,13 @@ public abstract class AbstractStat implements Stat {
    /**
     * The minimum possible stat value.
     */
-   public static final int MIN_STAT = new Integer(
+   public static final int MIN_STAT = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.MIN_STAT)).intValue();
 
    /**
     * The maximum possible stat value.
     */
-   public static final int MAX_STAT = new Integer(
+   public static final int MAX_STAT = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.MAX_STAT)).intValue();
 
    protected static final String ERROR_STRING = "ERROR";

@@ -137,8 +137,8 @@ public class DefaultGameEngine implements GameEngine {
          PlayerConnection disconnectedPlayerConn = null;
 
          for (PlayerConnection playerConn : WorldManager.getPlayers()) {
-            if (e.getShell().getConnection().getId() == playerConn.getShell()
-                  .getConnection().getId()) {
+            if (e.getShell().getConnection().threadId() == playerConn.getShell()
+                  .getConnection().threadId()) {
                disconnectedPlayerConn = playerConn;
                continue;
             }

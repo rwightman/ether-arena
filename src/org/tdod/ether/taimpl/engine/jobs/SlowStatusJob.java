@@ -62,16 +62,16 @@ public class SlowStatusJob implements Job {
    private static Log _log = LogFactory.getLog(SlowStatusJob.class);
 
    // Decrease timer to update more often.  May impact performance though.
-   private static final int TIMER_WAKEUP = new Integer(
+   private static final int TIMER_WAKEUP = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(
                PropertiesManager.SLOW_STATUS_TIMER_WAKEUP)).intValue();
-   private static final int MOB_REGEN = new Integer(
+   private static final int MOB_REGEN = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.MOB_REGEN_PERCENT)).intValue();
-   private static final int MOB_MIN_REGEN = new Integer(
+   private static final int MOB_MIN_REGEN = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.MOB_MIN_REGEN)).intValue();
-   private static final int MOB_MAX_REGEN = new Integer(
+   private static final int MOB_MAX_REGEN = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.MOB_MAX_REGEN)).intValue();
-   private static final int MOB_FLEE_RESET_CHECK = new Integer(
+   private static final int MOB_FLEE_RESET_CHECK = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.MOB_FLEE_RESET_CHECK)).intValue();
 
    /**

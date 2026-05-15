@@ -47,7 +47,7 @@ public class RacePlayerState implements PlayerState {
          // Message already displayed.  Attempt to process input.
          String invalidMessage = MessageFormat.format(TaMessageManager.INVALID.getMessage(), RaceEnum.values().length - 1);
          try {         
-            Integer intValue = new Integer(input);
+            Integer intValue = Integer.valueOf(input);
             RaceEnum race = RaceEnum.getRace(intValue);
             if (race.equals(RaceEnum.INVALID)) {
                // Invalid input.  Stay in the same state.

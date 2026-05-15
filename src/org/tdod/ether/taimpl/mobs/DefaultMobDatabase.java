@@ -181,18 +181,18 @@ public class DefaultMobDatabase extends DataFileReader implements MobDatabase {
       mob.getSpecialAbility().setSpecialAbilityDescription(majorSplit[7]);
 
       mob.setCanTrack((statSplit[0].equals("1") ? false : true));
-      mob.setCombatSkill(new Integer(statSplit[1]));
-      mob.setTerrain(Terrain.getTerrain(new Integer(statSplit[2])));
-      mob.setGold(new Integer(statSplit[3]));
-      mob.setTreasure(new Integer(statSplit[4]));
-      mob.setArmorRating(new Integer(statSplit[5]));
-      mob.setSpecialAttackPercent(new Integer(statSplit[6]));
-      mob.setHitDice(new Integer(statSplit[7]));
-      mob.setRegeneration(new Integer(statSplit[8]));
-      mob.getGeneralAttack().setMinDamage(new Integer(statSplit[9]));
+      mob.setCombatSkill(Integer.valueOf(statSplit[1]));
+      mob.setTerrain(Terrain.getTerrain(Integer.valueOf(statSplit[2])));
+      mob.setGold(Integer.valueOf(statSplit[3]));
+      mob.setTreasure(Integer.valueOf(statSplit[4]));
+      mob.setArmorRating(Integer.valueOf(statSplit[5]));
+      mob.setSpecialAttackPercent(Integer.valueOf(statSplit[6]));
+      mob.setHitDice(Integer.valueOf(statSplit[7]));
+      mob.setRegeneration(Integer.valueOf(statSplit[8]));
+      mob.getGeneralAttack().setMinDamage(Integer.valueOf(statSplit[9]));
 
       // If v9 == 0, then v10 is a weapon.  Otherwise, v9 is min damage and v10 is max damage.
-      int v10 = new Integer(statSplit[10]);
+      int v10 = Integer.valueOf(statSplit[10]);
       if (mob.getGeneralAttack().getMinDamage() == 0) {
          MobWeaponType mobWeaponType = MobWeaponType.getMobWeaponType(v10);
          mob.getGeneralAttack().setMobWeaponType(mobWeaponType);
@@ -201,21 +201,21 @@ public class DefaultMobDatabase extends DataFileReader implements MobDatabase {
          mob.getGeneralAttack().setMaxDamage(v10);
       }
 
-      mob.getSpecialAttack().setMinSpecialDamage(new Integer(statSplit[11]));
-      mob.getSpecialAttack().setMaxSpecialDamage(new Integer(statSplit[12]));
-      mob.getGeneralAttack().setAttackEffect(AttackEffectEnum.getAttackEffectEnum(new Integer(statSplit[13])));
-      mob.getGeneralAttack().setMinAttackEffect(new Integer(statSplit[14]));
-      mob.getGeneralAttack().setMaxAttackEffect(new Integer(statSplit[15]));
-      mob.getSpecialAbility().setSpecialAbility(SpecialAbilityEnum.getSpecialAbilityEnum(new Integer(statSplit[16])));
-      mob.getGeneralAttack().setNumAttacks(new Integer(statSplit[17]));
-      mob.setLevel(new Integer(statSplit[18]));
-      mob.setMorale(new Integer(statSplit[19]));
-      mob.getMobSpells().setSpellSkill(new Integer(statSplit[20]));
-      mob.getMobSpells().setMobSpellType(MobSpellType.getMobSpellType(new Integer(statSplit[21])));
-      mob.getMobSpells().setMinSpell(new Integer(statSplit[22]));
-      mob.getMobSpells().setMaxSpell(new Integer(statSplit[23]));
-      mob.setGender(Gender.getGender(new Integer(statSplit[24])));
-      mob.setSubType(SubType.getSubType(new Integer(statSplit[25])));
+      mob.getSpecialAttack().setMinSpecialDamage(Integer.valueOf(statSplit[11]));
+      mob.getSpecialAttack().setMaxSpecialDamage(Integer.valueOf(statSplit[12]));
+      mob.getGeneralAttack().setAttackEffect(AttackEffectEnum.getAttackEffectEnum(Integer.valueOf(statSplit[13])));
+      mob.getGeneralAttack().setMinAttackEffect(Integer.valueOf(statSplit[14]));
+      mob.getGeneralAttack().setMaxAttackEffect(Integer.valueOf(statSplit[15]));
+      mob.getSpecialAbility().setSpecialAbility(SpecialAbilityEnum.getSpecialAbilityEnum(Integer.valueOf(statSplit[16])));
+      mob.getGeneralAttack().setNumAttacks(Integer.valueOf(statSplit[17]));
+      mob.setLevel(Integer.valueOf(statSplit[18]));
+      mob.setMorale(Integer.valueOf(statSplit[19]));
+      mob.getMobSpells().setSpellSkill(Integer.valueOf(statSplit[20]));
+      mob.getMobSpells().setMobSpellType(MobSpellType.getMobSpellType(Integer.valueOf(statSplit[21])));
+      mob.getMobSpells().setMinSpell(Integer.valueOf(statSplit[22]));
+      mob.getMobSpells().setMaxSpell(Integer.valueOf(statSplit[23]));
+      mob.setGender(Gender.getGender(Integer.valueOf(statSplit[24])));
+      mob.setSubType(SubType.getSubType(Integer.valueOf(statSplit[25])));
 
       // Quirky Java functionality.  If the description contains {0}, then any ' need to be replaced with ''.  This is
       // due to the MessageFormat.format() call getting screwed up.

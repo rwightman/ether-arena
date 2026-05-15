@@ -129,13 +129,13 @@ public class DefaultIntellect extends AbstractStat implements Intellect {
     * @return the skill look description.
     */
    public String getDescription() {
-      if (getModifiedStat() <= new Integer(
+      if (getModifiedStat() <= Integer.valueOf(
             PropertiesManager.getInstance().getProperty(PropertiesManager.INT_MSG_3_LIMIT)).intValue()) {
          return TaMessageManager.IMSG2.getMessage();
-      } else if (getModifiedStat() <= new Integer(
+      } else if (getModifiedStat() <= Integer.valueOf(
             PropertiesManager.getInstance().getProperty(PropertiesManager.INT_MSG_2_LIMIT)).intValue()) {
          return MessageManager.IMSG3.getMessage();
-      } else if (getModifiedStat() <= new Integer(
+      } else if (getModifiedStat() <= Integer.valueOf(
             PropertiesManager.getInstance().getProperty(PropertiesManager.INT_MSG_1_LIMIT)).intValue()) {
          return TaMessageManager.IMSG1.getMessage();
       }

@@ -58,7 +58,7 @@ public class DoGive extends Command {
     * Level that a player can drop items.
     */
    private static final int LEVEL_TO_DROP_ITEMS =
-      new Integer(PropertiesManager.getInstance().getProperty(PropertiesManager.LEVEL_TO_DROP_ITEMS)).intValue();
+      Integer.valueOf(PropertiesManager.getInstance().getProperty(PropertiesManager.LEVEL_TO_DROP_ITEMS)).intValue();
 
    /**
     * Keyword suffix for the give gold command.

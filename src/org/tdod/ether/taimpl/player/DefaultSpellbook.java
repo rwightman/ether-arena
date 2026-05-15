@@ -46,7 +46,7 @@ public class DefaultSpellbook implements Spellbook {
 
    private static final long serialVersionUID = -5609465897915344865L;
 
-   private static final int MAX_SPELLS = new Integer(PropertiesManager.getInstance().getProperty(PropertiesManager.MAX_SPELLS));
+   private static final int MAX_SPELLS = Integer.valueOf(PropertiesManager.getInstance().getProperty(PropertiesManager.MAX_SPELLS));
 
    private ArrayList<Spell> _spells = new ArrayList<Spell>(MAX_SPELLS);
 

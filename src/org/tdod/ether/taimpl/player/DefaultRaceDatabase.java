@@ -91,16 +91,16 @@ public class DefaultRaceDatabase extends DataFileReader implements RaceDatabase 
 
       String[] statSplit = line.split(" ", STAT_SPLIT_SIZE);
 
-      raceData.setRace(RaceEnum.getRace(new Integer(statSplit[0])));
-      raceData.getStatModifiers().getIntellect().setValue(new Integer(statSplit[1]));
-      raceData.getStatModifiers().getKnowledge().setValue(new Integer(statSplit[2]));
-      raceData.getStatModifiers().getPhysique().setValue(new Integer(statSplit[3]));
-      raceData.getStatModifiers().getStamina().setValue(new Integer(statSplit[4]));
-      raceData.getStatModifiers().getAgility().setValue(new Integer(statSplit[5]));
-      raceData.getStatModifiers().getCharisma().setValue(new Integer(statSplit[6]));
-      raceData.setVitality(new Integer(statSplit[7]));
-      raceData.setMinStartingGold(new Integer(statSplit[8]));
-      raceData.setMaxStartingGold(new Integer(statSplit[9]));
+      raceData.setRace(RaceEnum.getRace(Integer.valueOf(statSplit[0])));
+      raceData.getStatModifiers().getIntellect().setValue(Integer.valueOf(statSplit[1]));
+      raceData.getStatModifiers().getKnowledge().setValue(Integer.valueOf(statSplit[2]));
+      raceData.getStatModifiers().getPhysique().setValue(Integer.valueOf(statSplit[3]));
+      raceData.getStatModifiers().getStamina().setValue(Integer.valueOf(statSplit[4]));
+      raceData.getStatModifiers().getAgility().setValue(Integer.valueOf(statSplit[5]));
+      raceData.getStatModifiers().getCharisma().setValue(Integer.valueOf(statSplit[6]));
+      raceData.setVitality(Integer.valueOf(statSplit[7]));
+      raceData.setMinStartingGold(Integer.valueOf(statSplit[8]));
+      raceData.setMaxStartingGold(Integer.valueOf(statSplit[9]));
 
       _raceDataMap.put(raceData.getRace(), raceData);
    }

@@ -43,7 +43,7 @@ public class ComplexionPlayerState implements PlayerState {
       String invalidMessage = MessageFormat.format(TaMessageManager.INVALID.getMessage(), Complexion
             .values().length - 1);
       try {
-         Integer intValue = new Integer(input);
+         Integer intValue = Integer.valueOf(input);
          Complexion complexion = Complexion.getComplexion(intValue);
          if (complexion.equals(Complexion.INVALID)) {
             // Invalid input. Stay in the same state.

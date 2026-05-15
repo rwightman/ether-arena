@@ -1,6 +1,6 @@
 package org.tdod.ether.taimpl.commands;
 
-import junit.framework.Assert;
+import org.testng.AssertJUnit;
 
 import org.tdod.ether.ta.player.Player;
 import org.tdod.ether.ta.player.enums.PlayerClass;
@@ -14,7 +14,7 @@ public class PlayerCombatPolicyTest {
    public void testDisabledAttackGate() {
       PlayerCombatPolicy.Settings settings = createSettings(false, true, 0, true, 0, 0);
 
-      Assert.assertEquals(TaMessageManager.NOAUSR,
+      AssertJUnit.assertEquals(TaMessageManager.NOAUSR,
             PlayerCombatPolicy.getAttackRebuffMessage(createPlayer(10), createPlayer(10), settings));
    }
 
@@ -22,7 +22,7 @@ public class PlayerCombatPolicyTest {
    public void testDisabledRobGate() {
       PlayerCombatPolicy.Settings settings = createSettings(true, false, 0, true, 0, 0);
 
-      Assert.assertEquals(TaMessageManager.NORUSR,
+      AssertJUnit.assertEquals(TaMessageManager.NORUSR,
             PlayerCombatPolicy.getRobRebuffMessage(createPlayer(10), createPlayer(10), settings));
    }
 
@@ -33,9 +33,9 @@ public class PlayerCombatPolicyTest {
       Player target = createPlayer(20);
       PlayerCombatPolicy.Settings settings = createSettings(true, true, 0, false, 0, 0);
 
-      Assert.assertEquals(TaMessageManager.UTOOHI,
+      AssertJUnit.assertEquals(TaMessageManager.UTOOHI,
             PlayerCombatPolicy.getAttackRebuffMessage(promoted, target, settings));
-      Assert.assertEquals(TaMessageManager.UTOOLO,
+      AssertJUnit.assertEquals(TaMessageManager.UTOOLO,
             PlayerCombatPolicy.getAttackRebuffMessage(target, promoted, settings));
    }
 
@@ -45,9 +45,9 @@ public class PlayerCombatPolicyTest {
       Player target = createPlayer(5);
       PlayerCombatPolicy.Settings settings = createSettings(true, true, 0, true, 0, 5);
 
-      Assert.assertEquals(TaMessageManager.UTOOHI,
+      AssertJUnit.assertEquals(TaMessageManager.UTOOHI,
             PlayerCombatPolicy.getAttackRebuffMessage(actor, target, settings));
-      Assert.assertEquals(TaMessageManager.UTOOLO,
+      AssertJUnit.assertEquals(TaMessageManager.UTOOLO,
             PlayerCombatPolicy.getAttackRebuffMessage(target, actor, settings));
    }
 
@@ -57,9 +57,9 @@ public class PlayerCombatPolicyTest {
       Player target = createPlayer(10);
       PlayerCombatPolicy.Settings settings = createSettings(true, true, 10, true, 0, 0);
 
-      Assert.assertEquals(TaMessageManager.UTOOHI,
+      AssertJUnit.assertEquals(TaMessageManager.UTOOHI,
             PlayerCombatPolicy.getAttackRebuffMessage(actor, target, settings));
-      Assert.assertEquals(TaMessageManager.UTOOLO,
+      AssertJUnit.assertEquals(TaMessageManager.UTOOLO,
             PlayerCombatPolicy.getAttackRebuffMessage(target, actor, settings));
    }
 
@@ -69,11 +69,11 @@ public class PlayerCombatPolicyTest {
       Player target = createPlayer(10);
       PlayerCombatPolicy.Settings settings = createSettings(true, true, 10, true, 40, 0);
 
-      Assert.assertEquals(TaMessageManager.UTOOHI,
+      AssertJUnit.assertEquals(TaMessageManager.UTOOHI,
             PlayerCombatPolicy.getAttackRebuffMessage(actor, target, settings));
 
       target.setLevel(40);
-      Assert.assertNull(PlayerCombatPolicy.getAttackRebuffMessage(actor, target, settings));
+      AssertJUnit.assertNull(PlayerCombatPolicy.getAttackRebuffMessage(actor, target, settings));
    }
 
    private PlayerCombatPolicy.Settings createSettings(boolean userAttackEnabled, boolean userRobEnabled,

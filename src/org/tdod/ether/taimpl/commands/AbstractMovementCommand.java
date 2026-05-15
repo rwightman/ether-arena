@@ -75,7 +75,7 @@ public abstract class AbstractMovementCommand extends Command {
     * Chance for a mob to chase the victim whenever that player leaves the room.
     */
    private static final int MOB_CHASE_CHANCE =
-      new Integer(PropertiesManager.getInstance().getProperty(PropertiesManager.MOB_CHASE_CHANCE)).intValue();
+      Integer.valueOf(PropertiesManager.getInstance().getProperty(PropertiesManager.MOB_CHASE_CHANCE)).intValue();
 
    /**
     * Executes the movement command.

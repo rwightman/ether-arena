@@ -42,7 +42,7 @@ public class HairLengthPlayerState implements PlayerState {
       // Message already displayed.  Attempt to process input.
       String invalidMessage = MessageFormat.format(TaMessageManager.INVALID.getMessage(), HairLength.values().length - 1);
       try {         
-         Integer intValue = new Integer(input);
+         Integer intValue = Integer.valueOf(input);
          HairLength hairLength = HairLength.getHairLength(intValue);
          if (hairLength.equals(HairLength.INVALID)) {
             // Invalid input.  Stay in the same state.

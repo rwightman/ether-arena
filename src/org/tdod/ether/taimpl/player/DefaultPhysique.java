@@ -102,13 +102,13 @@ public class DefaultPhysique extends AbstractStat implements Physique {
     * @return the look description.
     */
    public String getDescription() {
-      if (getModifiedStat() <= new Integer(PropertiesManager.getInstance()
+      if (getModifiedStat() <= Integer.valueOf(PropertiesManager.getInstance()
             .getProperty(PropertiesManager.PHY_MSG_3_LIMIT)).intValue()) {
          return TaMessageManager.PMSG3.getMessage();
-      } else if (getModifiedStat() <= new Integer(PropertiesManager.getInstance()
+      } else if (getModifiedStat() <= Integer.valueOf(PropertiesManager.getInstance()
             .getProperty(PropertiesManager.PHY_MSG_2_LIMIT)).intValue()) {
          return TaMessageManager.PMSG2.getMessage();
-      } else if (getModifiedStat() <= new Integer(PropertiesManager.getInstance()
+      } else if (getModifiedStat() <= Integer.valueOf(PropertiesManager.getInstance()
             .getProperty(PropertiesManager.PHY_MSG_1_LIMIT)).intValue()) {
          return TaMessageManager.PMSG1.getMessage();
       }

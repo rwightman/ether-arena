@@ -54,9 +54,9 @@ public class PopulateLairJob implements Job {
 
    private static Log _log = LogFactory.getLog(PopulateLairJob.class);
 
-   private static final int TIMER_WAKEUP = new Integer(
+   private static final int TIMER_WAKEUP = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.LAIR_REPOP_TIMER_WAKEUP)).intValue();
-   private static final int LAIR_REPOP_CHANCE = new Integer(
+   private static final int LAIR_REPOP_CHANCE = Integer.valueOf(
          PropertiesManager.getInstance().getProperty(PropertiesManager.LAIR_REPOP_CHANCE)).intValue();
 
    /**

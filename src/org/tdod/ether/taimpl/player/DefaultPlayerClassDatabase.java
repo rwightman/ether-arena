@@ -91,20 +91,20 @@ public class DefaultPlayerClassDatabase extends DataFileReader implements Player
 
       String[] statSplit = line.split(" ", STAT_SPLIT_SIZE);
 
-      classData.setPlayerClass(PlayerClass.getPlayerClass(new Integer(statSplit[0])));
-      classData.getStatModifiers().getIntellect().setValue(new Integer(statSplit[1]));
-      classData.getStatModifiers().getKnowledge().setValue(new Integer(statSplit[2]));
-      classData.getStatModifiers().getPhysique().setValue(new Integer(statSplit[3]));
-      classData.getStatModifiers().getStamina().setValue(new Integer(statSplit[4]));
-      classData.getStatModifiers().getAgility().setValue(new Integer(statSplit[5]));
-      classData.getStatModifiers().getCharisma().setValue(new Integer(statSplit[6]));
-      classData.setVitality(new Integer(statSplit[7]));
-      classData.setWeapon(new Integer(statSplit[8]));
-      classData.setArmor(new Integer(statSplit[9]));
-      classData.setAttacksPerLevel(new Integer(statSplit[10]));
-      classData.setMaxBaseAttacks(new Integer(statSplit[11]));
-      classData.setMinStartingGold(new Integer(statSplit[12]));
-      classData.setMaxStartingGold(new Integer(statSplit[13]));
+      classData.setPlayerClass(PlayerClass.getPlayerClass(Integer.valueOf(statSplit[0])));
+      classData.getStatModifiers().getIntellect().setValue(Integer.valueOf(statSplit[1]));
+      classData.getStatModifiers().getKnowledge().setValue(Integer.valueOf(statSplit[2]));
+      classData.getStatModifiers().getPhysique().setValue(Integer.valueOf(statSplit[3]));
+      classData.getStatModifiers().getStamina().setValue(Integer.valueOf(statSplit[4]));
+      classData.getStatModifiers().getAgility().setValue(Integer.valueOf(statSplit[5]));
+      classData.getStatModifiers().getCharisma().setValue(Integer.valueOf(statSplit[6]));
+      classData.setVitality(Integer.valueOf(statSplit[7]));
+      classData.setWeapon(Integer.valueOf(statSplit[8]));
+      classData.setArmor(Integer.valueOf(statSplit[9]));
+      classData.setAttacksPerLevel(Integer.valueOf(statSplit[10]));
+      classData.setMaxBaseAttacks(Integer.valueOf(statSplit[11]));
+      classData.setMinStartingGold(Integer.valueOf(statSplit[12]));
+      classData.setMaxStartingGold(Integer.valueOf(statSplit[13]));
 
       _playerClassDataMap.put(classData.getPlayerClass(), classData);
    }
