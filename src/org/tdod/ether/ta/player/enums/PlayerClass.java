@@ -260,18 +260,41 @@ public enum PlayerClass {
     * @return the experience requirement.
     */
    public int getExpRequirement(int level, boolean isPromoted) {
-      int index = level - 1;
+      int clampedLevel = getClampedLevel(level);
+      int index = clampedLevel - 1;
 
-      if (index < 0 || index > _expTable.length - 1) {
+      if (clampedLevel != level) {
          _log.error("level index out of bounds: " + level);
-         return _expTable[_expTable.length - 1];
       }
 
       return _expTable[index];
    }
 
+   /**
+    * Gets the maximum tracked level for this class table.
+    * @return the maximum level.
+    */
+   public int getMaxLevel() {
+      return _expTable.length;
+   }
+
+   /**
+    * Clamps a level to this class table.
+    * @param level the requested level.
+    * @return a valid class-table level.
+    */
+   public int getClampedLevel(int level) {
+      if (level < 1) {
+         return 1;
+      }
+      if (level > getMaxLevel()) {
+         return getMaxLevel();
+      }
+      return level;
+   }
+
    public boolean isMaxLevel(int level) {
-      if (level >= _expTable.length) {
+      if (level >= getMaxLevel()) {
          return true;
       }
 

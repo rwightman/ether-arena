@@ -1627,11 +1627,20 @@ public class DefaultPlayer implements Player, Serializable {
     * @param experience the amount of experience to add.
     */
    public void addExperience(long experience) {
-      int maxExp = getPromotedClass().getExpRequirement(getPromotedLevel() + MAX_TRAILING_LEVEL, isPromoted()) - 1;
+      int maxExp = getPromotedClass().getExpRequirement(getExperienceCapLevel(), isPromoted()) - 1;
       _experience += experience;
       if (_experience > maxExp) {
          _experience = maxExp;
       }
+   }
+
+   /**
+    * Gets the level used to cap banked experience.
+    * @return the capped level.
+    */
+   private int getExperienceCapLevel() {
+      int level = getPromotedLevel() + MAX_TRAILING_LEVEL;
+      return getPromotedClass().getClampedLevel(level);
    }
 
    /**

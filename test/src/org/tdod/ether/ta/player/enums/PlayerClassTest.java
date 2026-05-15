@@ -24,4 +24,17 @@ public class PlayerClassTest {
       Assert.assertFalse(PlayerClass.KNIGHT.isMaxLevel(49));
       Assert.assertTrue(PlayerClass.KNIGHT.isMaxLevel(50));
    }
+
+   @Test(groups = { "unit" })
+   public void testClassTableReportsMaxLevel() {
+      Assert.assertEquals(25, PlayerClass.WARRIOR.getMaxLevel());
+      Assert.assertEquals(50, PlayerClass.KNIGHT.getMaxLevel());
+   }
+
+   @Test(groups = { "unit" })
+   public void testClassTableClampsLevels() {
+      Assert.assertEquals(1, PlayerClass.WARRIOR.getClampedLevel(0));
+      Assert.assertEquals(25, PlayerClass.WARRIOR.getClampedLevel(26));
+      Assert.assertEquals(10, PlayerClass.WARRIOR.getClampedLevel(10));
+   }
 }
